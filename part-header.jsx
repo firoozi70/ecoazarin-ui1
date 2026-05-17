@@ -1,0 +1,443 @@
+const { useState, useEffect, useRef, useMemo, useCallback } = React;
+
+// ---------- نوار خبر عمودی (تیتر) ----------
+const LiveTicker = () => {
+  const items = window.NEWS_TICKER || [];
+  const N = items.length || 1;
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused || N <= 1) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % N), 4200);
+    return () => clearInterval(t);
+  }, [N, paused]);
+
+  return (
+    <div
+      className="w-full bg-[#0A0A0A] light:bg-white border-b border-ink-500 light:border-zinc-200 overflow-hidden"
+      role="region"
+      aria-label="نوار خبر فوری"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="max-w-[1600px] mx-auto flex items-center h-11">
+        {/* breaking-news badge */}
+        <div className="shrink-0 flex items-center gap-2 pr-3 pl-3.5 h-7 mx-3 my-2 rounded-md bg-gradient-to-l from-brand-redDark to-brand-red shadow-[0_4px_14px_-6px_rgba(230,57,70,0.7)]">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-white animate-softPulse" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
+          </span>
+          <span
+            className="text-[11.5px] font-extrabold tracking-tight text-pure-white whitespace-nowrap"
+            style={{ fontFamily: "'Charisma','Vazirmatn',sans-serif" }}
+          >
+            {typeof t !== "undefined" ? t("breakingNews") : "خبر فوری"}
+          </span>
+        </div>
+        <span className="hidden md:block w-px h-5 bg-ink-500/70 light:bg-zinc-300 ml-1" />
+
+        {/* rotating headline */}
+        <div
+          className="relative flex-1 overflow-hidden h-full"
+          aria-live="polite"
+        >
+          {items.map((t, i) => {
+            const offset = i - idx;
+            const visible = offset === 0;
+            const above = offset === -1 || (idx === 0 && i === N - 1);
+            return (
+              <a
+                key={i}
+                href="#"
+                className={`absolute inset-x-0 top-0 h-full flex items-center px-3 text-[13.5px] md:text-[14.5px] font-medium text-[#FAFAFA] light:text-zinc-800 ${visible ? "opacity-100 translate-y-0" : above ? "opacity-0 -translate-y-full" : "opacity-0 translate-y-full"}`}
+                style={{
+                  transition:
+                    "transform 700ms cubic-bezier(.7,.05,.25,1), opacity 600ms ease",
+                  pointerEvents: visible ? "auto" : "none",
+                }}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-greenSoft ml-3 shrink-0" />
+                <span className="truncate">{t}</span>
+              </a>
+            );
+          })}
+          {/* fade edges */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#0A0A0A] light:from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#0A0A0A] light:from-white to-transparent" />
+        </div>
+
+        {/* progress dots */}
+        <div className="hidden sm:flex items-center gap-0.5 px-3 shrink-0">
+          {items.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              aria-label={`خبر ${i + 1}`}
+              className="p-1.5 cursor-pointer flex items-center justify-center group outline-none"
+            >
+              <div
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === idx ? "w-4 bg-brand-red" : "w-1.5 bg-ink-500 light:bg-zinc-300 group-hover:bg-ink-400 light:group-hover:bg-zinc-400"}`}
+              />
+            </button>
+          ))}
+        </div>
+
+        <a
+          href="#"
+          className="hidden md:inline-flex shrink-0 items-center gap-1 px-4 h-full text-[12px] text-zinc-400 light:text-zinc-500 hover:text-brand-red light:hover:text-brand-red transition border-r border-ink-500 light:border-zinc-200"
+        >
+          {typeof t !== "undefined" ? t("allNews") : "همه اخبار"}{" "}
+          <IconArrowLeft size={12} />
+        </a>
+      </div>
+    </div>
+  );
+};
+
+// ---------- هدر و نویگیشن ----------
+const Header = ({ onOpenSearch, rightSlot }) => {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [user] = window.useUser ? window.useUser() : [null];
+  // Active route from window.PAGE_SLUG (set per page) or pathname guess
+  const currentSlug =
+    (typeof window !== "undefined" && window.PAGE_SLUG) ||
+    (() => {
+      const p = (
+        location.pathname.split("/").pop() || "hero.html"
+      ).toLowerCase();
+      const match = (window.NAV_ITEMS || []).find(
+        (n) => n.href.toLowerCase() === p,
+      );
+      return match ? match.slug : "home";
+    })();
+  const lang = (typeof window !== "undefined" && window.__ECO_LANG) || "FA";
+  const t = window.t || ((k) => k);
+  return (
+    <header
+      className="bg-ink-900/90 backdrop-blur-md border-b border-ink-500 sticky top-0 z-40 max-w-[100vw]"
+      role="banner"
+    >
+      <div className="max-w-[1400px] mx-auto px-3 md:px-6 h-16 flex items-center justify-between gap-2 md:gap-4">
+        {/* Brand (right side in RTL) */}
+        <a
+          href="hero.html"
+          className="flex items-center gap-2 md:gap-2.5 shrink-0"
+          aria-label={t ? t("appTitle") : "اکوآذرین — صفحه اصلی"}
+        >
+          <BrandMark size={28} className="md:w-[30px] md:h-[30px]" />
+          <div className="leading-none hidden min-[360px]:block">
+            <div className="text-[13px] md:text-[15px] font-bold tracking-tight">
+              {t ? t("appTitle") : "eco azarin"}
+            </div>
+            <div className="text-[9px] md:text-[10px] text-zinc-500 mt-1">
+              {t
+                ? t("appSubtitle")
+                : lang === "EN"
+                  ? "smart finance hub"
+                  : "مسیر هوشمند سرمایه"}
+            </div>
+          </div>
+        </a>
+
+        {/* Nav center — desktop only */}
+        <nav
+          className="hidden lg:flex items-center gap-1 mx-auto"
+          aria-label="ناوبری اصلی"
+        >
+          {window.NAV_ITEMS.map((item, i) => {
+            const active = item.slug === currentSlug;
+            const label = lang === "EN" ? item.en : item.fa;
+            const Icon = window.TAB_ICON ? window.TAB_ICON[item.slug] : null;
+            return (
+              <a
+                key={i}
+                href={item.href}
+                className={`px-3 py-2 rounded-xl text-[13.5px] transition-all flex items-center gap-2 ${
+                  active
+                    ? "bg-brand-green/15 light:bg-[#10B981]/15 text-brand-green font-bold"
+                    : "text-zinc-400 light:text-zinc-500 hover:text-zinc-200 light:hover:text-zinc-800 hover:bg-ink-700/50 light:hover:bg-zinc-100"
+                }`}
+                aria-current={active ? "page" : undefined}
+              >
+                {Icon && <Icon size={16} strokeWidth={active ? 2 : 1.5} />}
+                <span>{label}</span>
+                {active && (
+                  <span
+                    className="w-1.5 h-1.5 rounded-full bg-brand-green ml-0.5"
+                    aria-hidden="true"
+                  />
+                )}
+              </a>
+            );
+          })}
+        </nav>
+
+        {/* Right cluster (visually left in RTL) */}
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0 mr-auto">
+          <div className="flex items-center">
+            {window.LangToggle ? (
+              <LangToggle className="flex items-center" />
+            ) : null}
+          </div>
+          {window.NotificationBell ? (
+            <div className="flex items-center">
+              <window.NotificationBell />
+            </div>
+          ) : null}
+          <div className="hidden sm:block">
+            <HeaderSearch />
+          </div>
+          <div className="hidden sm:block">{rightSlot}</div>
+          {window.AuthButtons ? (
+            <div className="sm:ml-0">
+              <AuthButtons />
+            </div>
+          ) : null}
+
+          <button
+            onClick={() => setMobileOpen((o) => !o)}
+            className="lg:hidden inline-flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-lg text-zinc-300 light:text-zinc-600 hover:bg-ink-700 light:hover:bg-zinc-100 transition"
+            aria-label="منو"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <IconClose /> : <IconMenu />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile nav drawer */}
+      {mobileOpen && (
+        <div
+          className="lg:hidden border-t border-ink-500 bg-ink-850"
+          role="menu"
+        >
+          <div className="px-4 py-3 flex flex-col gap-1">
+            {window.NAV_ITEMS.map((item, i) => {
+              const active = item.slug === currentSlug;
+              const label = lang === "EN" ? item.en : item.fa;
+              const Icon = window.TAB_ICON ? window.TAB_ICON[item.slug] : null;
+              return (
+                <a
+                  key={i}
+                  href={item.href}
+                  className={`px-3.5 py-2.5 rounded-xl text-[14.5px] transition-all flex items-center gap-2.5 ${
+                    active
+                      ? "bg-brand-green/15 light:bg-[#10B981]/15 text-brand-green font-bold"
+                      : "text-zinc-300 light:text-zinc-600 hover:bg-ink-700/50 light:hover:bg-zinc-100"
+                  }`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {Icon && <Icon size={18} strokeWidth={active ? 2 : 1.5} />}
+                  <span>{label}</span>
+                  {active && (
+                    <span
+                      className="w-1.5 h-1.5 rounded-full bg-brand-green ml-0.5"
+                      aria-hidden="true"
+                    />
+                  )}
+                </a>
+              );
+            })}
+            <div className="flex items-center justify-between pt-4 mt-2 border-t border-ink-500">
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={onOpenSearch}
+                  className="flex items-center gap-2 text-zinc-400 px-2 py-1.5"
+                >
+                  <IconSearch size={16} /> {t("search")}
+                </button>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                {rightSlot}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+// ---------- HeaderSearch — جستجوی اینلاین در نوار بالا ----------
+const HeaderSearch = () => {
+  const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
+  const [results, setResults] = useState([]);
+  const wrapRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (open && inputRef.current) inputRef.current.focus();
+  }, [open]);
+
+  useEffect(() => {
+    const onGlobalKey = (e) => {
+      // ignore if focus is inside input/textarea already (except if we want to close)
+      if (
+        document.activeElement?.tagName === "INPUT" ||
+        document.activeElement?.tagName === "TEXTAREA"
+      ) {
+        return;
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        // If SectionBanner is on page, let it handle the search!
+        // We can check if an element with placeholder="جستجو در همهٔ بخش‌های سایت…" exists and isn't HeaderSearch
+        // But simpler: just open HeaderSearch ONLY if there's no visible SectionBanner input
+        const mainInput = document.querySelector('input[type="search"]');
+        if (
+          mainInput &&
+          mainInput !== inputRef.current &&
+          mainInput.offsetParent !== null
+        ) {
+          return; // Let the main page search bar take it
+        }
+        e.preventDefault();
+        setOpen(true);
+      }
+    };
+    document.addEventListener("keydown", onGlobalKey);
+    return () => document.removeEventListener("keydown", onGlobalKey);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onClick = (e) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target))
+        setOpen(false);
+    };
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+  useEffect(() => {
+    if (!q.trim()) {
+      setResults([]);
+      return;
+    }
+    setResults(window.searchSite ? window.searchSite(q, 8) : []);
+  }, [q]);
+
+  const goAll = () => {
+    if (q.trim())
+      window.location.href = `search-results.html?q=${encodeURIComponent(q)}`;
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    goAll();
+  };
+
+  return (
+    <div ref={wrapRef} className="relative hidden md:block">
+      {!open && (
+        <button
+          onClick={() => setOpen(true)}
+          className="inline-flex items-center justify-center h-9 w-9 rounded-lg text-zinc-400 hover:text-white hover:bg-ink-700 transition"
+          aria-label="جستجو"
+        >
+          <IconSearch size={18} />
+        </button>
+      )}
+      {open && (
+        <form
+          onSubmit={onSubmit}
+          className="flex items-center gap-2 h-9 w-[320px] lg:w-[380px] rounded-lg bg-ink-800 border border-ink-400 px-2"
+          style={{ animation: "fadein .18s ease-out both" }}
+        >
+          <span className="text-brand-red shrink-0">
+            <IconSearch size={16} />
+          </span>
+          <input
+            ref={inputRef}
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            type="search"
+            placeholder={
+              typeof t !== "undefined"
+                ? t("searchAll")
+                : "جستجو در همهٔ بخش‌های سایت…"
+            }
+            aria-label="جستجو"
+            className="flex-1 h-full bg-transparent border-0 outline-none text-[13px] text-white placeholder:text-zinc-500"
+          />
+          <button
+            type="button"
+            onClick={() => {
+              setQ("");
+              setOpen(false);
+            }}
+            className="shrink-0 text-zinc-500 hover:text-white"
+            aria-label="بستن"
+          >
+            <IconClose size={14} />
+          </button>
+        </form>
+      )}
+      {open && q.trim() && (
+        <div
+          className="absolute top-11 left-0 w-[420px] lg:w-[460px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
+          style={{ animation: "fadein .2s ease-out both" }}
+        >
+          {results.length === 0 ? (
+            <div className="px-5 py-8 text-center">
+              <div className="mx-auto w-10 h-10 rounded-full bg-ink-700 border border-ink-500 flex items-center justify-center text-zinc-500 mb-2">
+                <IconSearch size={18} />
+              </div>
+              <div className="text-[13.5px] text-zinc-300 font-peyda font-semibold">
+                چیزی یافت نشد
+              </div>
+              <div className="text-[12px] text-zinc-500 mt-1">
+                برای «{q}» نتیجه‌ای پیدا نشد.
+              </div>
+            </div>
+          ) : (
+            <React.Fragment>
+              <div className="px-3 py-2 text-[11.5px] text-zinc-500 border-b border-ink-500 flex items-center justify-between">
+                <span>
+                  {results.length}{" "}
+                  {typeof t !== "undefined" ? t("results") : "نتیجه"}
+                </span>
+                <button
+                  onClick={goAll}
+                  className="text-brand-redSoft hover:text-brand-red"
+                >
+                  {typeof t !== "undefined" ? t("seeAll") : "دیدن همه ‹"}
+                </button>
+              </div>
+              <ul className="max-h-[360px] overflow-auto scrollbar-hide">
+                {results.map((r, i) => (
+                  <li key={i}>
+                    <button
+                      onClick={goAll}
+                      className="w-full text-right px-3 py-2.5 hover:bg-ink-700/70 transition flex items-start gap-3 border-b border-ink-500/60"
+                    >
+                      <span className="label-peyda shrink-0 px-2 py-0.5 rounded-full bg-brand-red/15 text-brand-redSoft border border-brand-red/25">
+                        {r.category}
+                      </span>
+                      <span className="flex-1 min-w-0">
+                        <span className="block text-[13px] text-white font-semibold leading-6 line-clamp-1">
+                          {r.title}
+                        </span>
+                        <span className="block text-[11px] text-zinc-500 mt-0.5 line-clamp-1">
+                          {r.section} · {r.meta}
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </React.Fragment>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+Object.assign(window, { LiveTicker, Header, HeaderSearch });

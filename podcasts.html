@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>پادکست‌ها — اکوآذرین</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Vazirmatn', 'IRANSans', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        },
+        colors: {
+          ink: {
+            900: '#0A0A0A',
+            850: '#0F0F10',
+            800: '#141416',
+            700: '#1A1A1C',
+            600: '#222226',
+            500: '#27272A',
+            400: '#3A3A3F',
+          },
+          brand: {
+            red: '#E63946',
+            redDark: '#C22735',
+            redSoft: '#EF4444',
+            green: '#10B981',
+            greenSoft: '#34D399',
+          },
+        },
+        keyframes: {
+          marquee: {
+            '0%': { transform: 'translateX(0%)' },
+            '100%': { transform: 'translateX(100%)' },
+          },
+          softPulse: {
+            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+            '50%': { opacity: '.6', transform: 'scale(.85)' },
+          },
+        },
+        animation: {
+          marquee: 'marquee 60s linear infinite',
+          softPulse: 'softPulse 1.6s ease-in-out infinite',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  /* ============ FONTS ============ */
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Light.ttf') format('truetype');     font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Regular.ttf') format('truetype');   font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Bold.ttf') format('truetype');      font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-ExtraBold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Black.ttf') format('truetype');     font-weight: 900; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Thin.ttf') format('truetype');       font-weight: 100; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-ExtraLight.ttf') format('truetype'); font-weight: 200; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Light.ttf') format('truetype');      font-weight: 300; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Regular.ttf') format('truetype');    font-weight: 400; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Medium.ttf') format('truetype');     font-weight: 500; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-SemiBold.ttf') format('truetype');   font-weight: 600; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Bold.ttf') format('truetype');       font-weight: 700; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-ExtraBold.ttf') format('truetype');  font-weight: 800; font-display: swap; }
+  .font-peyda  { font-family: 'Peyda', 'Charisma', 'Vazirmatn', system-ui, sans-serif; }
+  .eyebrow-peyda {
+    font-family: 'Peyda', 'Charisma', 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 700; font-size: 14.5px; letter-spacing: -0.005em; line-height: 1.4;
+  }
+  @media (min-width: 768px) { .eyebrow-peyda { font-size: 15.5px; } }
+  .label-peyda {
+    font-family: 'Peyda', 'Charisma', 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 600; font-size: 12px; letter-spacing: 0; text-transform: none !important;
+  }
+  @media (min-width: 768px) { .label-peyda { font-size: 12.5px; } }
+
+  html, body { background: #0A0A0A; color: #fff; }
+  body { font-family: 'Charisma', 'Peyda', 'Vazirmatn', system-ui, sans-serif; font-feature-settings: "ss01", "ss02"; -webkit-font-smoothing: antialiased; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+
+  /* persian-numerals */
+  .ltr-num { direction: ltr; unicode-bidi: isolate; }
+
+  /* fancy blurred orbs */
+  .orb-red { background: radial-gradient(closest-side, rgba(230,57,70,.55), rgba(230,57,70,0) 70%); }
+  .orb-green { background: radial-gradient(closest-side, rgba(16,185,129,.45), rgba(16,185,129,0) 70%); }
+
+  /* striped placeholder */
+  .placeholder-stripe {
+    background-image:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 12px, rgba(255,255,255,0.0) 12px 24px),
+      linear-gradient(180deg, #1c1c1f 0%, #141416 100%);
+  }
+
+  /* animated marquee track */
+  .ticker-track {
+    display: flex;
+    gap: 2.5rem;
+    animation: tickerScroll 80s linear infinite;
+    will-change: transform;
+  }
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(50%); } /* RTL: visually moves leftward */
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+
+  /* category icon pill animation */
+  .pill-active-shadow { box-shadow: 0 8px 28px -10px rgba(16,185,129,.55), 0 0 0 1px rgba(16,185,129,.35) inset; }
+
+  /* Hide focus outline for mouse users, keep for keyboard */
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: 2px solid #E63946; outline-offset: 2px; border-radius: 6px; }
+
+  /* line clamp util — Tailwind has it but make sure */
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* card hover */
+  .card-hover { transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+  .card-hover:hover { transform: translateY(-2px); border-color: #3A3A3F; }
+
+  /* dotted-grid bg for hero */
+  .dotted-bg {
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* podcast hero gradient */
+  .hero-gradient {
+    background:
+      radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%),
+      radial-gradient(80% 60% at 90% 100%, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 60%),
+      linear-gradient(135deg, #E63946 0%, #C22735 100%);
+  }
+
+  /* search illust glow */
+  .search-glow { background: radial-gradient(closest-side, rgba(230,57,70,.18), transparent 70%); }
+</style>
+<link rel="stylesheet" href="theme.css" />
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="locales/fa.js"></script>
+<script src="locales/en.js"></script>
+<script type="text/babel" data-presets="env,react" src="data.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="podcast-data.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="icons.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-header.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-hero.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-tabs.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-misc.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-edu-articles.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-dynamic-tab.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-news.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="part-footer.jsx"></script>
+<script type="text/babel" data-presets="env,react" src="podcasts.jsx"></script>
+
+</body>
+</html>
