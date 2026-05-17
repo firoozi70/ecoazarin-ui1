@@ -5,9 +5,21 @@
 
 const { useState: _us, useEffect: _ue, useRef: _ur } = React;
 
+const FA_FALLBACK = {
+  login: "ورود",
+  breakingNews: "خبر فوری",
+  appTitle: "eco azarin",
+  appSubtitle: "مسیر هوشمند سرمایه",
+  allNews: "همه اخبار",
+  logout: "خروج",
+  search: "جستجو",
+};
+
 // ============== i18n DICTIONARY ==============
 const DICT = {
-  get FA() { return window.DICT_FA || {}; },
+  get FA() { 
+    return window.DICT_FA || FA_FALLBACK; 
+  },
   get EN() { return window.DICT_EN || {}; },
 };
 const getLang = () => {
@@ -17,7 +29,12 @@ const getLang = () => {
     return "FA";
   }
 };
-window.t = (k) => (DICT[getLang()] && DICT[getLang()][k]) || DICT.FA[k] || k;
+window.t = (k) => {
+  const L = getLang();
+  const val = (DICT[L] && DICT[L][k]) || DICT.FA[k] || k;
+  // console.log("translate:", k, "->", val, "Lang:", L);
+  return val;
+};
 window.__ECO_LANG = getLang();
 
 // ============== USE LANG HOOK ==============

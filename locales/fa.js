@@ -89,5 +89,5 @@ window.DICT_FA = {
   authWelcome: "ورود به دنیای بازارهای مالی",
   authDesc:
     "برای دسترسی به تمام امکانات پیشرفته و ابزارهای تحلیلی، ابتدا وارد حساب کاربری خود شوید یا ثبت‌نام کنید.",
-  copyright: `© ${new Intl.DateTimeFormat("fa-IR-u-nu-latn", { year: "numeric" }).format(new Date())} تمامی حقوق مادی و معنوی محفوظ است.`,
+  copyright: `© ${new Date().getFullYear()} تمامی حقوق مادی و معنوی محفوظ است.`
 };
