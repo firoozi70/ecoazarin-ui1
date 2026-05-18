@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { PageShell } from '../layouts/PageShell';
+import { useLangRefresh } from '../i18n';
 
 const TEAM = [
   { name: 'Amin Azari', faName: 'امین آذری', role: 'Team Leader', faRole: 'سرگروه تیم', img: 'https://i.pravatar.cc/150?u=amin' },
@@ -14,15 +15,22 @@ const TEAM = [
 ];
 
 function AboutContent() {
+  useLangRefresh();
+  const isEn = window.__ECO_LANG === 'EN';
+
   return (
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto py-12" data-screen-label="About Us">
       {/* Hero Section */}
       <div className="bg-ink-850 light:bg-white light:shadow-sm border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-14 mb-16 relative overflow-hidden text-center z-0">
         <div className="absolute inset-0 bg-gradient-to-bl from-emerald-500/15 light:from-emerald-500/10 via-transparent to-transparent -z-10" />
         <div className="absolute top-[-50px] left-1/2 -translate-x-1/2 w-80 h-80 rounded-full orb-green opacity-40 pointer-events-none -z-10" />
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">درباره اکو آذرین</h1>
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
+          {isEn ? 'About Eco Azarin' : 'درباره اکو آذرین'}
+        </h1>
         <p className="text-zinc-300 light:text-zinc-600 text-[15px] md:text-[16px] leading-[1.8] max-w-3xl mx-auto font-medium">
-          اکوآذرین یک مسیر هوشمند و نوین برای فعالان بازار سرمایه، ارز، طلا و کریپتو در ایران است. ما با تلفیق تکنولوژی و دانش مالی، در تلاشیم تا تجربه‌ایشفاف، سریع و مطمئن را برای کاربرانمان رقم بزنیم. هدف ما ارتقای سطح آگاهی عمومی و ارائه ابزارهای کارآمد برای سرمایه‌گذاری بهتر است.
+          {isEn 
+            ? 'EcoAzarin is a modern and smart path for capital, currency, gold, and crypto market players in Iran. By leveraging technology and financial knowledge, we strive to bring a transparent, fast, and secure experience.' 
+            : 'اکوآذرین یک مسیر هوشمند و نوین برای فعالان بازار سرمایه، ارز، طلا و کریپتو در ایران است. ما با تلفیق تکنولوژی و دانش مالی، در تلاشیم تا تجربه‌ای شفاف، سریع و مطمئن را رقم بزنیم.'}
         </p>
       </div>
 
@@ -30,25 +38,31 @@ function AboutContent() {
       <div className="grid md:grid-cols-2 gap-6 mb-16">
         <div className="bg-ink-850 light:bg-white light:shadow-sm border border-ink-500 light:border-zinc-200 rounded-2xl p-8 hover:border-ink-400 transition-colors">
           <div className="w-14 h-14 rounded-2xl bg-brand-green/10 flex items-center justify-center text-brand-green text-3xl mb-6">🎯</div>
-          <h2 className="text-xl font-bold mb-4">ماموریت ما</h2>
+          <h2 className="text-xl font-bold mb-4">{isEn ? 'Our Mission' : 'ماموریت ما'}</h2>
           <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] leading-relaxed">
-            ارائه ابزارهای تحلیل دقیق، آموزش مستمر و بستری امن برای کمک به معامله‌گران در اتخاذ تصمیمات مالی هوشمندانه و داده‌محور.
+            {isEn 
+              ? 'Providing accurate analytical tools, ongoing education, and a secure platform to help traders make smart decisions.' 
+              : 'ارائه ابزارهای تحلیل دقیق، آموزش مستمر و بستری امن برای کمک به معامله‌گران در اتخاذ تصمیمات مالی هوشمندانه و داده‌محور.'}
           </p>
         </div>
         <div className="bg-ink-850 light:bg-white light:shadow-sm border border-ink-500 light:border-zinc-200 rounded-2xl p-8 hover:border-ink-400 transition-colors">
           <div className="w-14 h-14 rounded-2xl bg-brand-red/10 flex items-center justify-center text-brand-red text-3xl mb-6">👁️</div>
-          <h2 className="text-xl font-bold mb-4">چشم‌انداز ما</h2>
+          <h2 className="text-xl font-bold mb-4">{isEn ? 'Our Vision' : 'چشم‌انداز ما'}</h2>
           <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] leading-relaxed">
-            تبدیل شدن به مرجع اول خاورمیانه در حوزه‌ی فین‌تک، تحلیل بازارهای مالی و آموزش کاربردی سرمایه‌گذاری تا سال ۱۴۰۵.
+            {isEn 
+              ? 'To become the leading hub for FinTech, financial market analysis, and practical investment training by 2026.' 
+              : 'تبدیل شدن به مرجع اول خاورمیانه در حوزه‌ی فین‌تک، تحلیل بازارهای مالی و آموزش کاربردی سرمایه‌گذاری تا سال ۱۴۰۵.'}
           </p>
         </div>
       </div>
 
       {/* Team Section */}
       <div className="text-center mb-12">
-        <h2 className="text-2xl md:text-3xl font-extrabold mb-4">تیم ما</h2>
+        <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{isEn ? 'Our Team' : 'تیم ما'}</h2>
         <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] max-w-xl mx-auto">
-          ما یک تیم از متخصصان، تحلیل‌گران و توسعه‌دهندگان هستیم که با اشتیاق برای ساخت بهترین ابزارهای مالی تلاش می‌کنیم.
+          {isEn 
+            ? 'We are a dedicated team of experts, analysts, and developers working passionately to build top financial tools.' 
+            : 'ما یک تیم از متخصصان، تحلیل‌گران و توسعه‌دهندگان هستیم که با اشتیاق برای ساخت بهترین ابزارهای مالی تلاش می‌کنیم.'}
         </p>
       </div>
 
@@ -59,14 +73,14 @@ function AboutContent() {
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-green to-emerald-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
               <img 
                 src={member.img} 
-                alt={member.faName} 
+                alt={isEn ? member.name : member.faName} 
                 className="relative w-full h-full object-cover rounded-full border-2 border-ink-500 light:border-zinc-200 group-hover:border-brand-green transition-colors grayscale group-hover:grayscale-0"
               />
             </div>
-            <h3 className="text-[16px] font-bold mb-1 group-hover:text-brand-green transition-colors">{member.faName}</h3>
-            <p className="text-[12.5px] text-zinc-500 mb-1">{member.name}</p>
+            <h3 className="text-[16px] font-bold mb-1 group-hover:text-brand-green transition-colors">{isEn ? member.name : member.faName}</h3>
+            <p className="text-[12.5px] text-zinc-500 mb-1">{isEn ? '' : member.name}</p>
             <div className="inline-block mt-2 px-3 py-1 bg-ink-900 light:bg-zinc-50 rounded-full text-[11px] font-medium text-zinc-300 light:text-zinc-600 border border-ink-500 light:border-zinc-200">
-              {member.faRole}
+              {isEn ? member.role : member.faRole}
             </div>
           </div>
         ))}

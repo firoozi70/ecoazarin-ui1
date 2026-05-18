@@ -132,23 +132,28 @@ function NewsContent() {
                 transition={{ duration: 0.3, delay: i * 0.05 }}
                 key={n.id} 
                 href="article.html" 
-                className="block group bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400"
+                className="block group bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-2xl overflow-hidden hover:border-zinc-400 light:hover:border-zinc-400 hover:shadow-xl transition-all duration-300 flex flex-col"
               >
-                <div className="flex items-center justify-between p-4 border-b border-ink-500/50 light:border-zinc-100">
-                  <span className="label-peyda text-brand-green bg-brand-green/10 px-2 py-0.5 rounded text-[11px] font-bold">
-                    {n.kicker}
-                  </span>
-                  <span className="text-[11px] text-zinc-500 tabular-nums">
-                    {n.time}
-                  </span>
+                <div className="aspect-[16/9] w-full bg-ink-900 light:bg-zinc-100 overflow-hidden relative">
+                  <img src={`https://picsum.photos/seed/${n.id + 100}/600/400`} alt={n.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute top-3 right-3">
+                    <span className="label-peyda text-brand-green bg-ink-900/80 light:bg-white/90 backdrop-blur-md border border-brand-green/30 px-2.5 py-1 rounded-md text-[11px] font-bold shadow-lg">
+                      {n.kicker}
+                    </span>
+                  </div>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-[14px] md:text-[15px] leading-relaxed group-hover:text-brand-green transition-colors text-white light:text-zinc-900 mb-3">
+
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="font-bold text-[14px] md:text-[15px] leading-relaxed group-hover:text-brand-green transition-colors text-white light:text-zinc-900 mb-4 line-clamp-2">
                     {n.title}
                   </h3>
-                  <div className="text-[12px] text-zinc-400 flex items-center justify-between mt-4">
-                    <span className="flex items-center gap-1.5 opacity-80 tabular-nums"><span className="text-zinc-500">👁</span> {Math.round(n.views).toLocaleString('fa-IR')} بازدید</span>
-                    <span className="text-brand-green opacity-0 group-hover:opacity-100 transition-opacity font-medium -translate-x-2 group-hover:translate-x-0 transform flex items-center gap-1">
+                  <div className="text-[12px] text-zinc-400 light:text-zinc-500 flex items-center justify-between border-t border-ink-500/50 light:border-zinc-100 pt-4 mt-auto">
+                    <div className="flex items-center gap-2.5 tabular-nums">
+                      <span>{n.time}</span>
+                      <span className="w-1 h-1 rounded-full bg-zinc-600/50"></span>
+                      <span className="flex items-center gap-1.5 opacity-80"><span className="text-zinc-500">👁</span> {Math.round(n.views).toLocaleString('fa-IR')}</span>
+                    </div>
+                    <span className="text-brand-green opacity-0 group-hover:opacity-100 transition-opacity font-bold -translate-x-2 group-hover:translate-x-0 transform flex items-center gap-1">
                       ادامه <IconChevronLeft size={14} />
                     </span>
                   </div>
@@ -163,24 +168,24 @@ function NewsContent() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-2 mb-12 border-t border-ink-500 light:border-zinc-200 pt-8">
+            <div className="flex items-center justify-center gap-3 mb-12 border-t border-ink-500 light:border-zinc-200 pt-8">
               <button 
                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-ink-850 light:bg-zinc-100 border border-ink-500 light:border-zinc-200 text-zinc-400 hover:text-white hover:bg-ink-700 disabled:opacity-30 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-2xl bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 shadow-sm text-zinc-400 light:text-zinc-600 hover:text-white light:hover:text-zinc-900 hover:border-zinc-500 disabled:opacity-30 transition-all"
               >
                 <IconChevronRight size={18} />
               </button>
               
-              <div className="flex items-center gap-1 ltr-num">
+              <div className="flex items-center gap-1.5">
                 {Array.from({length: totalPages}, (_, i) => i+1).map(num => (
                   <button
                     key={num}
                     onClick={() => setCurrentPage(num)}
-                    className={`w-10 h-10 flex items-center justify-center rounded-full text-[14px] font-bold transition-all ${
+                    className={`w-10 h-10 flex items-center justify-center rounded-2xl text-[14px] font-bold transition-all tabular-nums ${
                       currentPage === num 
-                        ? 'bg-brand-red text-white shadow-lg shadow-brand-red/20'
-                        : 'text-zinc-400 hover:text-white hover:bg-ink-800 light:hover:bg-zinc-100'
+                        ? 'bg-brand-green text-ink-900 shadow-lg shadow-brand-green/20 border border-brand-green'
+                        : 'bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 shadow-sm text-zinc-400 light:text-zinc-600 hover:text-white light:hover:text-zinc-900'
                     }`}
                   >
                     {num.toLocaleString('fa-IR')}
@@ -191,7 +196,7 @@ function NewsContent() {
               <button 
                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-ink-850 light:bg-zinc-100 border border-ink-500 light:border-zinc-200 text-zinc-400 hover:text-white hover:bg-ink-700 disabled:opacity-30 transition"
+                className="w-10 h-10 flex items-center justify-center rounded-2xl bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 shadow-sm text-zinc-400 light:text-zinc-600 hover:text-white light:hover:text-zinc-900 hover:border-zinc-500 disabled:opacity-30 transition-all"
               >
                 <IconChevronLeft size={18} />
               </button>
@@ -212,10 +217,10 @@ function NewsContent() {
                       <h4 className="text-[13px] text-zinc-200 light:text-zinc-800 leading-relaxed font-semibold group-hover:text-brand-red transition-colors line-clamp-2">
                         {n.title}
                       </h4>
-                      <p className="text-[11px] text-zinc-500 mt-2 font-mono flex items-center gap-2">
+                      <p className="text-[11px] text-zinc-500 light:text-zinc-500 mt-2 flex items-center gap-2 tabular-nums">
                         <span>{n.meta}</span>
-                        <span>•</span>
-                        <span>{n.views} 👁</span>
+                        <span className="w-1 h-1 rounded-full bg-zinc-600/50"></span>
+                        <span className="flex items-center gap-1"><span className="text-zinc-400">👁</span> {n.views}</span>
                       </p>
                     </a>
                   </li>
