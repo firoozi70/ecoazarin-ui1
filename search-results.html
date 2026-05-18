@@ -34,18 +34,14 @@ tailwind.config = { theme: { extend: {
   </a>
   <h1 class="text-2xl md:text-3xl font-bold mb-1">نتایج جستجو</h1>
   <div id="meta" class="text-[13px] text-zinc-400 mb-5"></div>
-
   <form id="form" class="flex items-center gap-2 h-12 rounded-xl bg-ink-800 border border-ink-400 px-3 mb-6">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-brand-red"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input id="q" type="search" placeholder="جستجو…" class="flex-1 h-full bg-transparent border-0 outline-none text-[14px] text-white placeholder:text-zinc-500" />
     <button type="submit" class="h-9 px-4 rounded-lg bg-brand-red text-white text-[13px] hover:bg-brand-redSoft">جستجو</button>
   </form>
-
   <div id="filters" class="flex flex-wrap gap-2 mb-5"></div>
   <div id="results"></div>
 </div>
-
-<script src="data.jsx" type="text/plain" id="dataraw"></script>
 <script>
 // Lightweight loader: fetch data.jsx as text and eval the const definitions to populate window.*
 (async () => {
@@ -54,20 +50,16 @@ tailwind.config = { theme: { extend: {
     // eval inside a new Function with window in scope
     new Function(txt + '\n; this.__loaded = true;').call(window);
   } catch(e) { console.error('data load failed', e); }
-
   try {
     const idxTxt = await fetch('search-index.jsx').then(r => r.text());
     new Function(idxTxt).call(window);
   } catch(e) { console.error('index load failed', e); }
-
   init();
 })();
-
 function getQ() {
   const u = new URL(location.href);
   return u.searchParams.get('q') || '';
 }
-
 function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function highlight(text, q) {
   if (!q) return escapeHtml(text);
@@ -78,9 +70,7 @@ function highlight(text, q) {
   const re = new RegExp('(' + tokens.join('|') + ')','gi');
   return safe.replace(re, '<mark>$1</mark>');
 }
-
 let CURRENT_FILTER = 'all';
-
 function init() {
   const q = getQ();
   document.getElementById('q').value = q;
@@ -91,7 +81,6 @@ function init() {
   });
   render(q);
 }
-
 function render(q) {
   const all = (window.searchSite ? window.searchSite(q, 200) : []);
   const cats = ['all', ...Array.from(new Set(all.map(r=>r.category)))];
@@ -101,11 +90,9 @@ function render(q) {
     CURRENT_FILTER = btn.dataset.c;
     render(q);
   }));
-
   const list = CURRENT_FILTER==='all' ? all : all.filter(r=>r.category===CURRENT_FILTER);
   const meta = document.getElementById('meta');
   meta.innerHTML = q ? `${list.length} نتیجه برای «<span class="text-white font-semibold">${escapeHtml(q)}</span>»` : 'برای جستجو، عبارتی وارد کنید.';
-
   const root = document.getElementById('results');
   if (!q) { root.innerHTML = ''; return; }
   if (list.length === 0) {
@@ -132,5 +119,6 @@ function render(q) {
   `).join('')}</ul>`;
 }
 </script>
+  <script type="module" src="/src/pages/SearchResults.jsx"></script>
 </body>
 </html>

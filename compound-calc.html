@@ -10,12 +10,10 @@
 <meta property="og:description" content="شبیه‌سازی رشد سرمایه‌گذاری با محاسبه‌گر سود مرکب پیشرفته و رایگان اکوآذرین." />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" />
-
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
   tailwind.config = {
@@ -69,7 +67,6 @@
   };
 </script>
 <link rel="stylesheet" href="theme.css" />
-
 <style>
   /* Range input custom styling */
   input[type="range"] {
@@ -115,19 +112,7 @@
 </style>
 </head>
 <body class="font-sans antialiased min-h-screen">
-
 <div id="root"></div>
-
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
-<script src="https://unpkg.com/recharts@2.12.0/umd/Recharts.js"></script>
-<script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<script src="https://unpkg.com/jspdf-autotable@3.5.31/dist/jspdf.plugin.autotable.min.js"></script>
-<script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="locales/fa.js"></script>
-<script src="locales/en.js"></script>
 <script>
 (function () {
   var l = localStorage.getItem('eco-lang') || 'FA';
@@ -135,22 +120,6 @@
   document.documentElement.setAttribute('dir', l === 'EN' ? 'ltr' : 'rtl');
 })();
 </script>
-
-<script type="text/babel" data-presets="env,react" src="data.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="search-index.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="icons.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="extras.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-header.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-hero.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-tabs.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-misc.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-edu-articles.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-dynamic-tab.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-news.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="part-footer.jsx"></script>
-<script type="text/babel" data-presets="env,react" src="page-shell.jsx"></script>
-<script>window.PAGE_SLUG = "compound-calc";</script>
-<script type="text/babel" data-presets="env,react" src="compound-calc.jsx"></script>
-
+  <script type="module" src="/src/pages/CompoundCalc.jsx"></script>
 </body>
 </html>
