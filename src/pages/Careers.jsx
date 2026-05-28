@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import React, { useState } from 'react';
 import { PageShell } from '../layouts/PageShell';
-import { useLangRefresh } from '../i18n';
+import { useLang } from '../i18n';
 
 const JOBS = [
   { 
@@ -35,19 +35,24 @@ const JOBS = [
 ];
 
 function CareersContent() {
-  useLangRefresh();
-  const isEn = window.__ECO_LANG === 'EN';
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const [selectedJob, setSelectedJob] = useState(null);
 
   return (
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto py-12" data-screen-label="Careers">
-      <div className="bg-ink-850 light:bg-white light:shadow-sm border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-14 mb-12 relative overflow-hidden text-center z-0">
-        <div className="absolute inset-0 bg-gradient-to-tr from-brand-red/15 light:from-brand-red/10 via-transparent to-transparent -z-10" />
-        <div className="absolute top-[-50px] right-20 w-80 h-80 rounded-full orb-red opacity-30 pointer-events-none -z-10" />
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 relative z-10">
+      <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-14 mb-12 relative overflow-hidden text-center z-0 group">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-red/10 light:bg-brand-red/5 rounded-full blur-[100px] -z-10 group-hover:scale-110 transition-transform duration-700 ease-out" />
+        
+        <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 light:bg-brand-red/10 border border-brand-red/20 text-brand-red font-semibold text-[12px] mb-6 mx-auto flex w-max relative z-10">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+          <span>{isEn ? 'EcoAzarin Careers' : 'موقعیت‌های شغلی اکوآذرین'}</span>
+        </div>
+
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 relative z-10 text-white light:text-zinc-900">
           {isEn ? 'Join Our Team' : 'به تیم ما بپیوندید'}
         </h1>
-        <p className="text-zinc-300 light:text-zinc-600 text-[15px] max-w-2xl mx-auto font-medium leading-[1.8] relative z-10">
+        <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] md:text-[15px] max-w-2xl mx-auto leading-relaxed relative z-10">
           {isEn
            ? 'We are always looking for top talents. If you are passionate about financial markets and tech, your place is with us.'
            : 'ما همیشه در پی یافتن استعدادهای برتر هستیم. اگر به بازارهای مالی، تکنولوژی و پیشرفت علاقه‌مندید، جای شما خالیست.'}

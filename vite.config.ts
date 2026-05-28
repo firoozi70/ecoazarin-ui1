@@ -24,6 +24,7 @@ export default defineConfig({
         contact: path.resolve(__dirname, 'contact.html'),
         careers: path.resolve(__dirname, 'careers.html'),
         privacy: path.resolve(__dirname, 'privacy.html'),
+        developers: path.resolve(__dirname, 'developers.html'),
       }
     }
   }

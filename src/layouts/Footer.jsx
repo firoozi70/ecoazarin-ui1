@@ -87,7 +87,7 @@ const Footer = () => {
 
       {[
         { t: isEn ? "Content" : "محتوا", l: [{text: isEn?"News":"اخبار", href:"/news.html"}, {text:isEn?"Articles":"مقالات", href:"/articles.html"}, {text:isEn?"Podcasts":"پادکست", href:"/podcasts.html"}, {text:isEn?"Journal":"ژورنال نویسی", href:"/journal.html"}] },
-        { t: isEn ? "Product" : "محصول", l: [{text:isEn?"Tools":"ابزارها", href:"/tools.html"}, {text:isEn?"Calculators":"ماشین حساب", href:"/compound-calc.html"}, {text:isEn?"Education":"آموزش", href:"/education.html"}, {text:isEn?"Charts":"چارت‌ها", href:"/charts.html"}] },
+        { t: isEn ? "Product" : "محصول", l: [{text:isEn?"Tools":"ابزارها", href:"/tools.html"}, {text:isEn?"API / Developers":"توسعه‌دهندگان", href:"/developers.html"}, {text:isEn?"Education":"آموزش", href:"/education.html"}, {text:isEn?"Charts":"چارت‌ها", href:"/charts.html"}] },
         { t: isEn ? "Company" : "شرکت", l: [{text:isEn?"About Us":"درباره ما", href:"/about.html"}, {text:isEn?"Contact Us":"تماس با ما", href:"/contact.html"}, {text:isEn?"Careers":"استخدام", href:"/careers.html"}, {text:isEn?"Privacy & Policy":"حریم خصوصی", href:"/privacy.html"}] },
       ].map((c) => (
         <FooterSection key={c.t} title={c.t}>

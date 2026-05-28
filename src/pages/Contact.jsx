@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom/client';
 import React, { useState } from 'react';
 import { PageShell } from '../layouts/PageShell';
-import { useLangRefresh } from '../i18n';
+import { useLang } from '../i18n';
 
 function ContactContent() {
-  useLangRefresh();
-  const isEn = window.__ECO_LANG === 'EN';
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
 
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);

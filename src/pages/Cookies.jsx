@@ -1,11 +1,11 @@
 import ReactDOM from 'react-dom/client';
 import React from 'react';
 import { PageShell } from '../layouts/PageShell';
-import { useLangRefresh } from '../i18n';
+import { useLang } from '../i18n';
 
 function CookiesContent() {
-  useLangRefresh();
-  const isEn = window.__ECO_LANG === 'EN';
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
 
   return (
     <section className="px-4 md:px-6 max-w-[900px] mx-auto py-12" data-screen-label="Cookies">

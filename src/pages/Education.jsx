@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 import { motion, AnimatePresence } from 'motion/react';
 import { PageShell } from '../layouts/PageShell';
+import { useLang } from '../i18n';
 
 // education.jsx — آموزش جامع
 
@@ -27,20 +28,38 @@ const E_COURSES = [
 const LEVEL_COLOR = { 'تازه‌کار':'#10B981', 'متوسط':'#3B82F6', 'حرفه‌ای':'#F59E0B', 'کوانت':'#A855F7' };
 
 function EducationContent(){
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const [track, setTrack] = useState('all');
   const [topic, setTopic] = useState('');
   const filtered = E_COURSES.filter(c => (!topic || c.title.includes(topic) || c.inst.includes(topic)));
   return (
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto" data-screen-label="Education">
       {/* hero */}
-      <div className="bg-gradient-to-bl from-brand-green/15 via-ink-800 to-ink-800 border border-ink-500 rounded-2xl p-7 md:p-10 mb-6 relative overflow-hidden">
-        <div className="absolute top-4 left-6 w-40 h-40 rounded-full orb-green opacity-40" />
-        <div className="relative grid md:grid-cols-[1fr_auto] items-center gap-6">
+      <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-12 mb-8 relative overflow-hidden group">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-green/10 light:bg-brand-green/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700 ease-out" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brand-green/5 light:bg-brand-green/5 rounded-full blur-[60px] translate-y-1/3 -translate-x-1/3" />
+        
+        <div className="relative grid md:grid-cols-[1fr_auto] items-center gap-8 md:gap-12 z-10">
           <div>
-            <span className="text-[11px] px-2.5 py-1 rounded-md bg-brand-green/15 border border-brand-green/30 text-brand-green font-bold">🎓 آکادمی اکوآذرین</span>
-            <h1 className="text-3xl md:text-4xl font-extrabold mt-3 tracking-tight leading-tight">بازار رو نه با حدس، با دانش معامله کن.</h1>
-            <p className="text-zinc-300 text-[13.5px] mt-3 max-w-xl leading-7">۷۰+ دوره از مبتدی تا پیشرفته، توسط تحلیلگران و مدرس‌های شناخته‌شدهٔ بازار. با گواهی‌نامهٔ معتبر.</p>
-            <div className="flex gap-2 mt-5"><button className="h-11 px-5 rounded-xl bg-brand-green text-black font-bold text-[13px] hover:bg-brand-greenSoft transition">شروع رایگان</button><button className="h-11 px-5 rounded-xl border border-ink-400 text-white text-[13px] hover:bg-ink-700 transition">مشاهدهٔ دوره‌ها</button></div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-green/10 light:bg-brand-green/10 border border-brand-green/20 text-brand-green font-semibold text-[12px] mb-5">
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></svg>
+              <span>{isEn ? 'EcoAzarin Academy' : 'آکادمی اکوآذرین'}</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.3] text-white light:text-zinc-900">
+              {isEn ? 'Trade with knowledge, not guesses.' : 'بازار رو نه با حدس، با دانش معامله کن.'}
+            </h1>
+            <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] mt-5 max-w-xl leading-relaxed">
+              {isEn ? '70+ courses from beginner to expert, taught by recognized analysts and traders. With valid certification.' : '۷۰+ دوره از مبتدی تا پیشرفته، توسط تحلیلگران و مدرس‌های شناخته‌شدهٔ بازار. با گواهی‌نامهٔ معتبر.'}
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <button className="h-12 px-6 rounded-xl bg-brand-green text-black font-bold text-[14px] hover:bg-[#10B981] hover:scale-105 active:scale-95 transition-all shadow-[0_4px_20px_-5px_rgba(16,185,129,0.4)]">
+                {isEn ? 'Start free trial' : 'شروع رایگان'}
+              </button>
+              <button className="h-12 px-6 rounded-xl bg-ink-800 light:bg-zinc-50 text-white light:text-zinc-900 font-semibold border border-ink-500 light:border-zinc-200 text-[14px] hover:bg-ink-700 light:hover:bg-zinc-100 transition-colors">
+                {isEn ? 'View courses' : 'مشاهدهٔ دوره‌ها'}
+              </button>
+            </div>
           </div>
           <div className="grid grid-cols-3 gap-4 md:gap-6 text-center">
             <div><div className="text-[28px] font-extrabold stat-num text-brand-green">۷۰+</div><div className="text-[11px] text-zinc-400">دوره</div></div>

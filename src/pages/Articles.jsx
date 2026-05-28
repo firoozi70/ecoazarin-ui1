@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 import { motion, AnimatePresence } from 'motion/react';
 import { PageShell } from '../layouts/PageShell';
+import { useLang } from '../i18n';
 
 // articles.jsx — صفحهٔ مقالات (zoomit inspired)
 
@@ -35,22 +36,42 @@ const A_LIST = [
 const SHADES = ['#0F172A','#1E1B4B','#3F1D1D','#0F2D24','#3F2D08','#2A0F3F','#0F2A3F','#3F0F1E'];
 
 function ArticlesContent(){
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const [cat, setCat] = useState('all');
   const [q, setQ] = useState('');
   const filtered = A_LIST.filter(a => (cat==='all' || a.cat===cat) && (!q.trim() || a.title.includes(q)));
   return (
     <section className="px-4 md:px-6 max-w-[1300px] mx-auto" data-screen-label="Articles">
       {/* hero search */}
-      <div className="bg-gradient-to-l from-brand-redDark/60 to-ink-800 border border-ink-500 rounded-2xl p-6 md:p-8 mb-6 relative overflow-hidden">
-        <div className="absolute -top-10 -left-10 w-48 h-48 rounded-full orb-red opacity-50" />
-        <div className="relative">
-          <div className="flex items-center gap-2 mb-2"><span className="text-[11px] px-2 py-0.5 rounded-md bg-white/10 border border-white/15">📚 مقالات و تحلیل‌ها</span></div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2">آنچه در بازار مهم است، عمیق بخوان.</h1>
-          <p className="text-zinc-300 text-[13px] mb-4 max-w-xl leading-7">تحلیل‌های روزانهٔ کارشناسان، گزارش‌های هفتگی و یادداشت‌های آموزشی.</p>
-          <div className="bg-ink-900/70 border border-ink-500 rounded-xl px-3 py-2.5 flex items-center gap-2 max-w-xl backdrop-blur-sm">
-            <span className="text-zinc-400">🔍</span>
-            <input value={q} onChange={(e)=>setQ(e.target.value)} placeholder="جستجو در عنوان مقاله…" className="flex-1 bg-transparent outline-none text-[13.5px] placeholder:text-zinc-500" />
-            {q && <button onClick={()=>setQ('')} className="text-zinc-500 hover:text-white text-[12px]">پاک</button>}
+      <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-12 mb-8 relative overflow-hidden group">
+        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand-redDark/20 light:bg-[#ff4b4b]/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700 ease-out" />
+        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-brand-redDark/10 light:bg-[#ff4b4b]/5 rounded-full blur-[60px] translate-y-1/3 -translate-x-1/3" />
+        
+        <div className="relative z-10 max-w-3xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-redDark/10 light:bg-[#ff4b4b]/10 border border-brand-redDark/20 light:border-[#ff4b4b]/20 text-[#ff4b4b] font-semibold text-[12px] mb-5">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            <span>{isEn ? 'Articles & Analysis' : 'مقالات و تحلیل‌ها'}</span>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.3] text-white light:text-zinc-900">
+            {isEn ? 'Read deeply on what matters in the market.' : 'آنچه در بازار مهم است، عمیق بخوان.'}
+          </h1>
+          <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] mt-4 mb-8 max-w-xl leading-relaxed">
+            {isEn ? 'Daily analyst reviews, weekly reports, and educational notes.' : 'تحلیل‌های روزانهٔ کارشناسان، گزارش‌های هفتگی و یادداشت‌های آموزشی.'}
+          </p>
+          <div className="bg-ink-900/50 light:bg-white border border-ink-500 light:border-zinc-300 rounded-2xl p-2 flex items-center gap-2 max-w-xl shadow-lg light:shadow-sm focus-within:border-[#ff4b4b]/50 focus-within:ring-4 focus-within:ring-[#ff4b4b]/10 transition-all">
+            <svg className="w-5 h-5 text-zinc-500 ltr:ml-3 rtl:mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <input 
+              value={q} 
+              onChange={(e)=>setQ(e.target.value)} 
+              placeholder={isEn ? "Search articles..." : "جستجو در عنوان مقاله…"} 
+              className="flex-1 bg-transparent border-none outline-none text-[14.5px] font-medium text-white light:text-zinc-800 placeholder:text-zinc-600 light:placeholder:text-zinc-400 h-10 px-2" 
+            />
+            {q && (
+              <button onClick={()=>setQ('')} className="w-8 h-8 flex items-center justify-center rounded-xl bg-ink-800 light:bg-zinc-100 text-zinc-400 hover:text-white light:hover:text-zinc-900 transition-colors">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            )}
           </div>
         </div>
       </div>

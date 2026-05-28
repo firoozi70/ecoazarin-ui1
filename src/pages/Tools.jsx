@@ -7,6 +7,7 @@ const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, Cartesian
 import { motion, AnimatePresence } from 'motion/react';
 
 import { PageShell } from '../layouts/PageShell';
+import { useLang } from '../i18n';
 
 // tools.jsx — ابزارهای ترید
 
@@ -31,14 +32,28 @@ const T_TOOLS = [
 const PLAT_COLOR = { MT4:'#3B82F6', MT5:'#1D4ED8', TV:'#10B981', Web:'#8B5CF6', iOS:'#71717A', Android:'#10B981', API:'#F59E0B', Binance:'#F0B90B', Bybit:'#F7A600' };
 
 function ToolsContent(){
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const [cat, setCat] = useState('all');
   const list = T_TOOLS.filter(t=>cat==='all'||t.cat===cat);
   return (
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto" data-screen-label="Tools">
-      <div className="bg-gradient-to-l from-brand-green/15 via-ink-800 to-ink-800 border border-ink-500 rounded-2xl p-6 md:p-8 mb-6">
-        <span className="text-[11px] px-2.5 py-1 rounded-md bg-brand-green/15 border border-brand-green/30 text-brand-green font-bold">⚙ ابزارخانه</span>
-        <h1 className="text-2xl md:text-3xl font-extrabold mt-3 tracking-tight">ابزارهایی که حرفه‌ای‌ها استفاده می‌کنند.</h1>
-        <p className="text-zinc-300 text-[13px] mt-2 max-w-xl leading-7">اندیکاتور، اکسپرت، اسکنر و فید داده — تست شده توسط تیم اکوآذرین.</p>
+      <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-12 mb-8 relative overflow-hidden group">
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-brand-green/10 light:bg-brand-green/10 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/3 group-hover:scale-110 transition-transform duration-700 ease-out" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-brand-green/5 light:bg-brand-green/10 rounded-full blur-[70px] translate-y-1/3 translate-x-1/4" />
+        
+        <div className="relative z-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-green/10 light:bg-brand-green/10 border border-brand-green/20 text-brand-green font-semibold text-[12px] mb-5">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+            <span>{isEn ? 'Toolbox' : 'ابزارخانه'}</span>
+          </div>
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.3] text-white light:text-zinc-900">
+            {isEn ? 'Tools the professionals use.' : 'ابزارهایی که حرفه‌ای‌ها استفاده می‌کنند.'}
+          </h1>
+          <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] mt-4 max-w-xl leading-relaxed">
+            {isEn ? 'Indicators, expert advisors, scanners, and data feeds — tested by the EcoAzarin team.' : 'اندیکاتور، اکسپرت، اسکنر و فید داده — تست شده توسط تیم اکوآذرین.'}
+          </p>
+        </div>
       </div>
 
       <div className="flex gap-2 mb-5 overflow-x-auto scrollbar-hide pb-2">

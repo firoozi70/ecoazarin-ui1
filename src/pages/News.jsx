@@ -4,8 +4,11 @@ import { PageShell } from '../layouts/PageShell';
 import { BigNewsCarousel, NewsLists } from '../components/home/News';
 import { IconSearch, IconClose, IconChevronLeft, IconChevronRight } from '../components/ui/Icons';
 import { motion } from 'motion/react';
+import { useLang } from '../i18n';
 
 function NewsContent() {
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const [q, setQ] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,31 +56,39 @@ function NewsContent() {
   return (
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto py-8" data-screen-label="News">
       {/* Hero Header & Search */}
-      <div className="mb-12 relative">
-        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-white light:text-zinc-900 text-center">
-          جدیدترین <span className="text-brand-green">اخبار بازار</span>
+      <div className="mb-12 relative mt-4">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-green/10 light:bg-brand-green/10 rounded-full blur-[100px] -z-10 opacity-70" />
+        
+        <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-brand-green/10 light:bg-brand-green/10 border border-brand-green/20 text-brand-green font-semibold text-[12px] mb-6 mx-auto flex w-max">
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>
+          <span>{isEn ? 'EcoAzarin Newsroom' : 'اتاق خبر اکوآذرین'}</span>
+        </div>
+
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 text-white light:text-zinc-900 text-center">
+          {isEn ? 'Latest' : 'جدیدترین'} <span className="text-brand-green">{isEn ? 'Market News' : 'اخبار بازار'}</span>
         </h1>
-        <p className="text-zinc-400 light:text-zinc-500 text-[14px] md:text-[15px] leading-7 max-w-2xl mx-auto text-center mb-8">
-          پوشش لحظه‌ای و اخبار فوری بازارهای مالی، کریپتوکارنسی و اقتصاد کلان با تحلیل‌های اختصاصی اکو آذرین
+        <p className="text-zinc-400 light:text-zinc-500 text-[14.5px] md:text-[15px] leading-relaxed max-w-2xl mx-auto text-center mb-8">
+          {isEn ? 'Live coverage, breaking news, financial markets, cryptocurrency, and macroeconomic updates with exclusive insights.' : 'پوشش لحظه‌ای و اخبار فوری بازارهای مالی، کریپتوکارنسی و اقتصاد کلان با تحلیل‌های اختصاصی اکو آذرین'}
         </p>
 
         {/* Elegant Search Bar */}
         <div className="max-w-2xl mx-auto relative group">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-green to-brand-green/30 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
-          <div className="relative bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-200 rounded-2xl flex items-center px-4 py-3 shadow-lg">
-            <IconSearch size={22} className="text-brand-green ml-3 shrink-0" />
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-green/40 to-brand-green/10 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
+          <div className="relative bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-2xl flex items-center px-3 py-2.5 shadow-lg light:shadow-sm">
+            <IconSearch size={22} className="text-zinc-500 ltr:ml-3 rtl:mr-3 shrink-0" />
             <input 
               value={q}
               onChange={(e) => { setQ(e.target.value); setCurrentPage(1); }}
-              placeholder="جستجو در اخبار، تحلیل‌ها و گزارش‌ها..." 
-              className="flex-1 bg-transparent border-none outline-none text-[15px] font-medium text-white light:text-zinc-800 placeholder:text-zinc-600 light:placeholder:text-zinc-400"
+              placeholder={isEn ? "Search news, reports..." : "جستجو در اخبار، تحلیل‌ها و گزارش‌ها..."}
+              className="flex-1 bg-transparent border-none outline-none text-[15px] font-medium text-white light:text-zinc-800 placeholder:text-zinc-500 light:placeholder:text-zinc-400 px-2 h-10"
             />
             {q && (
               <button 
                 onClick={() => { setQ(''); setCurrentPage(1); }} 
-                className="shrink-0 text-zinc-500 hover:text-white bg-ink-800 light:bg-zinc-100 p-1.5 rounded-lg transition"
+                className="w-9 h-9 flex items-center justify-center rounded-xl bg-ink-800 light:bg-zinc-100 text-zinc-400 hover:text-white light:hover:text-zinc-900 transition-colors"
+                aria-label="Clear search"
               >
-                <IconClose size={16} />
+                <IconClose size={18} />
               </button>
             )}
           </div>
