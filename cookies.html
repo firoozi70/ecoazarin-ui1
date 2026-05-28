@@ -3,11 +3,270 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>سیاست کوکی‌ها — اکو آذرین</title>
+<title>اکو آذرین — مسیر هوشمند سرمایه</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/sahel-font@v3.4.0/dist/font-face.css" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    plugins: [
+      function({ addVariant }) {
+        addVariant('light', ':where(.light) &');
+      }
+    ],
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Vazirmatn', 'IRANSans', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+        },
+        colors: {
+          ink: {
+            900: '#0A0A0A',
+            850: '#0F0F10',
+            800: '#141416',
+            700: '#1A1A1C',
+            600: '#222226',
+            500: '#27272A',
+            400: '#3A3A3F',
+          },
+          brand: {
+            red: '#E63946',
+            redDark: '#C22735',
+            redSoft: '#EF4444',
+            green: '#10B981',
+            greenSoft: '#34D399',
+          },
+        },
+        keyframes: {
+          marquee: {
+            '0%': { transform: 'translateX(0%)' },
+            '100%': { transform: 'translateX(100%)' },
+          },
+          softPulse: {
+            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+            '50%': { opacity: '.6', transform: 'scale(.85)' },
+          },
+        },
+        animation: {
+          marquee: 'marquee 60s linear infinite',
+          softPulse: 'softPulse 1.6s ease-in-out infinite',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  /* ============ CHARISMA FONT (Persian/Latin) ============ */
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Light.ttf') format('truetype');     font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Regular.ttf') format('truetype');   font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Bold.ttf') format('truetype');      font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-ExtraBold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Charisma'; src: url('fonts/CharismaTF-Black.ttf') format('truetype');     font-weight: 900; font-style: normal; font-display: swap; }
+  /* ============ PEYDA FONT (Persian display) ============ */
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Thin.ttf') format('truetype');       font-weight: 100; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-ExtraLight.ttf') format('truetype'); font-weight: 200; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Light.ttf') format('truetype');      font-weight: 300; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Regular.ttf') format('truetype');    font-weight: 400; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Medium.ttf') format('truetype');     font-weight: 500; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-SemiBold.ttf') format('truetype');   font-weight: 600; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-Bold.ttf') format('truetype');       font-weight: 700; font-style: normal; font-display: swap; }
+  @font-face { font-family: 'Peyda'; src: url('fonts/Peyda-ExtraBold.ttf') format('truetype');  font-weight: 800; font-style: normal; font-display: swap; }
+  .font-peyda  { font-family: 'Peyda', 'Charisma', 'Vazirmatn', system-ui, sans-serif; }
+  .eyebrow-peyda {
+    font-family: 'Peyda', 'Charisma', 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: -0.005em;
+    line-height: 1.4;
+  }
+  @media (min-width: 768px) { .eyebrow-peyda { font-size: 15.5px; } }
+  /* small badge / kicker / tag in Persian — no uppercase, no mono */
+  .label-peyda {
+    font-family: 'Peyda', 'Charisma', 'Vazirmatn', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0;
+    text-transform: none !important;
+  }
+  @media (min-width: 768px) { .label-peyda { font-size: 12.5px; } }
+  /* ============ DESIGN TOKENS ============ */
+  :root {
+    --bg:        #0A0A0A;
+    --bg-2:      #0F0F10;
+    --bg-3:      #141416;
+    --card:      #1A1A1C;
+    --card-2:    #222226;
+    --card-soft: rgba(255,255,255,0.02);
+    --border:    #27272A;
+    --border-2:  #3A3A3F;
+    --text:      #FFFFFF;
+    --text-2:    #E4E4E7;
+    --text-mute: #A1A1AA;
+    --text-faint:#71717A;
+    --shadow-card: 0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px -12px rgba(0,0,0,0.6);
+  }
+  html.light {
+    --bg:        #F5F5F7;
+    --bg-2:      #FAFAFA;
+    --bg-3:      #FFFFFF;
+    --card:      #FFFFFF;
+    --card-2:    #F8F8FA;
+    --card-soft: rgba(0,0,0,0.015);
+    --border:    #E4E4E7;
+    --border-2:  #D4D4D8;
+    --text:      #0A0A0A;
+    --text-2:    #27272A;
+    --text-mute: #52525B;
+    --text-faint:#A1A1AA;
+    --shadow-card: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 20px -10px rgba(0,0,0,0.10);
+  }
+  html, body { background: var(--bg); color: var(--text); transition: background-color .35s ease, color .35s ease; }
+  /* ============ LIGHT-MODE TAILWIND OVERRIDES ============ */
+  html.light .bg-ink-900   { background: var(--bg)   !important; }
+  html.light .bg-ink-850   { background: var(--bg-2) !important; }
+  html.light .bg-ink-800   { background: var(--bg-3) !important; }
+  html.light .bg-ink-800\/60  { background: rgba(250,250,252,0.85) !important; }
+  html.light .bg-ink-800\/70  { background: rgba(250,250,252,0.92) !important; }
+  html.light .bg-ink-800\/80  { background: rgba(255,255,255,0.92) !important; }
+  html.light .bg-ink-800\/95  { background: rgba(255,255,255,0.95) !important; }
+  html.light .bg-ink-900\/60  { background: rgba(255,255,255,0.96) !important; }
+  html.light .bg-ink-900\/80  { background: rgba(255,255,255,0.97) !important; }
+  html.light .bg-ink-900\/90  { background: rgba(245,245,247,0.92) !important; }
+  html.light .bg-ink-700      { background: #FFFFFF !important; }
+  html.light .bg-ink-700\/40  { background: rgba(244,244,245,0.55) !important; }
+  html.light .bg-ink-700\/50  { background: rgba(244,244,245,0.65) !important; }
+  html.light .bg-ink-700\/60  { background: rgba(255,255,255,0.95) !important; }
+  html.light .bg-ink-700\/80  { background: rgba(255,255,255,0.95) !important; }
+  html.light .bg-black        { background: #FFFFFF !important; }
+  html.light .bg-black\/25    { background: rgba(255,255,255,0.45) !important; }
+  html.light .bg-black\/30    { background: rgba(255,255,255,0.55) !important; }
+  html.light .bg-black\/50    { background: rgba(255,255,255,0.75) !important; }
+  html.light .bg-black\/60    { background: rgba(255,255,255,0.80) !important; }
+  html.light .border-ink-500       { border-color: var(--border)   !important; }
+  html.light .border-ink-400       { border-color: var(--border-2) !important; }
+  html.light .border-ink-400\/70   { border-color: var(--border-2) !important; }
+  html.light .divide-ink-500 > * + *{ border-color: var(--border) !important; }
+  html.light .text-white     { color: var(--text)       !important; }
+  html.light .text-zinc-200  { color: #18181B           !important; }
+  html.light .text-zinc-300  { color: #3F3F46           !important; }
+  html.light .text-zinc-400  { color: var(--text-mute)  !important; }
+  html.light .text-zinc-500  { color: var(--text-faint) !important; }
+  html.light .text-zinc-600  { color: #52525B           !important; }
+  html.light .text-zinc-700  { color: #27272A           !important; }
+  html.light .placeholder\:text-zinc-500::placeholder { color: #A1A1AA !important; }
+  html.light .placeholder\:text-zinc-600::placeholder { color: #A1A1AA !important; }
+  html.light .hover\:bg-ink-700:hover     { background: #F4F4F5 !important; }
+  html.light .hover\:bg-ink-700\/50:hover { background: #F4F4F5 !important; }
+  html.light .hover\:border-ink-400:hover { border-color: #A1A1AA !important; }
+  html.light .hover\:border-zinc-300:hover{ border-color: #71717A !important; }
+  html.light .hover\:bg-black\/50:hover   { background: rgba(0,0,0,0.06) !important; }
+  html.light .placeholder-stripe {
+    background-image:
+      repeating-linear-gradient(135deg, rgba(0,0,0,0.045) 0 12px, rgba(0,0,0,0) 12px 24px),
+      linear-gradient(180deg, #fafafb 0%, #ececef 100%) !important;
+  }
+  html.light .dotted-bg {
+    background-image: radial-gradient(rgba(0,0,0,0.10) 1px, transparent 1px) !important;
+  }
+  html.light .ring-ink-900 { --tw-ring-color: #FFFFFF !important; }
+  html.light .from-ink-900 { --tw-gradient-from: var(--bg) !important; --tw-gradient-to: rgb(245 245 247 / 0) !important; --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important; }
+  html.light .text-zinc-100 { color: var(--text-2) !important; }
+  /* keep ticker bar dark in both modes — it's a market band */
+  html.light .ring-ink-900   { --tw-ring-color: #fff !important; }
+  body { font-family: 'Charisma', 'Vazirmatn', 'Sahel', 'IRANSans', system-ui, sans-serif; font-feature-settings: "ss01","ss02","ss03","tnum"; -webkit-font-smoothing: antialiased; }
+  body, button, input, select, textarea, kbd { font-family: inherit; }
+  .ltr-num, .tabular-nums { font-feature-settings: "tnum","lnum"; font-variant-numeric: tabular-nums lining-nums; }
+  .num-display { font-family: 'JetBrains Mono', 'Charisma', 'Vazirmatn', system-ui, monospace; font-feature-settings: "tnum","lnum"; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  /* ============ NEWS TICKER ============ */
+  .ticker-shell { background: #0A0A0A; }
+  html.light .ticker-shell { background: #18181B; } /* keep dark band even in light mode for contrast */
+  .ticker-headline { color: #FAFAFA; }
+  html.light .ticker-headline { color: #FAFAFA; }
+  .ticker-fade-r { background: linear-gradient(to left,  #0A0A0A, transparent); }
+  .ticker-fade-l { background: linear-gradient(to right, #0A0A0A, transparent); }
+  html.light .ticker-fade-r { background: linear-gradient(to left,  #18181B, transparent); }
+  html.light .ticker-fade-l { background: linear-gradient(to right, #18181B, transparent); }
+  /* ============ TAB CONTENT ENTRANCE ============ */
+  @keyframes fadein {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeinUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeinSoft {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .tab-anim       { animation: fadein .35s cubic-bezier(.4,0,.2,1) both; }
+  .tab-anim-card  { animation: fadeinUp .45s cubic-bezier(.4,0,.2,1) both; }
+  .tab-anim-soft  { animation: fadeinSoft .5s ease-out both; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+  /* persian-numerals */
+  .ltr-num { direction: ltr; unicode-bidi: isolate; }
+  /* fancy blurred orbs */
+  .orb-red { background: radial-gradient(closest-side, rgba(230,57,70,.55), rgba(230,57,70,0) 70%); }
+  .orb-green { background: radial-gradient(closest-side, rgba(16,185,129,.45), rgba(16,185,129,0) 70%); }
+  /* striped placeholder */
+  .placeholder-stripe {
+    background-image:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 12px, rgba(255,255,255,0.0) 12px 24px),
+      linear-gradient(180deg, #1c1c1f 0%, #141416 100%);
+  }
+  /* animated marquee track */
+  .ticker-track {
+    display: flex;
+    gap: 2.5rem;
+    animation: tickerScroll 80s linear infinite;
+    will-change: transform;
+  }
+  @keyframes tickerScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(50%); } /* RTL: visually moves leftward */
+  }
+  .ticker-track:hover { animation-play-state: paused; }
+  /* category icon pill animation */
+  .pill-active-shadow { box-shadow: 0 8px 28px -10px rgba(16,185,129,.55), 0 0 0 1px rgba(16,185,129,.35) inset; }
+  /* Hide focus outline for mouse users, keep for keyboard */
+  :focus:not(:focus-visible) { outline: none; }
+  :focus-visible { outline: 2px solid #E63946; outline-offset: 2px; border-radius: 6px; }
+  /* line clamp util — Tailwind has it but make sure */
+  .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  /* card hover */
+  .card-hover { transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+  .card-hover:hover { transform: translateY(-2px); border-color: #3A3A3F; }
+  /* dotted-grid bg for hero */
+  .dotted-bg {
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  /* premium typography for headings/numbers */
+  h1, h2, h3, h4 { letter-spacing: -0.012em; font-weight: 700; }
+  /* persian small-text legibility bump */
+  .ltr-num, .tabular-nums { font-feature-settings: "tnum","lnum"; font-variant-numeric: tabular-nums lining-nums; }
+  /* dashboard-style number formatting */
+  .stat-num { font-feature-settings: "tnum","lnum"; font-variant-numeric: tabular-nums lining-nums; font-weight: 700; letter-spacing: -0.015em; }
+  /* podcast hero gradient */
+  .hero-gradient {
+    background:
+      radial-gradient(120% 80% at 20% 0%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%),
+      radial-gradient(80% 60% at 90% 100%, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 60%),
+      linear-gradient(135deg, #E63946 0%, #C22735 100%);
+  }
+  /* search illust glow */
+  .search-glow { background: radial-gradient(closest-side, rgba(230,57,70,.18), transparent 70%); }
+</style>
 <link rel="stylesheet" href="theme.css" />
 </head>
 <body class="font-sans antialiased min-h-screen">
 <div id="root"></div>
-  <script type="module" src="/src/pages/Cookies.jsx"></script>
+<script type="module" src="/src/pages/Cookies.jsx"></script>
 </body>
 </html>
