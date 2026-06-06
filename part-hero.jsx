@@ -24,20 +24,20 @@ const HeroCarousel = () => {
       <div className="relative h-[280px] md:h-[340px] rounded-2xl overflow-hidden hero-gradient">
         {/* big white circle behind faces */}
         <div
-          className="absolute -left-10 md:left-12 top-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-full bg-white/95"
+          className="absolute -start-10 md:left-12 top-1/2 -translate-y-1/2 w-[280px] h-[280px] md:w-[360px] md:h-[360px] rounded-full bg-white/95"
           aria-hidden="true"
         />
         <div
-          className="absolute -right-20 -bottom-20 w-[260px] h-[260px] rounded-full orb-red opacity-60"
+          className="absolute -end-20 -bottom-20 w-[260px] h-[260px] rounded-full orb-red opacity-60"
           aria-hidden="true"
         />
         <div
-          className="absolute top-6 left-1/3 w-[120px] h-[120px] rounded-full bg-white/10 blur-2xl"
+          className="absolute top-6 start-1/3 w-[120px] h-[120px] rounded-full bg-white/10 blur-2xl"
           aria-hidden="true"
         />
 
         {/* podcast duo (visually on the LEFT in RTL = end side) */}
-        <div className="absolute bottom-0 -left-10 md:left-8 h-full w-[70%] md:w-[45%] flex items-end justify-start pointer-events-none opacity-30 md:opacity-100">
+        <div className="absolute bottom-0 -start-10 md:left-8 h-full w-[70%] md:w-[45%] flex items-end justify-start pointer-events-none opacity-30 md:opacity-100">
           <PodcastDuo className="h-full w-auto max-w-none" />
         </div>
 
@@ -45,7 +45,7 @@ const HeroCarousel = () => {
         <div className="relative h-full flex items-center z-10 pointer-events-none">
           <div
             key={idx}
-            className="px-5 md:px-12 max-w-[100%] md:max-w-[55%] mr-0 ml-auto text-right animate-[fade-in_0.5s_ease-out] pointer-events-auto"
+            className="px-5 md:px-12 max-w-[100%] md:max-w-[55%] me-0 ms-auto text-end animate-[fade-in_0.5s_ease-out] pointer-events-auto"
           >
             <div className="inline-flex items-center gap-2 bg-black/25 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 text-[10px] md:text-[11px] font-medium">
               <IconHeadphones size={12} />
@@ -80,7 +80,7 @@ const HeroCarousel = () => {
             e.preventDefault();
             setIdx((i) => (i - 1 + slides.length) % slides.length);
           }}
-          className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/30 hover:bg-black/50 backdrop-blur transition z-30 cursor-pointer"
+          className="hidden md:flex absolute start-3 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/30 hover:bg-black/50 backdrop-blur transition z-30 cursor-pointer"
           aria-label="اسلاید قبلی"
         >
           <IconChevronLeft size={18} />
@@ -90,7 +90,7 @@ const HeroCarousel = () => {
             e.preventDefault();
             setIdx((i) => (i + 1) % slides.length);
           }}
-          className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/30 hover:bg-black/50 backdrop-blur transition z-30 cursor-pointer"
+          className="hidden md:flex absolute end-3 top-1/2 -translate-y-1/2 h-9 w-9 items-center justify-center rounded-full bg-black/30 hover:bg-black/50 backdrop-blur transition z-30 cursor-pointer"
           aria-label="اسلاید بعدی"
         >
           <IconChevronRight size={18} />
@@ -98,7 +98,7 @@ const HeroCarousel = () => {
 
         {/* dots */}
         <div
-          className="absolute bottom-4 right-6 md:right-12 flex gap-1.5 z-30"
+          className="absolute bottom-4 end-6 md:right-12 flex gap-1.5 z-30"
           role="tablist"
           aria-label="انتخاب اسلاید"
         >

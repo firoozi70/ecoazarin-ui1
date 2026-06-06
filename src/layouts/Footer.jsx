@@ -59,7 +59,7 @@ const Footer = () => {
         <div className="flex items-center gap-2.5">
           <BrandMark size={44} />
           <div>
-            <div className="text-[16px] font-bold">eco azarin</div>
+            <div className="text-[16px] font-bold">Eco Azarin</div>
             <div className="text-[11px] text-zinc-500">{isEn ? 'Smart Capital Path' : 'مسیر هوشمند سرمایه'}</div>
           </div>
         </div>

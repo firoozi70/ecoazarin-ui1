@@ -14,6 +14,8 @@ import { AuthButtons } from '../components/modals/DashboardModals';
 
 // ---------- نوار خبر عمودی (تیتر) ----------
 const LiveTicker = () => {
+  const [lang] = useLang();
+  const isEn = lang === "EN";
   const items = NEWS_TICKER || [];
   const N = items.length || 1;
   const [idx, setIdx] = useState(0);
@@ -29,13 +31,13 @@ const LiveTicker = () => {
     <div
       className="w-full bg-[#0A0A0A] light:bg-white border-b border-ink-500 light:border-zinc-200 overflow-hidden"
       role="region"
-      aria-label="نوار خبر فوری"
+      aria-label={isEn ? "Breaking News Ticker" : "نوار خبر فوری"}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <div className="max-w-[1600px] mx-auto flex items-center h-11">
         {/* breaking-news badge */}
-        <div className="shrink-0 flex items-center gap-2 pr-3 pl-3.5 h-7 mx-3 my-2 rounded-md bg-gradient-to-l from-brand-redDark to-brand-red shadow-[0_4px_14px_-6px_rgba(230,57,70,0.7)]">
+        <div className="shrink-0 flex items-center gap-2 pe-3 ps-3.5 h-7 mx-3 my-2 rounded-md bg-gradient-to-l from-brand-redDark to-brand-red shadow-[0_4px_14px_-6px_rgba(230,57,70,0.7)]">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full rounded-full bg-white animate-softPulse" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
@@ -44,10 +46,10 @@ const LiveTicker = () => {
             className="text-[11.5px] font-extrabold tracking-tight text-pure-white whitespace-nowrap"
             style={{ fontFamily: "'Charisma','Vazirmatn',sans-serif" }}
           >
-            {t ? t("breakingNews") : "خبر فوری"}
+            {t("breakingNews")}
           </span>
         </div>
-        <span className="hidden md:block w-px h-5 bg-ink-500/70 light:bg-zinc-300 ml-1" />
+        <span className="hidden md:block w-px h-5 bg-ink-500/70 light:bg-zinc-300 ms-1" />
 
         {/* rotating headline */}
         <div
@@ -69,14 +71,14 @@ const LiveTicker = () => {
                   pointerEvents: visible ? "auto" : "none",
                 }}
               >
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-greenSoft ml-3 shrink-0" />
-                <span className="truncate">{t}</span>
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-greenSoft mx-3 shrink-0" />
+                <span className="truncate">{isEn ? t.en : t.fa}</span>
               </a>
             );
           })}
           {/* fade edges */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#0A0A0A] light:from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#0A0A0A] light:from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 end-0 w-12 bg-gradient-to-l rtl:bg-gradient-to-r from-[#0A0A0A] light:from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 start-0 w-12 bg-gradient-to-r rtl:bg-gradient-to-l from-[#0A0A0A] light:from-white to-transparent" />
         </div>
 
         {/* progress dots */}
@@ -85,7 +87,7 @@ const LiveTicker = () => {
             <button
               key={i}
               onClick={() => setIdx(i)}
-              aria-label={`خبر ${i + 1}`}
+              aria-label={isEn ? `News ${i + 1}` : `خبر ${i + 1}`}
               className="p-1.5 cursor-pointer flex items-center justify-center group outline-none"
             >
               <div
@@ -97,10 +99,10 @@ const LiveTicker = () => {
 
         <a
           href="#"
-          className="hidden md:inline-flex shrink-0 items-center gap-1 px-4 h-full text-[12px] text-zinc-400 light:text-zinc-500 hover:text-brand-red light:hover:text-brand-red transition border-r border-ink-500 light:border-zinc-200"
+          className="hidden md:inline-flex shrink-0 items-center gap-1 px-4 h-full text-[12px] text-zinc-400 light:text-zinc-500 hover:text-brand-red light:hover:text-brand-red transition border-s border-ink-500 light:border-zinc-200"
         >
-          {t ? t("allNews") : "همه اخبار"}{" "}
-          <IconArrowLeft size={12} />
+          {t("allNews")}{" "}
+          <IconArrowLeft size={12} className="rtl:rotate-180" />
         </a>
       </div>
     </div>
@@ -116,7 +118,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
     (typeof window !== "undefined" && window.PAGE_SLUG) ||
     (() => {
       const p = (
-        location.pathname.split("/").pop() || "hero.html"
+        location.pathname.split("/").pop() || "/"
       ).toLowerCase();
       const match = (NAV_ITEMS || []).find(
         (n) => n.href.toLowerCase() === p,
@@ -124,6 +126,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
       return match ? match.slug : "home";
     })();
   const [lang] = useLang();
+  const isEn = lang === "EN";
   return (
     <header
       className="bg-ink-900/90 backdrop-blur-md border-b border-ink-500 sticky top-0 z-40 max-w-[100vw]"
@@ -132,21 +135,17 @@ const Header = ({ onOpenSearch, rightSlot }) => {
       <div className="max-w-[1400px] mx-auto px-3 md:px-6 h-16 flex items-center justify-between gap-2 md:gap-4">
         {/* Brand (right side in RTL) */}
         <a
-          href="hero.html"
+          href="/"
           className="flex items-center gap-2 md:gap-2.5 shrink-0"
-          aria-label={t ? t("appTitle") : "اکوآذرین — صفحه اصلی"}
+          aria-label={t("appTitle")}
         >
-          <BrandMark size={36} className="mr-1" />
+          <BrandMark size={36} className="me-1" />
           <div className="leading-none hidden min-[360px]:block">
             <div className="text-[13px] md:text-[15px] font-bold tracking-tight">
-              {t ? t("appTitle") : "eco azarin"}
+              {t("appTitle")}
             </div>
             <div className="text-[9px] md:text-[10px] text-zinc-500 mt-1">
-              {t
-                ? t("appSubtitle")
-                : lang === "EN"
-                  ? "smart finance hub"
-                  : "مسیر هوشمند سرمایه"}
+              {t("appSubtitle")}
             </div>
           </div>
         </a>
@@ -154,11 +153,11 @@ const Header = ({ onOpenSearch, rightSlot }) => {
         {/* Nav center — desktop only */}
         <nav
           className="hidden lg:flex items-center gap-1 mx-auto"
-          aria-label="ناوبری اصلی"
+          aria-label={isEn ? "Main navigation" : "ناوبری اصلی"}
         >
           {NAV_ITEMS.map((item, i) => {
             const active = item.slug === currentSlug;
-            const label = lang === "EN" ? item.en : item.fa;
+            const label = isEn ? item.en : item.fa;
             const Icon = TAB_ICON ? TAB_ICON[item.slug] : null;
             return (
               <a
@@ -175,7 +174,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
                 <span>{label}</span>
                 {active && (
                   <span
-                    className="w-1.5 h-1.5 rounded-full bg-brand-green ml-0.5"
+                    className="w-1.5 h-1.5 rounded-full bg-brand-green ms-0.5"
                     aria-hidden="true"
                   />
                 )}
@@ -185,7 +184,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
         </nav>
 
         {/* Right cluster (visually left in RTL) */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0 mr-auto">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0 me-auto">
           <div className="flex items-center">
             <LangToggle className="flex items-center" />
           </div>
@@ -199,7 +198,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
           <button
             onClick={() => setMobileOpen((o) => !o)}
             className="lg:hidden inline-flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-lg text-zinc-300 light:text-zinc-600 hover:bg-ink-700 light:hover:bg-zinc-100 transition"
-            aria-label="منو"
+            aria-label={isEn ? "Menu" : "منو"}
             aria-expanded={mobileOpen}
           >
             {mobileOpen ? <IconClose /> : <IconMenu />}
@@ -216,7 +215,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
           <div className="px-4 py-3 flex flex-col gap-1">
             {NAV_ITEMS.map((item, i) => {
               const active = item.slug === currentSlug;
-              const label = lang === "EN" ? item.en : item.fa;
+              const label = isEn ? item.en : item.fa;
               const Icon = TAB_ICON ? TAB_ICON[item.slug] : null;
               return (
                 <a
@@ -233,7 +232,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
                   <span>{label}</span>
                   {active && (
                     <span
-                      className="w-1.5 h-1.5 rounded-full bg-brand-green ml-0.5"
+                      className="w-1.5 h-1.5 rounded-full bg-brand-green ms-0.5"
                       aria-hidden="true"
                     />
                   )}
@@ -262,6 +261,8 @@ const Header = ({ onOpenSearch, rightSlot }) => {
 
 // ---------- HeaderSearch — جستجوی اینلاین در نوار بالا ----------
 const HeaderSearch = () => {
+  const [lang] = useLang();
+  const isEn = lang === "EN";
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const [results, setResults] = useState([]);
@@ -282,9 +283,6 @@ const HeaderSearch = () => {
         return;
       }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        // If SectionBanner is on page, let it handle the search!
-        // We can check if an element with placeholder="جستجو در همهٔ بخش‌های سایت…" exists and isn't HeaderSearch
-        // But simpler: just open HeaderSearch ONLY if there's no visible SectionBanner input
         const mainInput = document.querySelector('input[type="search"]');
         if (
           mainInput &&
@@ -317,6 +315,7 @@ const HeaderSearch = () => {
       document.removeEventListener("keydown", onKey);
     };
   }, [open]);
+  
   useEffect(() => {
     if (!q.trim()) {
       setResults([]);
@@ -340,7 +339,7 @@ const HeaderSearch = () => {
         <button
           onClick={() => setOpen(true)}
           className="inline-flex items-center justify-center h-9 w-9 rounded-lg text-zinc-400 hover:text-white hover:bg-ink-700 transition"
-          aria-label="جستجو"
+          aria-label={t("search")}
         >
           <IconSearch size={18} />
         </button>
@@ -359,12 +358,8 @@ const HeaderSearch = () => {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             type="search"
-            placeholder={
-              typeof t !== "undefined"
-                ? t("searchAll")
-                : "جستجو در همهٔ بخش‌های سایت…"
-            }
-            aria-label="جستجو"
+            placeholder={t("searchAll")}
+            aria-label={t("search")}
             className="flex-1 h-full bg-transparent border-0 outline-none text-[13px] text-white placeholder:text-zinc-500"
           />
           <button
@@ -374,7 +369,7 @@ const HeaderSearch = () => {
               setOpen(false);
             }}
             className="shrink-0 text-zinc-500 hover:text-white"
-            aria-label="بستن"
+            aria-label={t("close")}
           >
             <IconClose size={14} />
           </button>
@@ -382,7 +377,7 @@ const HeaderSearch = () => {
       )}
       {open && q.trim() && (
         <div
-          className="absolute top-11 left-0 w-[420px] lg:w-[460px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
+          className="absolute top-11 start-0 w-[420px] lg:w-[460px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
           style={{ animation: "fadein .2s ease-out both" }}
         >
           {results.length === 0 ? (
@@ -391,10 +386,10 @@ const HeaderSearch = () => {
                 <IconSearch size={18} />
               </div>
               <div className="text-[13.5px] text-zinc-300 font-peyda font-semibold">
-                چیزی یافت نشد
+                {t("nothingFound")}
               </div>
               <div className="text-[12px] text-zinc-500 mt-1">
-                برای «{q}» نتیجه‌ای پیدا نشد.
+                {isEn ? `No results found for "${q}".` : `برای «${q}» نتیجه‌ای پیدا نشد.`}
               </div>
             </div>
           ) : (
@@ -402,13 +397,13 @@ const HeaderSearch = () => {
               <div className="px-3 py-2 text-[11.5px] text-zinc-500 border-b border-ink-500 flex items-center justify-between">
                 <span>
                   {results.length}{" "}
-                  {t ? t("results") : "نتیجه"}
+                  {t("results")}
                 </span>
                 <button
                   onClick={goAll}
-                  className="text-brand-redSoft hover:text-brand-red"
+                  className="text-brand-redSoft hover:text-brand-red flex items-center"
                 >
-                  {t ? t("seeAll") : "دیدن همه ‹"}
+                  {t("seeAll")}
                 </button>
               </div>
               <ul className="max-h-[360px] overflow-auto scrollbar-hide">
@@ -416,7 +411,7 @@ const HeaderSearch = () => {
                   <li key={i}>
                     <button
                       onClick={goAll}
-                      className="w-full text-right px-3 py-2.5 hover:bg-ink-700/70 transition flex items-start gap-3 border-b border-ink-500/60"
+                      className="w-full text-start px-3 py-2.5 hover:bg-ink-700/70 transition flex items-start gap-3 border-b border-ink-500/60"
                     >
                       <span className="label-peyda shrink-0 px-2 py-0.5 rounded-full bg-brand-red/15 text-brand-redSoft border border-brand-red/25">
                         {r.category}

@@ -7,10 +7,6 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  app.get('/', (req, res) => {
-    res.redirect('/hero.html');
-  });
-
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -21,10 +17,7 @@ async function startServer() {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
-      // In production, fallback routing shouldn't just be index.html since it's an MPA, 
-      // but maybe if they request `/hero` we could map it, otherwise standard Express static handles it.
-      // If file doesn't exist, let's just show 404 or redirect to hero.
-      res.redirect('/hero.html');
+      res.redirect('/');
     });
   }
 

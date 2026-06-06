@@ -378,12 +378,12 @@ function CompoundCalcApp() {
   };
 
   return (
-    <div className="bg-ink-900 light:bg-zinc-50 min-h-screen text-white light:text-zinc-900 text-right pb-24 mt-[-1px]">
+    <div className="bg-ink-900 light:bg-zinc-50 min-h-screen text-white light:text-zinc-900 text-end pb-24 mt-[-1px]">
       <div className="max-w-[1400px] mx-auto pt-6 px-4 md:px-6">
         {/* Breadcrumb / Title with Colored Banner */}
         <div className="mb-8 relative overflow-hidden bg-gradient-to-br from-ink-800 to-ink-900 border border-ink-500 rounded-3xl p-6 md:p-10 shadow-2xl">
-          <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full orb-green opacity-20" />
-          <div className="absolute -left-10 -bottom-10 w-40 h-40 rounded-full orb-red opacity-10" />
+          <div className="absolute -end-20 -top-20 w-64 h-64 rounded-full orb-green opacity-20" />
+          <div className="absolute -start-10 -bottom-10 w-40 h-40 rounded-full orb-red opacity-10" />
 
           <div className="relative z-10">
             <div className="text-[12px] text-zinc-400 flex items-center gap-2 mb-4 font-medium">
@@ -452,7 +452,7 @@ function CompoundCalcApp() {
                   />
                   {!isEn && principal > 0 && (
                     <div
-                      className="text-[11px] text-zinc-500 text-left font-mono"
+                      className="text-[11px] text-zinc-500 text-start font-mono"
                       dir="rtl"
                     >
                       {FORMAT_T(principal)}
@@ -475,7 +475,7 @@ function CompoundCalcApp() {
                       className="w-full bg-ink-900 border border-ink-500 rounded-xl px-3 py-2.5 outline-none font-mono text-[14px] ltr-num focus:border-brand-green/70 transition"
                       dir="ltr"
                     />
-                    <div className="absolute top-1/2 -translate-y-1/2 right-4 text-zinc-500 font-bold text-[12px]">
+                    <div className="absolute top-1/2 -translate-y-1/2 end-4 text-zinc-500 font-bold text-[12px]">
                       %
                     </div>
                   </div>
@@ -489,7 +489,7 @@ function CompoundCalcApp() {
                     className="w-full accent-brand-green h-1.5 bg-ink-700 rounded-lg appearance-none cursor-pointer"
                   />
                   <div
-                    className="text-[11px] text-zinc-500 text-left font-mono"
+                    className="text-[11px] text-zinc-500 text-start font-mono"
                     dir="rtl"
                   >
                     {rate}% در سال
@@ -523,7 +523,7 @@ function CompoundCalcApp() {
                     className="w-full accent-brand-green h-1.5 bg-ink-700 rounded-lg appearance-none cursor-pointer"
                   />
                   <div
-                    className="text-[11px] text-zinc-500 text-left font-mono"
+                    className="text-[11px] text-zinc-500 text-start font-mono"
                     dir="rtl"
                   >
                     {years} سال = {years * 12} ماه
@@ -557,7 +557,7 @@ function CompoundCalcApp() {
                   />
                   {!isEn && monthly > 0 && (
                     <div
-                      className="text-[11px] text-zinc-500 text-left font-mono"
+                      className="text-[11px] text-zinc-500 text-start font-mono"
                       dir="rtl"
                     >
                       {FORMAT_T(monthly)} در ماه
@@ -789,7 +789,7 @@ function CompoundCalcApp() {
                         height={36}
                         iconType="circle"
                         formatter={(value) => (
-                          <span className="text-zinc-300 text-[13px] ml-1 font-sans">
+                          <span className="text-zinc-300 text-[13px] ms-1 font-sans">
                             {value === "balance"
                               ? d.balanceLine
                               : d.investedLine}
@@ -852,31 +852,31 @@ function CompoundCalcApp() {
                 </div>
               </div>
               <div className="overflow-x-auto max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-ink-500">
-                <table className="w-full text-left border-collapse min-w-[600px]">
+                <table className="w-full text-start border-collapse min-w-[600px]">
                   <thead className="bg-ink-900 light:bg-zinc-100 sticky top-0 z-10">
                     <tr>
                       <th
-                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-right" : ""}`}
+                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-end" : ""}`}
                       >
                         {viewMode === "YEARLY" ? d.colYear : d.colMonth}
                       </th>
                       <th
-                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-right" : ""}`}
+                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-end" : ""}`}
                       >
                         {d.colInvested}
                       </th>
                       <th
-                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-right" : ""}`}
+                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-end" : ""}`}
                       >
                         {d.colTotal}
                       </th>
                       <th
-                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-right" : ""}`}
+                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-end" : ""}`}
                       >
                         {d.colProfit}
                       </th>
                       <th
-                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-right" : ""}`}
+                        className={`py-3 px-4 text-zinc-400 font-bold text-[13px] border-b border-ink-500 ${!isEn ? "text-end" : ""}`}
                       >
                         {d.colGrowth}
                       </th>
@@ -889,7 +889,7 @@ function CompoundCalcApp() {
                         className="hover:bg-ink-800/50 light:hover:bg-zinc-50 transition"
                       >
                         <td
-                          className={`py-3 px-4 font-sans font-bold text-zinc-300 ${!isEn ? "text-right" : ""}`}
+                          className={`py-3 px-4 font-sans font-bold text-zinc-300 ${!isEn ? "text-end" : ""}`}
                         >
                           {viewMode === "YEARLY"
                             ? r.year === 0
@@ -900,28 +900,28 @@ function CompoundCalcApp() {
                               : `${d.monthLabel} ${r.month}`}
                         </td>
                         <td
-                          className={`py-3 px-4 text-blue-400 ${!isEn ? "text-right" : ""}`}
+                          className={`py-3 px-4 text-blue-400 ${!isEn ? "text-end" : ""}`}
                         >
                           {isEn ? "$" : ""}
                           {formatFullNumber(r.invested, lang)}{" "}
                           {!isEn && r.year === 0 ? "ت" : !isEn ? " ت" : ""}
                         </td>
                         <td
-                          className={`py-3 px-4 text-brand-green font-bold ${!isEn ? "text-right" : ""}`}
+                          className={`py-3 px-4 text-brand-green font-bold ${!isEn ? "text-end" : ""}`}
                         >
                           {isEn ? "$" : ""}
                           {formatFullNumber(r.balance, lang)}{" "}
                           {!isEn && r.year === 0 ? "ت" : !isEn ? " ت" : ""}
                         </td>
                         <td
-                          className={`py-3 px-4 text-amber-500 ${!isEn ? "text-right" : ""}`}
+                          className={`py-3 px-4 text-amber-500 ${!isEn ? "text-end" : ""}`}
                         >
                           +{isEn ? "$" : ""}
                           {formatFullNumber(r.interest, lang)}{" "}
                           {!isEn && r.year === 0 ? "ت" : !isEn ? " ت" : ""}
                         </td>
                         <td
-                          className={`py-3 px-4 text-indigo-400 font-bold ${!isEn ? "text-right" : ""}`}
+                          className={`py-3 px-4 text-indigo-400 font-bold ${!isEn ? "text-end" : ""}`}
                         >
                           {(r.balance / (r.invested || 1)).toFixed(2)}x
                         </td>

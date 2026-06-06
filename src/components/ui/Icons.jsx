@@ -35,13 +35,13 @@ const BrandMark = ({ size = 48, className = "" }) => (
   >
     <img
       src="/uploads/logo-dark.png"
-      alt="EcoAzarin Logo"
+      alt="Eco Azarin Logo"
       style={{ height: size, width: "auto", maxWidth: "200px", objectFit: "contain" }}
       className="logo-dark"
     />
     <img
       src="/uploads/logo-light.png"
-      alt="EcoAzarin Logo"
+      alt="Eco Azarin Logo"
       style={{ height: size, width: "auto", maxWidth: "200px", objectFit: "contain" }}
       className="logo-light"
     />

@@ -5,12 +5,15 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 import { motion, AnimatePresence } from 'motion/react';
 import { FEATURED_NEWS, NEWS_GRID, LATEST_LIST, POPULAR_LIST, EDITORS_LIST } from '../../data/mockData';
+import { useLang, t } from '../../i18n/index';
 import { IconArrowLeft, IconEye, IconClock } from '../ui/Icons';
 
 
 
 // ---------- کاروسل خبری بزرگ ----------
 const BigNewsCarousel = () => {
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const list = window.FEATURED_NEWS;
   const [idx, setIdx] = useState(0);
   useEffect(() => {
@@ -21,7 +24,7 @@ const BigNewsCarousel = () => {
   return (
     <section
       className="px-4 md:px-6 max-w-[1400px] mx-auto"
-      aria-label="مهم‌ترین خبر"
+      aria-label={isEn ? 'Top Story' : 'مهم‌ترین خبر'}
     >
       <div className="relative h-[260px] md:h-[380px] rounded-2xl overflow-hidden border border-ink-500 placeholder-stripe">
         {/* fake photo bg */}
@@ -32,8 +35,8 @@ const BigNewsCarousel = () => {
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-          <div className="absolute right-8 top-8 w-32 h-32 rounded-full orb-red opacity-30" />
-          <div className="absolute left-12 bottom-12 w-40 h-40 rounded-full orb-green opacity-20" />
+          <div className="absolute end-8 top-8 w-32 h-32 rounded-full orb-red opacity-30" />
+          <div className="absolute start-12 bottom-12 w-40 h-40 rounded-full orb-green opacity-20" />
         </div>
 
         {/* gradient overlay bottom */}
@@ -47,33 +50,33 @@ const BigNewsCarousel = () => {
             <span
               className={`inline-block label-peyda px-2.5 py-1 rounded-full ${it.tone === "red" ? "bg-brand-red/20 text-brand-redSoft border border-brand-red/30" : "bg-brand-green/20 text-brand-greenSoft border border-brand-green/30"}`}
             >
-              {it.kicker}
+              {isEn ? it.kickerEn : it.kickerFa}
             </span>
             <h3 className="mt-3 text-xl md:text-3xl font-bold leading-[1.4] line-clamp-3 text-pure-white drop-shadow">
               <a
                 href="article.html"
                 className="hover:text-zinc-200 transition-colors"
               >
-                {it.title}
+                {isEn ? it.titleEn : it.titleFa}
               </a>
             </h3>
             <div className="mt-3 flex items-center gap-3">
               <span className="text-[11px] text-pure-white/80 font-mono">
-                {it.meta}
+                {isEn ? it.metaEn : it.metaFa}
               </span>
               <span className="h-1 w-1 rounded-full bg-white/40" />
               <a
                 href="article.html"
                 className="text-[13px] text-pure-white inline-flex items-center gap-1 hover:gap-2 transition-all font-medium"
               >
-                ادامه خبر <IconArrowLeft size={14} />
+                {isEn ? 'Read More' : 'ادامه خبر'} <IconArrowLeft size={14} className="rtl:rotate-180" />
               </a>
             </div>
           </div>
         </div>
 
         {/* dots */}
-        <div className="absolute bottom-4 right-1/2 translate-x-1/2 flex gap-1.5 z-20">
+        <div className="absolute bottom-4 end-1/2 translate-x-1/2 flex gap-1.5 z-20">
           {list.map((_, i) => (
             <button
               key={i}
@@ -81,7 +84,7 @@ const BigNewsCarousel = () => {
                 e.preventDefault();
                 setIdx(i);
               }}
-              aria-label={`اسلاید ${i + 1}`}
+              aria-label={isEn ? `Slide ${i + 1}` : `اسلاید ${i + 1}`}
               className={`h-1.5 p-0 outline-none cursor-pointer rounded-full transition-all ${i === idx ? "w-6 bg-white" : "w-1.5 bg-white/40 hover:bg-white/60"}`}
             />
           ))}
@@ -93,11 +96,13 @@ const BigNewsCarousel = () => {
 
 // ---------- شبکه خبر ۳ ستونه ----------
 const NewsGrid = () => {
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const items = window.NEWS_GRID;
   return (
     <section
       className="px-4 md:px-6 max-w-[1400px] mx-auto"
-      aria-label="شبکه خبر"
+      aria-label={isEn ? 'News Grid' : 'شبکه خبر'}
     >
       <div className="overflow-x-auto scrollbar-hide -mx-4 md:mx-0 px-4 md:px-0">
         <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-6 w-max md:w-auto pb-4 md:pb-0">
@@ -121,8 +126,8 @@ const NewsGrid = () => {
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   />
-                  <span className="absolute top-3 right-3 text-[11.5px] font-medium tracking-tight bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-1 text-white z-10">
-                    {it.kicker}
+                  <span className="absolute top-3 end-3 text-[11.5px] font-medium tracking-tight bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-1 text-white z-10">
+                    {isEn ? it.kickerEn : it.kickerFa}
                   </span>
                 </a>
                 <div className="p-4 md:p-5 flex flex-col flex-1">
@@ -131,7 +136,7 @@ const NewsGrid = () => {
                       href="article.html"
                       className="hover:text-white transition-colors"
                     >
-                      {it.title}
+                      {isEn ? it.titleEn : it.titleFa}
                     </a>
                   </h4>
                   <div className="mt-auto pt-3 border-t border-ink-500 flex items-center justify-between text-[12px] text-zinc-400">
@@ -143,14 +148,14 @@ const NewsGrid = () => {
                         </span>
                       </span>
                       <span className="inline-flex items-center gap-1.5">
-                        <IconClock size={14} /> {it.time}
+                        <IconClock size={14} /> {isEn ? it.timeEn : it.timeFa}
                       </span>
                     </div>
                     <a
                       href="article.html"
                       className="text-zinc-300 hover:text-white transition inline-flex items-center gap-1 font-medium group-hover:text-brand-green"
                     >
-                      بیشتر <IconArrowLeft size={14} />
+                      {isEn ? 'More' : 'بیشتر'} <IconArrowLeft size={14} className="rtl:rotate-180" />
                     </a>
                   </div>
                 </div>
@@ -165,23 +170,25 @@ const NewsGrid = () => {
 
 // ---------- لیست‌های خبری (جدیدترین/پربازدید/منتخب) ----------
 const NewsLists = () => {
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const sections = [
     {
       id: "latest",
-      title: "جدیدترین اخبار",
-      badge: "تازه",
+      title: isEn ? "Latest News" : "جدیدترین اخبار",
+      badge: isEn ? "New" : "تازه",
       items: window.LATEST_LIST,
     },
     {
       id: "popular",
-      title: "پربازدیدترین‌ها",
-      badge: "داغ",
+      title: isEn ? "Most Popular" : "پربازدیدترین‌ها",
+      badge: isEn ? "Hot" : "داغ",
       items: window.POPULAR_LIST,
     },
     {
       id: "editor",
-      title: "منتخب سردبیر",
-      badge: "پیشنهادی",
+      title: isEn ? "Editor's Picks" : "منتخب سردبیر",
+      badge: isEn ? "Recommended" : "پیشنهادی",
       items: window.EDITORS_LIST,
     },
   ];
@@ -230,7 +237,7 @@ const NewsLists = () => {
                         href="article.html"
                         className="hover:text-brand-green transition-colors"
                       >
-                        {it.title}
+                        {isEn ? it.titleEn : it.titleFa}
                       </a>
                     </h4>
                     <div className="mt-2 flex items-center gap-3 text-[10px] text-zinc-500">
@@ -241,7 +248,7 @@ const NewsLists = () => {
                         </span>
                       </span>
                       <span className="inline-flex items-center gap-1">
-                        <IconClock size={11} /> {it.meta}
+                        <IconClock size={11} /> {isEn ? it.metaEn : it.metaFa}
                       </span>
                     </div>
                   </div>

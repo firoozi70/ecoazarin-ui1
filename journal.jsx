@@ -61,11 +61,11 @@ function JournalContent() {
 
       {/* stats grid */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
-        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">سود/زیان کل</div><div className={`text-[22px] font-extrabold mt-1 stat-num ${stats.totalPnl>=0?'text-brand-green':'text-brand-red'}`}>{stats.totalPnl>=0?'+':''}{stats.totalPnl.toLocaleString('fa-IR')}<span className="text-[12px] font-medium text-zinc-500 mr-1">$</span></div></div>
-        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">نرخ برد</div><div className="text-[22px] font-extrabold mt-1 stat-num">{stats.wr}<span className="text-[12px] font-medium text-zinc-500 mr-0.5">٪</span></div><div className="h-1.5 mt-2 bg-ink-700 rounded-full overflow-hidden"><div className="h-full bg-gradient-to-l from-brand-green to-emerald-400" style={{width:stats.wr+'%'}} /></div></div>
+        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">سود/زیان کل</div><div className={`text-[22px] font-extrabold mt-1 stat-num ${stats.totalPnl>=0?'text-brand-green':'text-brand-red'}`}>{stats.totalPnl>=0?'+':''}{stats.totalPnl.toLocaleString('fa-IR')}<span className="text-[12px] font-medium text-zinc-500 me-1">$</span></div></div>
+        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">نرخ برد</div><div className="text-[22px] font-extrabold mt-1 stat-num">{stats.wr}<span className="text-[12px] font-medium text-zinc-500 me-0.5">٪</span></div><div className="h-1.5 mt-2 bg-ink-700 rounded-full overflow-hidden"><div className="h-full bg-gradient-to-l from-brand-green to-emerald-400" style={{width:stats.wr+'%'}} /></div></div>
         <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">میانگین R</div><div className="text-[22px] font-extrabold mt-1 stat-num">{stats.avgR}</div></div>
-        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">میانگین برد</div><div className="text-[22px] font-extrabold mt-1 stat-num text-brand-green">+{stats.avgWin}<span className="text-[12px] font-medium text-zinc-500 mr-0.5">$</span></div></div>
-        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">میانگین زیان</div><div className="text-[22px] font-extrabold mt-1 stat-num text-brand-red">−{stats.avgLoss}<span className="text-[12px] font-medium text-zinc-500 mr-0.5">$</span></div></div>
+        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">میانگین برد</div><div className="text-[22px] font-extrabold mt-1 stat-num text-brand-green">+{stats.avgWin}<span className="text-[12px] font-medium text-zinc-500 me-0.5">$</span></div></div>
+        <div className="bg-ink-800 border border-ink-500 rounded-xl p-4"><div className="text-[10.5px] text-zinc-500">میانگین زیان</div><div className="text-[22px] font-extrabold mt-1 stat-num text-brand-red">−{stats.avgLoss}<span className="text-[12px] font-medium text-zinc-500 me-0.5">$</span></div></div>
       </div>
 
       {/* view tabs */}
@@ -102,7 +102,7 @@ function JournalContent() {
                     <span className={`text-[10.5px] px-2 py-0.5 rounded-md font-bold ${t.side==='long'?'bg-brand-green/15 text-brand-green':'bg-brand-red/15 text-brand-red'}`}>{t.side==='long'?'خرید (Long)':'فروش (Short)'}</span>
                     <span className="text-[10.5px] px-2 py-0.5 rounded-md bg-ink-700 text-zinc-300">#{t.tag}</span>
                     <span className="text-[20px]">{t.mood}</span>
-                    <span className="text-[10.5px] text-zinc-500 mr-auto ltr-num">{t.date}</span>
+                    <span className="text-[10.5px] text-zinc-500 me-auto ltr-num">{t.date}</span>
                   </div>
                   <p className="text-[12.5px] text-zinc-400 leading-6 line-clamp-2">{t.notes}</p>
                   <div className="flex items-center gap-4 mt-2.5 text-[11.5px] text-zinc-500">
@@ -112,7 +112,7 @@ function JournalContent() {
                   </div>
                 </div>
                 <div className="md:text-left flex md:flex-col items-center md:items-end gap-3 md:gap-1 md:min-w-[120px] md:border-r md:border-ink-500/60 md:pr-4">
-                  <div className={`text-[20px] md:text-[24px] font-extrabold stat-num ${t.pnl>=0?'text-brand-green':'text-brand-red'}`}>{t.pnl>=0?'+':''}{t.pnl}<span className="text-[12px] mr-1 font-medium text-zinc-500">$</span></div>
+                  <div className={`text-[20px] md:text-[24px] font-extrabold stat-num ${t.pnl>=0?'text-brand-green':'text-brand-red'}`}>{t.pnl>=0?'+':''}{t.pnl}<span className="text-[12px] me-1 font-medium text-zinc-500">$</span></div>
                   <div className={`text-[11.5px] font-bold ${t.r>=0?'text-brand-green':'text-brand-red'}`}>{t.r>=0?'+':''}{t.r}R</div>
                 </div>
               </div>

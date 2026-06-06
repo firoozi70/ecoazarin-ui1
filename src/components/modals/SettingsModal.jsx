@@ -39,7 +39,7 @@ const SettingsModal = ({ user, onClose }) => {
       className={`relative w-11 h-6 rounded-full transition ${on ? "bg-brand-green" : "bg-ink-500"}`}
     >
       <span
-        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${on ? "right-0.5" : "right-[calc(100%-1.375rem)]"}`}
+        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${on ? "end-0.5" : "end-[calc(100%-1.375rem)]"}`}
       />
     </button>
   );
@@ -66,13 +66,13 @@ const SettingsModal = ({ user, onClose }) => {
     >
       <div className="grid md:grid-cols-[200px_1fr] min-h-[480px]">
         {/* sidebar */}
-        <aside className="bg-ink-900/50 border-l border-ink-500 p-2 overflow-x-auto md:overflow-visible">
+        <aside className="bg-ink-900/50 border-s border-ink-500 p-2 overflow-x-auto md:overflow-visible">
           <div className="flex md:flex-col gap-1">
             {TABS.map((s) => (
               <button
                 key={s.id}
                 onClick={() => setTab(s.id)}
-                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-right whitespace-nowrap transition ${tab === s.id ? "bg-brand-red/15 text-white border border-brand-red/30" : "text-zinc-400 hover:bg-ink-700 hover:text-white"}`}
+                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-end whitespace-nowrap transition ${tab === s.id ? "bg-brand-red/15 text-white border border-brand-red/30" : "text-zinc-400 hover:bg-ink-700 hover:text-white"}`}
               >
                 <span className="text-[15px]">{s.icon}</span>
                 <span className="flex-1">{lang === "EN" ? s.en : s.fa}</span>

@@ -51,7 +51,7 @@ function ToolsContent(){
             </div>
             <div className="flex items-center gap-2 text-[10.5px] text-zinc-500 mb-3"><span className="text-amber-400">★ {t.rating}</span><span>·</span><span>{t.sales.toLocaleString('fa-IR')} فروش</span></div>
             <div className="flex items-end justify-between pt-3 border-t border-ink-500/60">
-              <div>{t.oldPrice && <div className="text-[10.5px] text-zinc-500 line-through num-display">{t.oldPrice}</div>}<div className="text-[15px] font-extrabold stat-num text-brand-green">{t.price}<span className="text-[10px] font-medium text-zinc-500 mr-1">{t.price==='رایگان'?'':'تومان'}</span></div></div>
+              <div>{t.oldPrice && <div className="text-[10.5px] text-zinc-500 line-through num-display">{t.oldPrice}</div>}<div className="text-[15px] font-extrabold stat-num text-brand-green">{t.price}<span className="text-[10px] font-medium text-zinc-500 me-1">{t.price==='رایگان'?'':'تومان'}</span></div></div>
               <button className="h-9 px-4 rounded-lg bg-brand-green text-black text-[12px] font-bold hover:bg-brand-greenSoft">خرید</button>
             </div>
           </article>

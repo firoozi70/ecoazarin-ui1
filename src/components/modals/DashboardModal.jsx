@@ -181,7 +181,7 @@ const DashboardModal = ({ user, onClose }) => {
                   <div className="flex-1">
                     <Sparkline up={w.dir === "up"} />
                   </div>
-                  <div className="text-left">
+                  <div className="text-start">
                     <div className="num-display text-[12.5px] font-bold">
                       {w.price}
                     </div>
@@ -217,7 +217,7 @@ const DashboardModal = ({ user, onClose }) => {
                     >
                       {tr.side}
                     </span>
-                    <span className="text-[10.5px] text-zinc-500 mr-auto">
+                    <span className="text-[10.5px] text-zinc-500 me-auto">
                       {tr.time}
                     </span>
                   </div>

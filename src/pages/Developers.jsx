@@ -54,12 +54,12 @@ export function DevelopersPage() {
       <nav className="fixed top-0 w-full border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl z-50">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-8">
-            <a href="hero.html" className="flex items-center gap-3 text-white group">
+            <a href="/" className="flex items-center gap-3 text-white group">
               <div className="w-10 h-10 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 group-hover:bg-white/10 transition-colors">
                 <Hexagon size={22} className="text-brand-green" />
               </div>
               <div>
-                <div className="font-bold tracking-tight text-[15px]">EcoAzarin</div>
+                <div className="font-bold tracking-tight text-[15px]">Eco Azarin</div>
                 <div className="text-[11px] font-mono text-zinc-500 tracking-widest">{isEn ? 'DEVELOPERS' : 'توسعه‌دهندگان'}</div>
               </div>
             </a>
@@ -73,7 +73,7 @@ export function DevelopersPage() {
           
           <div className="flex items-center gap-4">
             <LangToggle />
-            <a href="hero.html" className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-zinc-300 hover:text-white hover:bg-white/20 transition-colors">
+            <a href="/" className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 text-zinc-300 hover:text-white hover:bg-white/20 transition-colors">
               {isEn ? <ArrowLeft size={18} /> : <ArrowRight size={18} />}
             </a>
             <button className="hidden md:flex items-center gap-2 bg-brand-green text-black px-6 py-2.5 rounded-lg font-bold text-[14px] hover:bg-brand-green/90 transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]">
@@ -86,7 +86,7 @@ export function DevelopersPage() {
 
       {/* Hero Section */}
       <section className="pt-40 pb-20 px-6 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-brand-green/20 blur-[150px] rounded-full pointer-events-none -z-10 opacity-50" />
+        <div className="absolute top-1/2 start-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-brand-green/20 blur-[150px] rounded-full pointer-events-none -z-10 opacity-50" />
         
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -104,8 +104,8 @@ export function DevelopersPage() {
             
             <p className="text-lg text-zinc-400 leading-relaxed mb-10 max-w-xl">
               {isEn 
-                ? 'Integrate EcoAzarin\'s ultra-low latency market data and trading execution into your own scripts, apps, and quant models in minutes.'
-                : 'داده‌های زنده بازار و اتصال به هسته معاملات EcoAzarin را در کمترین زمان با بالاترین سرعت در اسکریپت‌ها و اپلیکیشن‌های خود ادغام کنید.'}
+                ? 'Integrate Eco Azarin\'s ultra-low latency market data and trading execution into your own scripts, apps, and quant models in minutes.'
+                : 'داده‌های زنده بازار و اتصال به هسته معاملات Eco Azarin را در کمترین زمان با بالاترین سرعت در اسکریپت‌ها و اپلیکیشن‌های خود ادغام کنید.'}
             </p>
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -129,20 +129,20 @@ export function DevelopersPage() {
           >
             <div className="absolute inset-0 bg-gradient-to-b from-brand-green/5 to-transparent pointer-events-none" />
             <div className="h-12 border-b border-white/10 bg-white/5 flex items-center px-4 gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-400/20 border border-red-400/50" />
+              <div className="w-3 h-3 rounded-full bg-red-400/20 border border-eed-400/50" />
               <div className="w-3 h-3 rounded-full bg-amber-400/20 border border-amber-400/50" />
               <div className="w-3 h-3 rounded-full bg-brand-green/20 border border-brand-green/50" />
-              <div className="ml-4 font-mono text-[12px] text-zinc-500">api.ecoazarin.com</div>
+              <div className="ms-4 font-mono text-[12px] text-zinc-500">api.ecoazarin.com</div>
             </div>
             
             <div className="flex">
               {/* Sidebar Tabs */}
-              <div className="w-1/3 border-r border-white/10 bg-white/[0.02] p-2 flex flex-col gap-1 min-h-[400px]">
+              <div className="w-1/3 border-e border-white/10 bg-white/[0.02] p-2 flex flex-col gap-1 min-h-[400px]">
                 {MOCK_ENDPOINTS.map(ep => (
                   <button 
                     key={ep.id}
                     onClick={() => setActiveTab(ep.id)}
-                    className={`flex flex-col items-start p-3 rounded-lg text-left transition-colors ${
+                    className={`flex flex-col items-start p-3 rounded-lg text-start transition-colors ${
                       activeTab === ep.id 
                         ? 'bg-white/10 border border-white/5' 
                         : 'hover:bg-white/5 border border-transparent'
@@ -160,7 +160,7 @@ export function DevelopersPage() {
               
               {/* Code Area */}
               <div className="w-2/3 p-6 relative">
-                <button onClick={() => copyCode(activeData.res)} className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 transition">
+                <button onClick={() => copyCode(activeData.res)} className="absolute top-4 end-4 p-2 rounded-lg bg-white/5 hover:bg-white/10 text-zinc-400 transition">
                   {copied ? <Check size={16} className="text-brand-green" /> : <Copy size={16} />}
                 </button>
                 <div className="mb-6">
@@ -188,8 +188,8 @@ export function DevelopersPage() {
             </h2>
             <p className="text-zinc-400 text-[15px] max-w-2xl leading-relaxed">
               {isEn 
-                ? 'Our SDK brings the full power of EcoAzarin to your application with just a few lines of code. Authentication, rate-limiting, and error handling are fully managed.'
-                : 'کتابخانه نرم‌افزاری ما تمام قدرت اکوآذرین را تنها با چند خط کد به برنامه شما می‌آورد. احراز هویت، محدودیت درخواست‌ها و مدیریت خطاها به‌طور کامل خودکارسازی شده‌اند.'}
+                ? 'Our SDK brings the full power of Eco Azarin to your application with just a few lines of code. Authentication, rate-limiting, and error handling are fully managed.'
+                : 'کتابخانه نرم‌افزاری ما تمام قدرت اکو آذرین را تنها با چند خط کد به برنامه شما می‌آورد. احراز هویت، محدودیت درخواست‌ها و مدیریت خطاها به‌طور کامل خودکارسازی شده‌اند.'}
             </p>
           </div>
 
@@ -287,7 +287,7 @@ export function DevelopersPage() {
       
       {/* Pricing Section */}
       <section className="py-24 border-t border-white/5 bg-[#050505] relative overflow-hidden">
-        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-brand-green/10 blur-[120px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute top-0 end-1/4 w-[500px] h-[500px] bg-brand-green/10 blur-[120px] rounded-full pointer-events-none -z-10" />
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
@@ -332,7 +332,7 @@ export function DevelopersPage() {
 
             {/* Pro Tier */}
             <div className="rounded-3xl border border-brand-green/50 bg-brand-green/5 p-8 relative flex flex-col shadow-[0_0_40px_rgba(16,185,129,0.1)]">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-1 bg-brand-green text-black text-[11px] font-bold rounded-full uppercase tracking-wider">
+              <div className="absolute top-0 start-1/2 -translate-x-1/2 -translate-y-1/2 px-3 py-1 bg-brand-green text-black text-[11px] font-bold rounded-full uppercase tracking-wider">
                 {isEn ? 'Recommended' : 'پیشنهاد ما'}
               </div>
               <div className="font-mono text-[12px] text-brand-green mb-2 uppercase tracking-widest">{isEn ? 'Pro Trader' : 'معامله‌گر حرفه‌ای'}</div>
@@ -399,7 +399,7 @@ export function DevelopersPage() {
 
       {/* Footer minimal */}
       <footer className="border-t border-white/5 py-8 text-center text-zinc-600 text-[13px] font-mono">
-        © 2026 EcoAzarin Developers Platform. All rights reserved.
+        © 2026 Eco Azarin Developers Platform. All rights reserved.
       </footer>
     </div>
   );

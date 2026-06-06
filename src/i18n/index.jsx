@@ -39,7 +39,7 @@ const FA_DICT = {
   loginErr2: "نام و رمز معتبر وارد کنید (حداقل ۴ کاراکتر).",
   breakingNews: "خبر فوری",
   allNews: "همه اخبار",
-  appTitle: "eco azarin",
+  appTitle: "Eco Azarin",
   appSubtitle: "مسیر هوشمند سرمایه",
   searchAll: "جستجو در همهٔ بخش‌های سایت…",
   seeAll: "بیشتر ‹",
@@ -132,7 +132,7 @@ const EN_DICT = {
   loginErr2: "Enter valid name and password (min 4 bounds).",
   breakingNews: "Breaking News",
   allNews: "All News",
-  appTitle: "eco azarin",
+  appTitle: "Eco Azarin",
   appSubtitle: "smart finance hub",
   searchAll: "Search across the site...",
   seeAll: "See all ‹",
@@ -211,27 +211,46 @@ const getLang = () => {
 export const t = (k) => {
   const L = getLang();
   const val = (DICT[L] && DICT[L][k]) || DICT.FA[k] || k;
-  // console.log("translate:", k, "->", val, "Lang:", L);
   return val;
 };
 window.t = t;
 export const __ECO_LANG = getLang();
 window.__ECO_LANG = __ECO_LANG;
 
+// Immediately enforce HTML attributes on script load
+const initLang = getLang();
+document.documentElement.setAttribute("lang", initLang === "EN" ? "en" : "fa");
+document.documentElement.setAttribute("dir", initLang === "EN" ? "ltr" : "rtl");
+
+// Global event listener for imperative layout changes
+window.addEventListener("eco-lang-change", (e) => {
+  const l = e.detail;
+  document.documentElement.setAttribute("lang", l === "EN" ? "en" : "fa");
+  document.documentElement.setAttribute("dir", l === "EN" ? "ltr" : "rtl");
+});
+
 // ============== USE LANG HOOK ==============
 const useLang = () => {
-  const [lang, setLang] = useState(getLang);
-  useEffect(() => {
+  const [lang, setLangState] = useState(getLang);
+
+  const setLang = useCallback((newLang) => {
+    setLangState(newLang);
     try {
-      localStorage.setItem("eco-lang", lang);
+      localStorage.setItem("eco-lang", newLang);
     } catch (e) {}
-    document.documentElement.setAttribute("lang", lang === "EN" ? "en" : "fa");
-    document.documentElement.setAttribute("dir", lang === "EN" ? "ltr" : "rtl");
-    window.__ECO_LANG = lang;
-    window.dispatchEvent(new CustomEvent("eco-lang-change", { detail: lang }));
-  }, [lang]);
+    window.__ECO_LANG = newLang;
+    window.dispatchEvent(new CustomEvent("eco-lang-change", { detail: newLang }));
+  }, []);
+
+  useEffect(() => {
+    const onChange = (e) => setLangState(e.detail);
+    window.addEventListener("eco-lang-change", onChange);
+    return () => window.removeEventListener("eco-lang-change", onChange);
+  }, []);
+
   return [lang, setLang];
 };
+
 // Force re-render of any component when lang changes
 const useLangRefresh = () => {
   const [, force] = useState(0);
@@ -246,7 +265,6 @@ const LangToggle = ({ className }) => {
   const [lang, setLang] = useLang();
   const onPick = (l) => {
     setLang(l);
-    setTimeout(() => window.location.reload(), 60);
   };
   return (
     <div
@@ -254,7 +272,7 @@ const LangToggle = ({ className }) => {
       role="group"
       aria-label={DICT[lang] && DICT[lang].langLabel}
     >
-      <div className="hidden sm:flex bg-ink-700 light:bg-zinc-100/80 rounded-full p-1 text-[11px] font-mono">
+      <div className="hidden sm:flex bg-ink-700 light:bg-zinc-100/80 rounded-full p-1 text-[11px] font-mono" dir="ltr">
         {["EN", "FA"].map((l) => (
           <button
             key={l}

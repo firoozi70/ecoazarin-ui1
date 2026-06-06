@@ -1,17 +1,18 @@
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 import * as Recharts from 'recharts';
-
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-
-const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 import { motion, AnimatePresence } from 'motion/react';
 import { PageShell } from '../layouts/PageShell';
 import { IconEye, IconClock, IconShare2, IconBookmark, IconChevronLeft, IconChevronRight, IconArrowLeft } from '../components/ui/Icons';
+import { useLang, useLangRefresh } from '../i18n';
 
-
-
+const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 
 function ArticleApp() {
+  const [lang] = useLang();
+  useLangRefresh();
+  const isEn = lang === 'EN';
+
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showGoTop, setShowGoTop] = useState(false);
 
@@ -40,13 +41,13 @@ function ArticleApp() {
   };
 
   const article = {
-    title: "مفهوم سود مرکب چیست و چرا نباید آن را نادیده گرفت؟",
-    kicker: "مدیریت سرمایه",
-    date: "۱۲ بهمن ۱۴۰۲",
+    title: isEn ? "What is Compound Interest and Why You Shouldn't Ignore It?" : "مفهوم سود مرکب چیست و چرا نباید آن را نادیده گرفت؟",
+    kicker: isEn ? "Capital Management" : "مدیریت سرمایه",
+    date: isEn ? "Feb 1, 2024" : "۱۲ بهمن ۱۴۰۲",
     views: "18,400",
-    timeToRead: "۵ دقیقه مطالعه",
-    commentsCount: "۰ دیدگاه",
-    author: "روا ژورنال",
+    timeToRead: isEn ? "5 min read" : "۵ دقیقه مطالعه",
+    commentsCount: isEn ? "0 comments" : "۰ دیدگاه",
+    author: isEn ? "Rava Journal" : "روا ژورنال",
     image:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
   };
@@ -54,7 +55,7 @@ function ArticleApp() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 right-0 h-1 z-[9999] pointer-events-none transition-opacity duration-300 ${scrollProgress > 2 ? "opacity-100" : "opacity-0"}`}
+        className={`fixed top-0 start-0 end-0 h-1 z-[9999] pointer-events-none transition-opacity duration-300 ${scrollProgress > 2 ? "opacity-100" : "opacity-0"}`}
       >
         <div
           className="h-full bg-brand-green transition-all duration-150 ease-out"
@@ -85,47 +86,47 @@ function ArticleApp() {
                   <line x1="3" y1="12" x2="3.01" y2="12"></line>
                   <line x1="3" y1="18" x2="3.01" y2="18"></line>
                 </svg>
-                <h3 className="font-bold text-[14px]">فهرست مطالب</h3>
+                <h3 className="font-bold text-[14px]">{isEn ? "Table of Contents" : "فهرست مطالب"}</h3>
               </div>
-              <ul className="space-y-3 text-[13px] text-zinc-400 light:text-zinc-600 font-medium">
+              <ul className="space-y-3 text-[13px] text-zinc-400 light:text-zinc-600 font-medium text-start">
                 <li>
                   <a
                     href="#intro"
-                    className="block hover:text-brand-green transition-colors text-white light:text-zinc-900 font-bold border-r-2 border-brand-green pr-2"
+                    className={`block hover:text-brand-green transition-colors text-white light:text-zinc-900 font-bold border-${isEn?'s':'e'}-2 border-brand-green p${isEn?'s':'e'}-2`}
                   >
-                    سود مرکب چیست؟
+                    {isEn ? "What is Compound Interest?" : "سود مرکب چیست؟"}
                   </a>
                 </li>
                 <li>
                   <a
                     href="#intro-2"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className={`block hover:text-brand-green transition-colors p${isEn?'s':'e'}-2`}
                   >
-                    مقدمه
+                    {isEn ? "Introduction" : "مقدمه"}
                   </a>
                 </li>
                 <li>
                   <a
                     href="#why"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className={`block hover:text-brand-green transition-colors p${isEn?'s':'e'}-2`}
                   >
-                    چگونه سود روی سود می‌آید؟
+                    {isEn ? "How it Compounds?" : "چگونه سود روی سود می‌آید؟"}
                   </a>
                 </li>
                 <li>
                   <a
                     href="#comparison"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className={`block hover:text-brand-green transition-colors p${isEn?'s':'e'}-2`}
                   >
-                    مقایسه سود ساده و مرکب
+                    {isEn ? "Simple vs Compound" : "مقایسه سود ساده و مرکب"}
                   </a>
                 </li>
                 <li>
                   <a
                     href="#conclusion"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className={`block hover:text-brand-green transition-colors p${isEn?'s':'e'}-2`}
                   >
-                    جمع‌بندی
+                    {isEn ? "Conclusion" : "جمع‌بندی"}
                   </a>
                 </li>
               </ul>
@@ -133,41 +134,45 @@ function ArticleApp() {
 
             {/* VIP Banner */}
             <div className="relative rounded-2xl overflow-hidden border border-brand-red/30 bg-ink-900 light:bg-[#fef2f2] p-6 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-red/10 blur-[40px] rounded-full"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-brand-red/10 blur-[30px] rounded-full"></div>
+              <div className="absolute top-0 end-0 w-32 h-32 bg-brand-red/10 blur-[40px] rounded-full"></div>
+              <div className="absolute bottom-0 start-0 w-24 h-24 bg-brand-red/10 blur-[30px] rounded-full"></div>
 
               <div className="relative z-10 flex flex-col items-center text-center">
                 <span className="bg-brand-red text-white text-[11px] font-bold px-3 py-1 rounded-full mb-4 shadow-sm inline-block tracking-wide">
-                  تخفیف ویژه
+                  {isEn ? "Special Discount" : "تخفیف ویژه"}
                 </span>
                 <h3 className="text-lg font-extrabold text-white light:text-zinc-900 mb-2 title-font">
-                  اشتراک طلایی اکو آذرین
+                  {isEn ? "EcoAzarin Gold Sub" : "اشتراک طلایی اکو آذرین"}
                 </h3>
                 <p className="text-[13px] text-zinc-400 light:text-zinc-600 mb-6 leading-relaxed">
-                  دسترسی نامحدود به تمامی تحلیل‌های ویژه، سبدهای پیشنهادی و
-                  سیگنال‌های اختصاصی.
+                  {isEn ? "Unlimited access to premium analysis, suggested portfolios, and exclusive signals." : "دسترسی نامحدود به تمامی تحلیل‌های ویژه، سبدهای پیشنهادی و سیگنال‌های اختصاصی."}
                 </p>
                 <a
                   href="#"
                   className="w-full h-11 bg-brand-red hover:bg-brand-red/90 text-white flex items-center justify-center rounded-xl font-bold text-[14px] transition-colors shadow-[0_4px_12px_rgba(239,68,68,0.25)]"
                 >
-                  جزئیات و خرید اشتراک VIP
+                  {isEn ? "Get VIP Access" : "جزئیات و خرید اشتراک VIP"}
                 </a>
               </div>
             </div>
 
             {/* Latest News inside sidebar */}
             <div className="bg-ink-800/50 light:bg-zinc-50 border border-ink-500 light:border-zinc-200 rounded-2xl p-6 hidden lg:block shadow-sm">
-              <h3 className="text-[15px] font-bold text-white light:text-zinc-900 mb-6 border-r-2 border-brand-red pr-3">
-                آخرین اخبار و مقالات
+              <h3 className={`text-[15px] font-bold text-white light:text-zinc-900 mb-6 border-${isEn?'s':'e'}-2 border-brand-red p${isEn?'s':'e'}-3 text-start`}>
+                {isEn ? "Latest Articles" : "آخرین اخبار و مقالات"}
               </h3>
-              <ul className="space-y-4">
-                {[
+              <ul className="space-y-4 text-start">
+                {(isEn ? [
+                  "Prop Fund Daily Drawdown Trap; Save your account with one click!",
+                  "Prop Fund EA: Automatic compliance with risk management rules",
+                  "Why risk management without trader behavior analysis is incomplete?",
+                  "Introducing Rava Smart Journal EA: Risk Management",
+                ] : [
                   "تله دردادون روزانه پراپ فاند؛ نجات حساب با یک کلیک!",
                   "اکسپرت پراپ فاند: رعایت خودکار قوانین مدیریت ریسک",
                   "چرا مدیریت سرمایه بدون تحلیل رفتار معامله‌گر ناقص است؟",
                   "معرفی اکسپرت ژورنال هوشمند روا:مدیریت ریسک",
-                ].map((title, i) => (
+                ]).map((title, i) => (
                   <li
                     key={i}
                     className="group border-b border-ink-500/50 light:border-zinc-200 pb-4 last:border-0 last:pb-0"
@@ -191,17 +196,17 @@ function ArticleApp() {
                 href="/"
                 className="hover:text-white light:hover:text-black transition-colors"
               >
-                خانه
+                {isEn ? "Home" : "خانه"}
               </a>
-              <IconChevronLeft size={14} />
+              {isEn ? <IconChevronRight size={14} /> : <IconChevronLeft size={14} />}
               <a
                 href="/"
                 className="hover:text-white light:hover:text-black transition-colors"
               >
-                وبلاگ
+                {isEn ? "Blog" : "وبلاگ"}
               </a>
-              <IconChevronLeft size={14} />
-              <span className="text-zinc-300 light:text-zinc-800 truncate min-w-0 flex-1">
+              {isEn ? <IconChevronRight size={14} /> : <IconChevronLeft size={14} />}
+              <span className="text-zinc-300 light:text-zinc-800 truncate min-w-0 flex-1 text-start">
                 {article.title}
               </span>
             </nav>
@@ -215,7 +220,7 @@ function ArticleApp() {
                 />
               </div>
 
-              <h1 className="text-2xl md:text-3xl lg:text-[32px] font-extrabold leading-[1.6] text-white light:text-zinc-900 tracking-tight title-font">
+              <h1 className="text-2xl md:text-3xl lg:text-[32px] font-extrabold leading-[1.6] text-white light:text-zinc-900 tracking-tight title-font text-start">
                 {article.title}
               </h1>
 
@@ -245,75 +250,64 @@ function ArticleApp() {
               </div>
             </header>
 
-            <div className="prose prose-invert prose-lg max-w-none prose-p:leading-[2.2] prose-p:text-zinc-300 light:prose-p:text-zinc-700 prose-p:text-[15px] md:prose-p:text-[16px] prose-a:text-brand-green prose-h2:text-white light:prose-h2:text-zinc-900 prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:font-extrabold prose-h3:text-xl prose-h3:text-white light:prose-h3:text-zinc-900 prose-h3:font-bold prose-ul:text-zinc-300 light:prose-ul:text-zinc-700 prose-ul:leading-loose">
+            <div className="prose prose-invert prose-lg max-w-none prose-p:leading-[2.2] prose-p:text-zinc-300 light:prose-p:text-zinc-700 prose-p:text-[15px] md:prose-p:text-[16px] prose-a:text-brand-green prose-h2:text-white light:prose-h2:text-zinc-900 prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-10 prose-h2:font-extrabold prose-h3:text-xl prose-h3:text-white light:prose-h3:text-zinc-900 prose-h3:font-bold prose-ul:text-zinc-300 light:prose-ul:text-zinc-700 prose-ul:leading-loose text-start">
               <h2 id="intro" className="title-font">
-                سود مرکب چیست؟
+                {isEn ? "What is Compound Interest?" : "سود مرکب چیست؟"}
               </h2>
               <p className="font-semibold text-zinc-100 light:text-zinc-900 text-lg">
-                آلبرت انیشتین زمانی سود مرکب را هشتمین عجایب جهان نامید. او
-                می‌گفت: «کسی که آن را درک کند، سودش را می‌برد و کسی که آن را درک
-                نکند، آن را پرداخت می‌کند.»
+                {isEn 
+                  ? "Albert Einstein once called compound interest the eighth wonder of the world. He said: \"He who understands it, earns it; he who doesn't, pays it.\""
+                  : "آلبرت انیشتین زمانی سود مرکب را هشتمین عجایب جهان نامید. او می‌گفت: «کسی که آن را درک کند، سودش را می‌برد و کسی که آن را درک نکند، آن را پرداخت می‌کند.»"}
               </p>
               <p>
-                بیشتر تازه‌واردان بازار سرمایه تصور می‌کنند برای ثروتمند شدن
-                نیاز به یک سرمایه اولیه هنگفت دارند. در حالی که راز اصلی
-                ثروت‌آفرینان بزرگ نهفته در درک مفهوم سود مرکب (Compound
-                Interest) است. سود مرکب یعنی سودی که روی سودهای قبلی شما اعمال
-                می‌شود و باعث رشد نمایی سرمایه‌تان می‌گردد.
+                {isEn 
+                  ? "Most capital market newcomers imagine they need a massive initial capital to get rich. While the core secret of great wealth creators lies in understanding the concept of Compound Interest. Compound interest means interest earned on top of previous interest, leading to exponential growth."
+                  : "بیشتر تازه‌واردان بازار سرمایه تصور می‌کنند برای ثروتمند شدن نیاز به یک سرمایه اولیه هنگفت دارند. در حالی که راز اصلی ثروت‌آفرینان بزرگ نهفته در درک مفهوم سود مرکب (Compound Interest) است. سود مرکب یعنی سودی که روی سودهای قبلی شما اعمال می‌شود و باعث رشد نمایی سرمایه‌تان می‌گردد."}
               </p>
               <p>
-                اجازه دهید با یک مثال ساده شروع کنیم. فرض کنید ۱۰۰ میلیون تومان
-                با نرخ سود ۲۰٪ سالانه سرمایه‌گذاری کرده‌اید. در سال اول سود شما
-                ۲۰ میلیون تومان خواهد بود. اگر این سود را برداشت کنید (سود
-                ساده)، سال دوم نیز فقط ۲۰ میلیون سود خواهید داشت. اما اگر اجازه
-                دهید آن ۲۰ میلیون در حساب شما بماند، در سال دوم سود شما روی ۱۲۰
-                میلیون تومان محاسبه می‌شود (سود مرکب) که برابر با ۲۴ میلیون
-                تومان خواهد بود.
+                {isEn
+                  ? "Let's start with a simple example. Suppose you invest 100 million Tomans with a 20% annual return rate. In the first year, your profit is 20m. If you withdraw it (simple interest), next year you just earn 20m. But if you let it compound, you earn 20% on 120m, reaching 24m."
+                  : "اجازه دهید با یک مثال ساده شروع کنیم. فرض کنید ۱۰۰ میلیون تومان با نرخ سود ۲۰٪ سالانه سرمایه‌گذاری کرده‌اید. در سال اول سود شما ۲۰ میلیون تومان خواهد بود. اگر این سود را برداشت کنید (سود ساده)، سال دوم نیز فقط ۲۰ میلیون سود خواهید داشت. اما اگر اجازه دهید آن ۲۰ میلیون در حساب شما بماند، در سال دوم سود شما روی ۱۲۰ میلیون تومان محاسبه می‌شود (سود مرکب) که برابر با ۲۴ میلیون تومان خواهد بود."}
               </p>
 
-              <h3 id="intro-2">فرمول جادویی سود مرکب</h3>
+              <h3 id="intro-2">{isEn ? "The Magic Formula" : "فرمول جادویی سود مرکب"}</h3>
               <p>
-                شاید در سال‌های اول تفاوت سود ساده با سود مرکب زیاد به نظر نرسد،
-                اما وقتی افق زمانی را به ۵ یا ۱۰ سال افزایش دهیم، نمودار رشد
-                سرمایه به شکل خیره‌کننده‌ای اوج می‌گیرد. در واقع زمان مهم‌ترین
-                متغیر در فرمول سود مرکب است.
+                {isEn
+                  ? "The difference may seem small early on, but increasing the timeline to 5 or 10 years causes capital scaling to skyrocket. Time is the most critical variable."
+                  : "شاید در سال‌های اول تفاوت سود ساده با سود مرکب زیاد به نظر نرسد، اما وقتی افق زمانی را به ۵ یا ۱۰ سال افزایش دهیم، نمودار رشد سرمایه به شکل خیره‌کننده‌ای اوج می‌گیرد. در واقع زمان مهم‌ترین متغیر در فرمول سود مرکب است."}
               </p>
 
-              <ul className="list-disc pl-0 pr-6 marker:text-brand-green space-y-2 mb-8">
+              <ul className={`list-disc p${isEn?'s':'e'}-6 p${isEn?'e':'s'}-0 marker:text-brand-green space-y-2 mb-8`}>
                 <li>
-                  سرمایه‌گذاری زودتر را شروع کنید تا زمان بیشتری برای مرکب شدن
-                  داشته باشید.
+                  {isEn ? "Start investing earlier to have more time for compounding." : "سرمایه‌گذاری زودتر را شروع کنید تا زمان بیشتری برای مرکب شدن داشته باشید."}
                 </li>
                 <li>
-                  به سودهای کوچک قانع باشید، ولی در بازه‌های زمانی متوالی آنها
-                  را تکرار کنید.
+                  {isEn ? "Be content with small, consistent gains." : "به سودهای کوچک قانع باشید، ولی در بازه‌های زمانی متوالی آنها را تکرار کنید."}
                 </li>
                 <li>
-                  سودهای حاصله را مدام مجددا سرمایه‌گذاری کنید و برداشت زودهنگام
-                  نداشته باشید.
+                  {isEn ? "Continuously reinvest profits and avoid early withdrawals." : "سودهای حاصله را مدام مجددا سرمایه‌گذاری کنید و برداشت زودهنگام نداشته باشید."}
                 </li>
                 <li>
-                  از ابزارهای محاسبه‌گر آنلاین برای درک بهتر قدرت سود مرکب
-                  استفاده نمایید.
+                  {isEn ? "Use online calculators to understand the power of compounding." : "از ابزارهای محاسبه‌گر آنلاین برای درک بهتر قدرت سود مرکب استفاده نمایید."}
                 </li>
               </ul>
 
-              <div className="bg-ink-800/40 light:bg-zinc-50 border-r-4 border-brand-green p-5 my-8 rounded-l-xl">
+              <div className={`bg-ink-800/40 light:bg-zinc-50 border-${isEn?'s':'e'}-4 border-brand-green p-5 my-8 rounded-${isEn?'r':'l'}-xl`}>
                 <p className="m-0 text-[14px]">
-                  <strong>مقاله مرتبط:</strong>{" "}
+                  <strong>{isEn ? "Related article:" : "مقاله مرتبط:"}</strong>{" "}
                   <a href="#">
-                    ابزار محاسبه‌گر سود مرکب سرمایه را حتماً بررسی کنید
+                    {isEn ? "Make sure to check the compound interest calculator." : "ابزار محاسبه‌گر سود مرکب سرمایه را حتماً بررسی کنید"}
                   </a>
                 </p>
               </div>
 
               <h2 id="comparison" className="title-font">
-                تفاوت اصلی سود ساده و مرکب
+                {isEn ? "Simple vs Compound Interest" : "تفاوت اصلی سود ساده و مرکب"}
               </h2>
               <p>
-                در سیستم سود ساده، شما تنها روی سپرده اولیه خود سود می‌گیرید. در
-                حالی که سود مرکب به عنوان یک "ماشین تولید ثروت" عمل می‌کند و
-                سودهای به دست آمده را مجدداً به چرخه تولید سود برمی‌گرداند.
+                {isEn 
+                  ? "In simple interest, you only gain on the principal. In compound, it acts as a \"wealth creation machine\" reinvesting profits back into the engine."
+                  : "در سیستم سود ساده، شما تنها روی سپرده اولیه خود سود می‌گیرید. در حالی که سود مرکب به عنوان یک \"ماشین تولید ثروت\" عمل می‌کند و سودهای به دست آمده را مجدداً به چرخه تولید سود برمی‌گرداند."}
               </p>
 
               <div className="relative rounded-xl overflow-hidden my-8 border border-ink-500 light:border-zinc-200">
@@ -325,19 +319,18 @@ function ArticleApp() {
               </div>
 
               <p>
-                همان‌طور که در نمودار بالا مشخص است، سرمایه‌گذارانی که از اصل
-                سود مرکب بهره می‌گیرند در درازمدت فاصله‌ای غیرقابل جبران با
-                سایرین پیدا می‌کنند.
+                {isEn
+                  ? "As visible in the chart, investors using compound principles create an insurmountable gap from others in the long run."
+                  : "همان‌طور که در نمودار بالا مشخص است، سرمایه‌گذارانی که از اصل سود مرکب بهره می‌گیرند در درازمدت فاصله‌ای غیرقابل جبران با سایرین پیدا می‌کنند."}
               </p>
 
               <h2 id="conclusion" className="title-font">
-                جمع‌بندی
+                {isEn ? "Conclusion" : "جمع‌بندی"}
               </h2>
               <p>
-                اگر مدام در حال برداشت سود معاملات خود هستید و آن را برای
-                هزینه‌های جاری زندگی صرف می‌کنید، در بهترین حالت درجا خواهید زد
-                و اثر جادویی سود مرکب را از دست می‌دهید. برای پیشرفت واقعی، باید
-                بخشی از سود را مجدد به گردش درآورید.
+                {isEn 
+                  ? "If you constantly withdraw trade profits for daily expenses, you lose the magic effect of compounding. To truly progress, reinvest part of those profits."
+                  : "اگر مدام در حال برداشت سود معاملات خود هستید و آن را برای هزینه‌های جاری زندگی صرف می‌کنید، در بهترین حالت درجا خواهید زد و اثر جادویی سود مرکب را از دست می‌دهید. برای پیشرفت واقعی، باید بخشی از سود را مجدد به گردش درآورید."}
               </p>
             </div>
 
@@ -385,30 +378,30 @@ function ArticleApp() {
                 href="#"
                 className="flex flex-col p-4 rounded-xl border border-ink-500 light:border-zinc-200 hover:border-ink-400 hover:bg-ink-800/40 light:hover:bg-zinc-50 transition"
               >
-                <span className="text-[11px] text-zinc-500 mb-1 flex items-center gap-1">
-                  <IconChevronRight size={12} /> مقاله قبلی
+                <span className={`text-[11px] text-zinc-500 mb-1 flex items-center gap-1 flex-${isEn?'row':'row'}`}>
+                  {isEn ? <IconChevronLeft size={12} /> : <IconChevronRight size={12} />} {isEn ? "Previous Article" : "مقاله قبلی"}
                 </span>
-                <span className="text-[13px] font-bold text-white light:text-zinc-900 title-font">
-                  تله دردادون روزانه پراپ فاند؛ نجات حساب!
+                <span className="text-[13px] font-bold text-white light:text-zinc-900 title-font text-start">
+                  {isEn ? "Prop Fund Daily Drawdown Trap; Save your account!" : "تله دردادون روزانه پراپ فاند؛ نجات حساب!"}
                 </span>
               </a>
               <a
                 href="#"
-                className="flex flex-col p-4 rounded-xl border border-ink-500 light:border-zinc-200 hover:border-ink-400 hover:bg-ink-800/40 light:hover:bg-zinc-50 transition items-end text-left"
+                className="flex flex-col p-4 rounded-xl border border-ink-500 light:border-zinc-200 hover:border-ink-400 hover:bg-ink-800/40 light:hover:bg-zinc-50 transition items-end text-end"
               >
-                <span className="text-[11px] text-zinc-500 mb-1 flex items-center gap-1">
-                  مقاله بعدی <IconChevronLeft size={12} />
+                <span className={`text-[11px] text-zinc-500 mb-1 flex items-center gap-1 flex-${isEn?'row':'row'}`}>
+                  {isEn ? "Next Article" : "مقاله بعدی"} {isEn ? <IconChevronRight size={12} /> : <IconChevronLeft size={12} />}
                 </span>
-                <span className="text-[13px] font-bold text-white light:text-zinc-900 text-right title-font">
-                  اکسپرت پراپ فاند: رعایت خودکار قوانین مدیریت ریسک
+                <span className={`text-[13px] font-bold text-white light:text-zinc-900 title-font text-${isEn?'end':'end'}`}>
+                  {isEn ? "Prop Fund EA: Automatic Risk Compliance" : "اکسپرت پراپ فاند: رعایت خودکار قوانین مدیریت ریسک"}
                 </span>
               </a>
             </div>
 
             {/* Related Articles */}
-            <div className="mt-16">
+            <div className="mt-16 text-start">
               <h3 className="text-xl font-bold text-white light:text-zinc-900 mb-6 title-font border-b border-ink-500 light:border-zinc-200 pb-3">
-                مقالات مرتبط
+                {isEn ? "Related Articles" : "مقالات مرتبط"}
               </h3>
               <div className="grid sm:grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => (
@@ -421,10 +414,10 @@ function ArticleApp() {
                       />
                     </div>
                     <h4 className="text-[13.5px] font-bold leading-[1.6] text-white light:text-zinc-900 group-hover:text-brand-green transition-colors title-font line-clamp-2">
-                      تله دردادون روزانه پراپ فاند؛ نجات حساب با یک کلیک!
+                       {isEn ? "Prop Fund Daily Drawdown Trap; Save your account with one click!" : "تله دردادون روزانه پراپ فاند؛ نجات حساب با یک کلیک!"}
                     </h4>
-                    <span className="text-[11px] text-zinc-500">
-                      ۱۴۰۳/۱۲/۱۴
+                    <span className="text-[11px] text-zinc-500 ltr-num">
+                      {isEn ? "2024/02/10" : "۱۴۰۳/۱۲/۱۴"}
                     </span>
                   </a>
                 ))}
@@ -432,52 +425,51 @@ function ArticleApp() {
             </div>
 
             {/* Comments Section */}
-            <div className="mt-16 bg-ink-800/20 light:bg-zinc-50/50 rounded-2xl border border-ink-500 light:border-zinc-200 p-6 md:p-8">
+            <div className="mt-16 bg-ink-800/20 light:bg-zinc-50/50 rounded-2xl border border-ink-500 light:border-zinc-200 p-6 md:p-8 text-start">
               <h3 className="text-xl font-bold text-white light:text-zinc-900 mb-2 title-font">
-                دیدگاه‌ها
+                {isEn ? "Comments" : "دیدگاه‌ها"}
               </h3>
               <p className="text-[13px] text-zinc-400 mb-8 border-b border-ink-500 light:border-zinc-200 pb-6">
-                هنوز دیدگاهی برای این مقاله ثبت نشده است. اولین نفر باشید!
+                {isEn ? "No comments yet for this article. Be the first!" : "هنوز دیدگاهی برای این مقاله ثبت نشده است. اولین نفر باشید!"}
               </p>
 
               <h4 className="text-lg font-bold text-white light:text-zinc-900 mb-2 title-font">
-                دیدگاهتان را بنویسید
+                {isEn ? "Leave a Comment" : "دیدگاهتان را بنویسید"}
               </h4>
               <p className="text-[12px] text-zinc-500 mb-6">
-                نشانی ایمیل شما منتشر نخواهد شد. بخش‌های موردنیاز علامت‌گذاری
-                شده‌اند *
+                {isEn ? "Your email address will not be published. Required fields are marked *" : "نشانی ایمیل شما منتشر نخواهد شد. بخش‌های موردنیاز علامت‌گذاری شده‌اند *"}
               </p>
 
               <form className="space-y-4 max-w-2xl">
                 <div>
                   <label className="block text-[12px] text-zinc-400 mb-2">
-                    دیدگاه *
+                    {isEn ? "Comment *" : "دیدگاه *"}
                   </label>
                   <textarea
                     className="w-full h-32 bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-300 rounded-xl p-3 outline-none focus:border-brand-green text-[14px]"
-                    placeholder="متن دیدگاه..."
+                    placeholder={isEn ? "Write your comment..." : "متن دیدگاه..."}
                   ></textarea>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[12px] text-zinc-400 mb-2">
-                      نام *
+                      {isEn ? "Name *" : "نام *"}
                     </label>
                     <input className="w-full h-11 bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-300 rounded-xl px-4 outline-none focus:border-brand-green text-[14px]" />
                   </div>
                   <div>
                     <label className="block text-[12px] text-zinc-400 mb-2">
-                      ایمیل *
+                      {isEn ? "Email *" : "ایمیل *"}
                     </label>
                     <input
                       type="email"
                       dir="ltr"
-                      className="w-full h-11 bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left outline-none focus:border-brand-green text-[14px]"
+                      className={`w-full h-11 bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-${isEn?'start':'end'} outline-none focus:border-brand-green text-[14px]`}
                     />
                   </div>
                 </div>
                 <button className="bg-brand-green text-black font-bold text-[14px] px-8 py-3 rounded-xl hover:bg-brand-greenSoft transition-colors mt-2">
-                  فرستادن دیدگاه
+                  {isEn ? "Submit Comment" : "فرستادن دیدگاه"}
                 </button>
               </form>
             </div>
@@ -486,7 +478,7 @@ function ArticleApp() {
 
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-6 left-6 w-12 h-12 bg-ink-800 border border-ink-500 light:bg-zinc-100 light:border-zinc-300 text-white light:text-zinc-900 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-40 hover:bg-brand-green hover:text-black hover:border-brand-green ${
+          className={`fixed bottom-6 start-6 w-12 h-12 bg-ink-800 border border-ink-500 light:bg-zinc-100 light:border-zinc-300 text-white light:text-zinc-900 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-40 hover:bg-brand-green hover:text-black hover:border-brand-green ${
             showGoTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10 pointer-events-none"

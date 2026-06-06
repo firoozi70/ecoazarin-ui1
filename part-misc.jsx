@@ -29,7 +29,7 @@ const ThemeToggle = () => {
       className="relative inline-flex items-center h-9 w-16 rounded-full bg-ink-700 light:bg-zinc-200 border border-ink-500 light:border-zinc-300 transition-colors"
     >
       <span
-        className={`absolute top-0.5 h-7 w-7 rounded-full transition-all duration-300 flex items-center justify-center ${dark ? "right-0.5 bg-ink-900 text-amber-300" : "right-[calc(100%-1.875rem)] bg-white text-amber-500 shadow-md"}`}
+        className={`absolute top-0.5 h-7 w-7 rounded-full transition-all duration-300 flex items-center justify-center ${dark ? "end-0.5 bg-ink-900 text-amber-300" : "end-[calc(100%-1.875rem)] bg-white text-amber-500 shadow-md"}`}
       >
         {dark ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -154,7 +154,7 @@ const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
             </span>
           ) : (
             <kbd
-              className="hidden md:inline-flex shrink-0 items-center justify-center h-[26px] min-w-[32px] px-2 rounded-md border border-ink-500 light:border-zinc-200 bg-ink-900/60 light:bg-zinc-50 text-[11px] font-mono font-medium text-zinc-400 light:text-zinc-500 tracking-wider shadow-sm mr-2"
+              className="hidden md:inline-flex shrink-0 items-center justify-center h-[26px] min-w-[32px] px-2 rounded-md border border-ink-500 light:border-zinc-200 bg-ink-900/60 light:bg-zinc-50 text-[11px] font-mono font-medium text-zinc-400 light:text-zinc-500 tracking-wider shadow-sm me-2"
               style={{ direction: "ltr" }}
             >
               {osKey}
@@ -163,7 +163,7 @@ const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
           {query ? (
             <button
               onClick={() => onQuery && onQuery("")}
-              className="text-zinc-500 hover:text-white shrink-0 mr-2"
+              className="text-zinc-500 hover:text-white shrink-0 me-2"
               aria-label="پاک کردن"
             >
               <IconClose size={16} />
@@ -180,7 +180,7 @@ const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
           {b.title}
         </h2>
         <span
-          className="absolute -left-6 -top-6 w-20 h-20 rounded-full opacity-30 pointer-events-none"
+          className="absolute -start-6 -top-6 w-20 h-20 rounded-full opacity-30 pointer-events-none"
           style={{
             background:
               "radial-gradient(closest-side, currentColor, transparent 70%)",

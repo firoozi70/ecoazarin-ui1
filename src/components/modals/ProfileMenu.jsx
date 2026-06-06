@@ -75,7 +75,7 @@ const ProfileMenu = ({ user, onLogout }) => {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-2 h-9 pr-1.5 pl-3 rounded-full bg-brand-green text-black hover:bg-brand-greenSoft transition shadow-[0_4px_14px_-6px_rgba(43,166,122,0.6)]"
+        className="inline-flex items-center gap-2 h-9 pe-1.5 ps-3 rounded-full bg-brand-green text-black hover:bg-brand-greenSoft transition shadow-[0_4px_14px_-6px_rgba(43,166,122,0.6)]"
       >
         <Avatar name={user.name} size={28} />
         <span
@@ -87,7 +87,7 @@ const ProfileMenu = ({ user, onLogout }) => {
       </button>
       {open && (
         <div
-          className="absolute top-11 left-0 w-[240px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
+          className="absolute top-11 start-0 w-[240px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
           style={{ animation: "fadein .15s ease-out both" }}
         >
           <div className="p-4 border-b border-ink-500 flex items-center gap-3">
@@ -107,7 +107,7 @@ const ProfileMenu = ({ user, onLogout }) => {
               <li key={i.id}>
                 <button
                   onClick={i.action}
-                  className={`w-full text-right px-3 py-2 rounded-lg flex items-center gap-2.5 ${i.highlight ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 font-bold" : "hover:bg-ink-700 text-zinc-300"}`}
+                  className={`w-full text-end px-3 py-2 rounded-lg flex items-center gap-2.5 ${i.highlight ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 font-bold" : "hover:bg-ink-700 text-zinc-300"}`}
                 >
                   <span className="text-[14px]">{i.icon}</span>
                   <span className="flex-1">{lang === "EN" ? i.en : i.fa}</span>
@@ -117,7 +117,7 @@ const ProfileMenu = ({ user, onLogout }) => {
             <li className="border-t border-ink-500/60 pt-1 mt-1">
               <button
                 onClick={onLogout}
-                className="w-full text-right px-3 py-2 rounded-lg hover:bg-brand-red/10 text-brand-redSoft flex items-center gap-2.5"
+                className="w-full text-end px-3 py-2 rounded-lg hover:bg-brand-red/10 text-brand-redSoft flex items-center gap-2.5"
               >
                 <span className="text-[14px]">↩</span>
                 <span>{t("logout")}</span>

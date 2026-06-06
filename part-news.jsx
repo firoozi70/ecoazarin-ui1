@@ -23,8 +23,8 @@ const BigNewsCarousel = () => {
             className="absolute inset-0 w-full h-full object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
-          <div className="absolute right-8 top-8 w-32 h-32 rounded-full orb-red opacity-30" />
-          <div className="absolute left-12 bottom-12 w-40 h-40 rounded-full orb-green opacity-20" />
+          <div className="absolute end-8 top-8 w-32 h-32 rounded-full orb-red opacity-30" />
+          <div className="absolute start-12 bottom-12 w-40 h-40 rounded-full orb-green opacity-20" />
         </div>
 
         {/* gradient overlay bottom */}
@@ -64,7 +64,7 @@ const BigNewsCarousel = () => {
         </div>
 
         {/* dots */}
-        <div className="absolute bottom-4 right-1/2 translate-x-1/2 flex gap-1.5 z-20">
+        <div className="absolute bottom-4 end-1/2 translate-x-1/2 flex gap-1.5 z-20">
           {list.map((_, i) => (
             <button
               key={i}
@@ -112,7 +112,7 @@ const NewsGrid = () => {
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
                   />
-                  <span className="absolute top-3 right-3 text-[11.5px] font-medium tracking-tight bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-1 text-white z-10">
+                  <span className="absolute top-3 end-3 text-[11.5px] font-medium tracking-tight bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-1 text-white z-10">
                     {it.kicker}
                   </span>
                 </a>

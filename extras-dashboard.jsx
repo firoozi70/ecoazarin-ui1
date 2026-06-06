@@ -59,7 +59,7 @@ const SettingsModal = ({ user, onClose }) => {
       className={`relative w-11 h-6 rounded-full transition ${on ? "bg-brand-green" : "bg-ink-500"}`}
     >
       <span
-        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${on ? "right-0.5" : "right-[calc(100%-1.375rem)]"}`}
+        className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all ${on ? "end-0.5" : "end-[calc(100%-1.375rem)]"}`}
       />
     </button>
   );
@@ -86,13 +86,13 @@ const SettingsModal = ({ user, onClose }) => {
     >
       <div className="grid md:grid-cols-[200px_1fr] min-h-[480px]">
         {/* sidebar */}
-        <aside className="bg-ink-900/50 border-l border-ink-500 p-2 overflow-x-auto md:overflow-visible">
+        <aside className="bg-ink-900/50 border-s border-ink-500 p-2 overflow-x-auto md:overflow-visible">
           <div className="flex md:flex-col gap-1">
             {TABS.map((s) => (
               <button
                 key={s.id}
                 onClick={() => setTab(s.id)}
-                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-right whitespace-nowrap transition ${tab === s.id ? "bg-brand-red/15 text-white border border-brand-red/30" : "text-zinc-400 hover:bg-ink-700 hover:text-white"}`}
+                className={`flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-[13px] text-end whitespace-nowrap transition ${tab === s.id ? "bg-brand-red/15 text-white border border-brand-red/30" : "text-zinc-400 hover:bg-ink-700 hover:text-white"}`}
               >
                 <span className="text-[15px]">{s.icon}</span>
                 <span className="flex-1">{lang === "EN" ? s.en : s.fa}</span>
@@ -659,7 +659,7 @@ const DashboardModal = ({ user, onClose }) => {
                   <div className="flex-1">
                     <Sparkline up={w.dir === "up"} />
                   </div>
-                  <div className="text-left">
+                  <div className="text-start">
                     <div className="num-display text-[12.5px] font-bold">
                       {w.price}
                     </div>
@@ -695,7 +695,7 @@ const DashboardModal = ({ user, onClose }) => {
                     >
                       {tr.side}
                     </span>
-                    <span className="text-[10.5px] text-zinc-500 mr-auto">
+                    <span className="text-[10.5px] text-zinc-500 me-auto">
                       {tr.time}
                     </span>
                   </div>
@@ -858,7 +858,7 @@ const UpgradeModal = ({ onClose }) => {
               >
                 {p.ribbon && (
                   <div
-                    className={`absolute -top-3 right-4 px-2.5 py-1 rounded-full text-[10.5px] font-bold ${c.tag}`}
+                    className={`absolute -top-3 end-4 px-2.5 py-1 rounded-full text-[10.5px] font-bold ${c.tag}`}
                   >
                     {p.ribbon}
                   </div>
@@ -975,7 +975,7 @@ const ProfileMenu = ({ user, onLogout }) => {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="inline-flex items-center gap-2 h-9 pr-1.5 pl-3 rounded-full bg-brand-green text-black hover:bg-brand-greenSoft transition shadow-[0_4px_14px_-6px_rgba(43,166,122,0.6)]"
+        className="inline-flex items-center gap-2 h-9 pe-1.5 ps-3 rounded-full bg-brand-green text-black hover:bg-brand-greenSoft transition shadow-[0_4px_14px_-6px_rgba(43,166,122,0.6)]"
       >
         <Avatar name={user.name} size={28} />
         <span
@@ -987,7 +987,7 @@ const ProfileMenu = ({ user, onLogout }) => {
       </button>
       {open && (
         <div
-          className="absolute top-11 left-0 w-[240px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
+          className="absolute top-11 start-0 w-[240px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
           style={{ animation: "fadein .15s ease-out both" }}
         >
           <div className="p-4 border-b border-ink-500 flex items-center gap-3">
@@ -1007,7 +1007,7 @@ const ProfileMenu = ({ user, onLogout }) => {
               <li key={i.id}>
                 <button
                   onClick={i.action}
-                  className={`w-full text-right px-3 py-2 rounded-lg flex items-center gap-2.5 ${i.highlight ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 font-bold" : "hover:bg-ink-700 text-zinc-300"}`}
+                  className={`w-full text-end px-3 py-2 rounded-lg flex items-center gap-2.5 ${i.highlight ? "bg-amber-500/10 text-amber-400 hover:bg-amber-500/20 font-bold" : "hover:bg-ink-700 text-zinc-300"}`}
                 >
                   <span className="text-[14px]">{i.icon}</span>
                   <span className="flex-1">{lang === "EN" ? i.en : i.fa}</span>
@@ -1017,7 +1017,7 @@ const ProfileMenu = ({ user, onLogout }) => {
             <li className="border-t border-ink-500/60 pt-1 mt-1">
               <button
                 onClick={onLogout}
-                className="w-full text-right px-3 py-2 rounded-lg hover:bg-brand-red/10 text-brand-redSoft flex items-center gap-2.5"
+                className="w-full text-end px-3 py-2 rounded-lg hover:bg-brand-red/10 text-brand-redSoft flex items-center gap-2.5"
               >
                 <span className="text-[14px]">↩</span>
                 <span>{t("logout")}</span>

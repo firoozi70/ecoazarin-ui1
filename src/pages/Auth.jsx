@@ -1,14 +1,12 @@
-import { t } from '../i18n/index';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { t, LangToggle, useLang, useLangRefresh } from '../i18n/index';
 import ReactDOM from 'react-dom/client';
 import * as Recharts from 'recharts';
-
-import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-
-const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 import { motion, AnimatePresence } from 'motion/react';
 import { BrandMark } from '../components/ui/Icons';
 import { ThemeToggle } from '../components/home/Misc';
-import { LangToggle } from '../i18n/index';
+
+const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 
 // =====================================================================
 // Auth — sign in, sign up, password recovery
@@ -20,6 +18,7 @@ const isEn = () => (typeof localStorage !== 'undefined' && localStorage.getItem(
 const grad = () => (isEn() ? 'bg-gradient-to-r' : 'bg-gradient-to-l');
 
 function AcceptTerms() {
+  useLangRefresh();
   const raw = t('acceptTerms');
   const [before, restAfterRules] = raw.split('{rules}');
   const [between, after] = (restAfterRules || '').split('{privacy}');
@@ -36,6 +35,9 @@ function AcceptTerms() {
 }
 
 function AuthApp() {
+  const [lang] = useLang();
+  useLangRefresh();
+  const isEnVal = lang === 'EN';
   const [view, setView] = useState('login');
   const [method, setMethod] = useState('password');
   const [context, setContext] = useState('');
@@ -43,12 +45,11 @@ function AuthApp() {
   const otpRefs = React.useRef([]);
 
   useEffect(() => {
-    const lang = localStorage.getItem('eco-lang') || 'FA';
-    document.documentElement.setAttribute('lang', lang === 'EN' ? 'en' : 'fa');
-    document.documentElement.setAttribute('dir', lang === 'EN' ? 'ltr' : 'rtl');
+    document.documentElement.setAttribute('lang', isEnVal ? 'en' : 'fa');
+    document.documentElement.setAttribute('dir', isEnVal ? 'ltr' : 'rtl');
     document.title = t('authPageTitle');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [view]);
+  }, [view, isEnVal]);
 
   const renderForm = () => {
     switch (view) {
@@ -92,7 +93,7 @@ function AuthApp() {
 
                 <div>
                   <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{t('mobileNumber')}</label>
-                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
                 </div>
 
                 {method === 'password' && (
@@ -101,7 +102,7 @@ function AuthApp() {
                       <label className="block text-[12.5px] font-medium text-zinc-400">{t('password')}</label>
                       <button type="button" onClick={() => setView('forgot')} className="text-[11.5px] font-bold text-brand-redSoft hover:text-brand-red transition-colors">{t('forgotPass')}</button>
                     </div>
-                    <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                    <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
                   </div>
                 )}
 
@@ -118,7 +119,7 @@ function AuthApp() {
               <div className="space-y-5 tab-anim">
                 <div>
                   <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{t('registerMobileLabel')}</label>
-                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
                 </div>
                 <button
                   onClick={() => { setContext('register'); setView('otp'); }}
@@ -143,7 +144,7 @@ function AuthApp() {
             </div>
             <div>
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{t('mobileNumber')}</label>
-              <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+              <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
             </div>
             <button
               onClick={() => { setContext('forgot'); setView('otp'); }}
@@ -222,7 +223,7 @@ function AuthApp() {
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{t('usernameEn')}</label>
               <div className="relative flex items-center">
                 <span className="absolute start-4 text-zinc-500 font-mono text-[14px]">@</span>
-                <input type="text" dir="ltr" placeholder={t('usernamePlaceholder')} className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 ps-9 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                <input type="text" dir="ltr" placeholder={t('usernamePlaceholder')} className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 ps-9 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
               </div>
             </div>
             <button
@@ -242,11 +243,11 @@ function AuthApp() {
             </div>
             <div className="pt-2">
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{t('newPass')}</label>
-              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
             </div>
             <div>
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{t('confirmPass')}</label>
-              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
             </div>
             <button
               onClick={() => { alert(t('resetSuccess')); setView('login'); }}
@@ -265,8 +266,8 @@ function AuthApp() {
     <div className="min-h-screen flex bg-ink-900 light:bg-white text-white light:text-zinc-900 overflow-hidden transition-colors duration-300">
 
       <div className="hidden lg:flex lg:w-1/2 flex-col relative bg-ink-850 light:bg-[#F5F5F7] border-e border-ink-500/50 light:border-zinc-300/50 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full orb-red opacity-30 blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full orb-green opacity-20 blur-[100px] pointer-events-none" />
+        <div className="absolute top-[-10%] start-[-10%] w-[60%] h-[60%] rounded-full orb-red opacity-30 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] end-[-10%] w-[60%] h-[60%] rounded-full orb-green opacity-20 blur-[100px] pointer-events-none" />
         <div className="absolute inset-0 dotted-bg opacity-30 light:opacity-50 pointer-events-none" />
 
         <div className="absolute inset-0 flex items-center justify-center opacity-30 light:opacity-20 pointer-events-none">
@@ -279,7 +280,7 @@ function AuthApp() {
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-12">
           <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center">
-            <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 w-48 h-8 bg-brand-green/20 blur-xl rounded-[100%]" />
+            <div className="absolute bottom-[10%] start-1/2 -translate-x-1/2 w-48 h-8 bg-brand-green/20 blur-xl rounded-[100%]" />
             <div className="relative z-10 w-[360px] h-[360px] drop-shadow-2xl animate-softPulse" style={{ animationDuration: '4s', animationDirection: 'alternate' }}>
               <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-brand-green">
                 <defs>
@@ -349,15 +350,15 @@ function AuthApp() {
 
       <div className="w-full lg:w-1/2 flex flex-col relative z-50">
         <header className="w-full px-6 md:px-10 py-6 flex justify-between items-center bg-transparent">
-          <a href="hero.html" className="flex items-center gap-2 md:gap-3 transition-transform hover:scale-105">
+          <a href="/" className="flex items-center gap-2 md:gap-3 transition-transform hover:scale-105">
             <BrandMark size={32} />
             <div>
-              <div className="text-[16px] font-black tracking-tight leading-none">eco azarin</div>
+              <div className="text-[16px] font-black tracking-tight leading-none">Eco Azarin</div>
               <div className="text-[10.5px] font-medium text-zinc-500 mt-1 tracking-wider">{t('siteTagline')}</div>
             </div>
           </a>
           <div className="flex items-center gap-3">
-            <a href="hero.html" className="text-[12.5px] font-bold text-zinc-400 hover:text-white light:hover:text-zinc-800 transition-colors hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-ink-800 light:hover:bg-zinc-100">
+            <a href="/" className="text-[12.5px] font-bold text-zinc-400 hover:text-white light:hover:text-zinc-800 transition-colors hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-ink-800 light:hover:bg-zinc-100">
               {t('home')}
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={isEn() ? 'rotate-180' : ''}><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
             </a>

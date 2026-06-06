@@ -50,8 +50,8 @@ function PodcastHero() {
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto" aria-label="پادکست ویژه" data-screen-label="01 Featured">
       <div className="relative rounded-2xl overflow-hidden border border-ink-500 bg-ink-700/40">
         <div className="absolute inset-0 hero-gradient opacity-90" />
-        <div className="absolute -right-20 -bottom-20 w-80 h-80 rounded-full orb-red opacity-50" />
-        <div className="absolute top-6 left-1/3 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
+        <div className="absolute -end-20 -bottom-20 w-80 h-80 rounded-full orb-red opacity-50" />
+        <div className="absolute top-6 start-1/3 w-32 h-32 rounded-full bg-white/10 blur-2xl" />
 
         <div className="relative grid md:grid-cols-12 gap-6 p-6 md:p-10">
           {/* artwork */}
@@ -59,7 +59,7 @@ function PodcastHero() {
             <div className="relative w-40 md:w-full aspect-square rounded-2xl overflow-hidden shadow-2xl shadow-black/50 ring-1 ring-white/15">
               <PodcastArt seed="featured" className="w-full h-full" />
               {/* live dot */}
-              <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 bg-black/55 backdrop-blur rounded-full px-2 py-0.5 text-[10px] font-mono">
+              <span className="absolute top-3 end-3 inline-flex items-center gap-1.5 bg-black/55 backdrop-blur rounded-full px-2 py-0.5 text-[10px] font-mono">
                 <span className="h-1.5 w-1.5 rounded-full bg-brand-green animate-softPulse" />
                 NEW
               </span>
@@ -67,7 +67,7 @@ function PodcastHero() {
           </div>
 
           {/* content */}
-          <div className="md:col-span-8 flex flex-col justify-between text-right">
+          <div className="md:col-span-8 flex flex-col justify-between text-end">
             <div>
               <div className="inline-flex items-center gap-2 bg-black/30 border border-white/15 rounded-full px-3 py-1 text-[11px] font-medium">
                 <IconHeadphones size={12} />
@@ -96,7 +96,7 @@ function PodcastHero() {
                     const r = e.currentTarget.getBoundingClientRect();
                     setProgress(Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100)));
                   }}>
-                    <div className="absolute inset-y-0 left-0 rounded-full bg-white" style={{ width: `${progress}%` }} />
+                    <div className="absolute inset-y-0 start-0 rounded-full bg-white" style={{ width: `${progress}%` }} />
                     <div className="absolute top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-white shadow" style={{ left: `calc(${progress}% - 6px)` }} />
                   </div>
                   <div className="mt-1.5 flex items-center justify-between text-[10px] font-mono text-white/80">
@@ -171,7 +171,7 @@ function PodcastShows() {
           <article key={s.id} className="card-hover bg-ink-700/60 border border-ink-500 rounded-2xl p-4 flex flex-col">
             <div className={`relative aspect-square rounded-xl overflow-hidden bg-gradient-to-br ${s.color} ring-1 ring-white/10`}>
               <PodcastArt seed={s.id} className="w-full h-full" />
-              <span className="absolute top-2 right-2 label-peyda bg-black/55 backdrop-blur rounded-full px-2.5 py-0.5">{s.tag}</span>
+              <span className="absolute top-2 end-2 label-peyda bg-black/55 backdrop-blur rounded-full px-2.5 py-0.5">{s.tag}</span>
             </div>
             <h3 className="mt-3 text-[14px] font-semibold leading-6 line-clamp-1">{s.title}</h3>
             <p className="mt-1 text-[11px] text-zinc-500 line-clamp-1">{s.host}</p>
@@ -236,7 +236,7 @@ function EpisodesList({ filter }) {
                 {isPlaying && (
                   <div className="mt-3 max-w-md">
                     <div className="relative h-1 rounded-full bg-ink-500 overflow-hidden">
-                      <div className="absolute inset-y-0 right-0 left-1/3 bg-brand-red rounded-full" />
+                      <div className="absolute inset-y-0 end-0 start-1/3 bg-brand-red rounded-full" />
                     </div>
                     <div className="mt-1 flex items-center justify-between text-[10px] font-mono text-zinc-500">
                       <span>۱۶:۲۸</span>
@@ -304,8 +304,8 @@ function PodcastSubscribe() {
   return (
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto" aria-label="اشتراک">
       <div className="relative rounded-2xl overflow-hidden border border-ink-500 bg-gradient-to-br from-ink-700 to-ink-800 p-6 md:p-10">
-        <div className="absolute -bottom-16 -left-10 w-72 h-72 rounded-full orb-green opacity-30" />
-        <div className="absolute -top-16 -right-10 w-72 h-72 rounded-full orb-red opacity-30" />
+        <div className="absolute -bottom-16 -start-10 w-72 h-72 rounded-full orb-green opacity-30" />
+        <div className="absolute -top-16 -end-10 w-72 h-72 rounded-full orb-red opacity-30" />
         <div className="relative grid md:grid-cols-12 gap-6 items-center">
           <div className="md:col-span-7">
             <div className="eyebrow-peyda text-brand-greenSoft">دنبال کن</div>

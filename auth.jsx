@@ -80,7 +80,7 @@ function AuthApp() {
 
                 <div>
                   <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{window.t('mobileNumber')}</label>
-                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
                 </div>
 
                 {method === 'password' && (
@@ -89,7 +89,7 @@ function AuthApp() {
                       <label className="block text-[12.5px] font-medium text-zinc-400">{window.t('password')}</label>
                       <button type="button" onClick={() => setView('forgot')} className="text-[11.5px] font-bold text-brand-redSoft hover:text-brand-red transition-colors">{window.t('forgotPass')}</button>
                     </div>
-                    <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                    <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
                   </div>
                 )}
 
@@ -106,7 +106,7 @@ function AuthApp() {
               <div className="space-y-5 tab-anim">
                 <div>
                   <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{window.t('registerMobileLabel')}</label>
-                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                  <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
                 </div>
                 <button
                   onClick={() => { setContext('register'); setView('otp'); }}
@@ -131,7 +131,7 @@ function AuthApp() {
             </div>
             <div>
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{window.t('mobileNumber')}</label>
-              <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+              <input type="tel" dir="ltr" value={mobile} onChange={(e) => setMobile(e.target.value)} placeholder="0912 345 6789" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
             </div>
             <button
               onClick={() => { setContext('forgot'); setView('otp'); }}
@@ -210,7 +210,7 @@ function AuthApp() {
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{window.t('usernameEn')}</label>
               <div className="relative flex items-center">
                 <span className="absolute start-4 text-zinc-500 font-mono text-[14px]">@</span>
-                <input type="text" dir="ltr" placeholder={window.t('usernamePlaceholder')} className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 ps-9 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+                <input type="text" dir="ltr" placeholder={window.t('usernamePlaceholder')} className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 ps-9 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-green/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(16,185,129,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
               </div>
             </div>
             <button
@@ -230,11 +230,11 @@ function AuthApp() {
             </div>
             <div className="pt-2">
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{window.t('newPass')}</label>
-              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
             </div>
             <div>
               <label className="block text-[12.5px] font-medium text-zinc-400 mb-2">{window.t('confirmPass')}</label>
-              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
+              <input type="password" dir="ltr" placeholder="••••••••" className="w-full h-12 bg-ink-900/60 light:bg-zinc-50 border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start font-mono text-[15px] text-white light:text-zinc-900 outline-none focus:border-brand-red/60 focus:bg-ink-900 light:focus:bg-white focus:shadow-[0_0_0_4px_rgba(230,57,70,0.1)] transition-all placeholder-stripe placeholder:opacity-50" />
             </div>
             <button
               onClick={() => { alert(window.t('resetSuccess')); setView('login'); }}
@@ -253,8 +253,8 @@ function AuthApp() {
     <div className="min-h-screen flex bg-ink-900 light:bg-white text-white light:text-zinc-900 overflow-hidden transition-colors duration-300">
 
       <div className="hidden lg:flex lg:w-1/2 flex-col relative bg-ink-850 light:bg-[#F5F5F7] border-e border-ink-500/50 light:border-zinc-300/50 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] rounded-full orb-red opacity-30 blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] rounded-full orb-green opacity-20 blur-[100px] pointer-events-none" />
+        <div className="absolute top-[-10%] start-[-10%] w-[60%] h-[60%] rounded-full orb-red opacity-30 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[-10%] end-[-10%] w-[60%] h-[60%] rounded-full orb-green opacity-20 blur-[100px] pointer-events-none" />
         <div className="absolute inset-0 dotted-bg opacity-30 light:opacity-50 pointer-events-none" />
 
         <div className="absolute inset-0 flex items-center justify-center opacity-30 light:opacity-20 pointer-events-none">
@@ -267,7 +267,7 @@ function AuthApp() {
 
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center p-12">
           <div className="relative w-full max-w-[500px] aspect-square flex items-center justify-center">
-            <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 w-48 h-8 bg-brand-green/20 blur-xl rounded-[100%]" />
+            <div className="absolute bottom-[10%] start-1/2 -translate-x-1/2 w-48 h-8 bg-brand-green/20 blur-xl rounded-[100%]" />
             <div className="relative z-10 w-[360px] h-[360px] drop-shadow-2xl animate-softPulse" style={{ animationDuration: '4s', animationDirection: 'alternate' }}>
               <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-brand-green">
                 <defs>

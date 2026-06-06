@@ -80,14 +80,14 @@ const StickyTabs = ({ activeId, onChange }) => {
 
   return (
     <div
-      className={`fixed bottom-5 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+      className={`fixed bottom-5 start-1/2 -translate-x-1/2 z-40 transition-all duration-300 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
       dir="rtl"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}>
 
       {/* Expanded panel — slides up from above the pill */}
       <div
-        className={`absolute bottom-[58px] left-1/2 -translate-x-1/2 origin-bottom transition-all duration-250 ease-out ${
+        className={`absolute bottom-[58px] start-1/2 -translate-x-1/2 origin-bottom transition-all duration-250 ease-out ${
         open ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 translate-y-2 pointer-events-none'}`
         }>
         <div className="bg-ink-800/95 border border-ink-500 backdrop-blur-xl rounded-2xl p-2 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] w-[320px] max-w-[90vw]">
@@ -105,7 +105,7 @@ const StickyTabs = ({ activeId, onChange }) => {
                   'text-zinc-300 hover:bg-ink-700/80 hover:text-white'}`
                   }>
                   <Icon size={15} className="shrink-0" />
-                  <span className="flex-1 text-right">{window.t ? window.t('tab' + t.id.charAt(0).toUpperCase() + t.id.slice(1)) : t.label}</span>
+                  <span className="flex-1 text-end">{window.t ? window.t('tab' + t.id.charAt(0).toUpperCase() + t.id.slice(1)) : t.label}</span>
                   {active && <span className="h-1.5 w-1.5 rounded-full bg-black/70" />}
                 </button>);
 
@@ -113,7 +113,7 @@ const StickyTabs = ({ activeId, onChange }) => {
           </div>
         </div>
         {/* connector arrow */}
-        <span className="block absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-ink-800/95 border-r border-b border-ink-500" />
+        <span className="block absolute -bottom-1.5 start-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-ink-800/95 border-e border-b border-ink-500" />
       </div>
 
       {/* Compact pill */}
@@ -122,7 +122,7 @@ const StickyTabs = ({ activeId, onChange }) => {
           onClick={handlePillClick}
           aria-expanded={open}
           aria-label="انتخاب دسته"
-          className="group flex items-center gap-2 h-10 pr-3 pl-3 rounded-full bg-gradient-to-br from-brand-green to-emerald-400 text-black text-[12.5px] font-bold transition-all hover:shadow-[0_6px_18px_-6px_rgba(16,185,129,0.7)]">
+          className="group flex items-center gap-2 h-10 pe-3 ps-3 rounded-full bg-gradient-to-br from-brand-green to-emerald-400 text-black text-[12.5px] font-bold transition-all hover:shadow-[0_6px_18px_-6px_rgba(16,185,129,0.7)]">
           <ActiveIcon size={15} />
           <span className="max-w-[120px] truncate">{window.t ? window.t('tab' + activeTab.id.charAt(0).toUpperCase() + activeTab.id.slice(1)) : activeTab.label}</span>
           <span className="h-1.5 w-1.5 rounded-full bg-black/60 animate-softPulse" aria-hidden="true" />

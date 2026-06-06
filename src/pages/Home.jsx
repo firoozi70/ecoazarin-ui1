@@ -12,6 +12,7 @@ import { CategoryTabs, StickyTabs } from '../components/home/Tabs';
 import { TabContent } from '../components/home/DynamicTab';
 import { BigNewsCarousel, NewsGrid, NewsLists } from '../components/home/News';
 import { Footer } from '../layouts/Footer';
+import { useLang, useLangRefresh } from '../i18n/index';
 
 // =====================================================================
 // App — کامپوننت اصلی
@@ -20,11 +21,14 @@ import { Footer } from '../layouts/Footer';
 
 
 function App() {
-  const [activeTab, setActiveTab] = useState('news');
+  const [lang] = useLang();
+  useLangRefresh();
+  const isEn = lang === 'EN';
+  const [activeTab, setActiveTab ] = useState('news');
   const isNewsPage = (typeof window !== 'undefined' && window.PAGE_SLUG === 'news');
 
   return (
-    <div dir="rtl" lang="fa" className="min-h-screen bg-ink-900 text-white">
+    <div dir={isEn ? "ltr" : "rtl"} lang={isEn ? "en" : "fa"} className="min-h-screen bg-ink-900 text-white">
       <LiveTicker />
       <Header rightSlot={<ThemeToggle />} />
 

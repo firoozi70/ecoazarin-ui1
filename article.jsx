@@ -53,7 +53,7 @@ function ArticleApp() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 right-0 h-1 z-[9999] pointer-events-none transition-opacity duration-300 ${scrollProgress > 2 ? "opacity-100" : "opacity-0"}`}
+        className={`fixed top-0 start-0 end-0 h-1 z-[9999] pointer-events-none transition-opacity duration-300 ${scrollProgress > 2 ? "opacity-100" : "opacity-0"}`}
       >
         <div
           className="h-full bg-brand-green transition-all duration-150 ease-out"
@@ -90,7 +90,7 @@ function ArticleApp() {
                 <li>
                   <a
                     href="#intro"
-                    className="block hover:text-brand-green transition-colors text-white light:text-zinc-900 font-bold border-r-2 border-brand-green pr-2"
+                    className="block hover:text-brand-green transition-colors text-white light:text-zinc-900 font-bold border-e-2 border-brand-green pe-2"
                   >
                     سود مرکب چیست؟
                   </a>
@@ -98,7 +98,7 @@ function ArticleApp() {
                 <li>
                   <a
                     href="#intro-2"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className="block hover:text-brand-green transition-colors pe-2"
                   >
                     مقدمه
                   </a>
@@ -106,7 +106,7 @@ function ArticleApp() {
                 <li>
                   <a
                     href="#why"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className="block hover:text-brand-green transition-colors pe-2"
                   >
                     چگونه سود روی سود می‌آید؟
                   </a>
@@ -114,7 +114,7 @@ function ArticleApp() {
                 <li>
                   <a
                     href="#comparison"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className="block hover:text-brand-green transition-colors pe-2"
                   >
                     مقایسه سود ساده و مرکب
                   </a>
@@ -122,7 +122,7 @@ function ArticleApp() {
                 <li>
                   <a
                     href="#conclusion"
-                    className="block hover:text-brand-green transition-colors pr-2"
+                    className="block hover:text-brand-green transition-colors pe-2"
                   >
                     جمع‌بندی
                   </a>
@@ -132,8 +132,8 @@ function ArticleApp() {
 
             {/* VIP Banner */}
             <div className="relative rounded-2xl overflow-hidden border border-brand-red/30 bg-ink-900 light:bg-[#fef2f2] p-6 shadow-[0_0_20px_rgba(239,68,68,0.1)]">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-red/10 blur-[40px] rounded-full"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-brand-red/10 blur-[30px] rounded-full"></div>
+              <div className="absolute top-0 end-0 w-32 h-32 bg-brand-red/10 blur-[40px] rounded-full"></div>
+              <div className="absolute bottom-0 start-0 w-24 h-24 bg-brand-red/10 blur-[30px] rounded-full"></div>
 
               <div className="relative z-10 flex flex-col items-center text-center">
                 <span className="bg-brand-red text-white text-[11px] font-bold px-3 py-1 rounded-full mb-4 shadow-sm inline-block tracking-wide">
@@ -157,7 +157,7 @@ function ArticleApp() {
 
             {/* Latest News inside sidebar */}
             <div className="bg-ink-800/50 light:bg-zinc-50 border border-ink-500 light:border-zinc-200 rounded-2xl p-6 hidden lg:block shadow-sm">
-              <h3 className="text-[15px] font-bold text-white light:text-zinc-900 mb-6 border-r-2 border-brand-red pr-3">
+              <h3 className="text-[15px] font-bold text-white light:text-zinc-900 mb-6 border-e-2 border-brand-red pe-3">
                 آخرین اخبار و مقالات
               </h3>
               <ul className="space-y-4">
@@ -278,7 +278,7 @@ function ArticleApp() {
                 متغیر در فرمول سود مرکب است.
               </p>
 
-              <ul className="list-disc pl-0 pr-6 marker:text-brand-green space-y-2 mb-8">
+              <ul className="list-disc ps-0 pe-6 marker:text-brand-green space-y-2 mb-8">
                 <li>
                   سرمایه‌گذاری زودتر را شروع کنید تا زمان بیشتری برای مرکب شدن
                   داشته باشید.
@@ -297,7 +297,7 @@ function ArticleApp() {
                 </li>
               </ul>
 
-              <div className="bg-ink-800/40 light:bg-zinc-50 border-r-4 border-brand-green p-5 my-8 rounded-l-xl">
+              <div className="bg-ink-800/40 light:bg-zinc-50 border-e-4 border-brand-green p-5 my-8 rounded-l-xl">
                 <p className="m-0 text-[14px]">
                   <strong>مقاله مرتبط:</strong>{" "}
                   <a href="#">
@@ -393,12 +393,12 @@ function ArticleApp() {
               </a>
               <a
                 href="#"
-                className="flex flex-col p-4 rounded-xl border border-ink-500 light:border-zinc-200 hover:border-ink-400 hover:bg-ink-800/40 light:hover:bg-zinc-50 transition items-end text-left"
+                className="flex flex-col p-4 rounded-xl border border-ink-500 light:border-zinc-200 hover:border-ink-400 hover:bg-ink-800/40 light:hover:bg-zinc-50 transition items-end text-start"
               >
                 <span className="text-[11px] text-zinc-500 mb-1 flex items-center gap-1">
                   مقاله بعدی <IconChevronLeft size={12} />
                 </span>
-                <span className="text-[13px] font-bold text-white light:text-zinc-900 text-right title-font">
+                <span className="text-[13px] font-bold text-white light:text-zinc-900 text-end title-font">
                   اکسپرت پراپ فاند: رعایت خودکار قوانین مدیریت ریسک
                 </span>
               </a>
@@ -471,7 +471,7 @@ function ArticleApp() {
                     <input
                       type="email"
                       dir="ltr"
-                      className="w-full h-11 bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-left outline-none focus:border-brand-green text-[14px]"
+                      className="w-full h-11 bg-ink-900 light:bg-white border border-ink-500 light:border-zinc-300 rounded-xl px-4 text-start outline-none focus:border-brand-green text-[14px]"
                     />
                   </div>
                 </div>
@@ -485,7 +485,7 @@ function ArticleApp() {
 
         <button
           onClick={scrollToTop}
-          className={`fixed bottom-6 left-6 w-12 h-12 bg-ink-800 border border-ink-500 light:bg-zinc-100 light:border-zinc-300 text-white light:text-zinc-900 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-40 hover:bg-brand-green hover:text-black hover:border-brand-green ${
+          className={`fixed bottom-6 start-6 w-12 h-12 bg-ink-800 border border-ink-500 light:bg-zinc-100 light:border-zinc-300 text-white light:text-zinc-900 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-40 hover:bg-brand-green hover:text-black hover:border-brand-green ${
             showGoTop
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10 pointer-events-none"

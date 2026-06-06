@@ -21,14 +21,14 @@ const CourseCard = ({ c, withDiscount }) =>
 <article className="card-hover bg-ink-800/60 border border-ink-500 rounded-2xl overflow-hidden hover:border-ink-400">
     <div className="relative aspect-[4/3] bg-gradient-to-br from-ink-700 to-ink-800 flex items-center justify-center placeholder-stripe">
       <div className="relative text-zinc-300 font-mono text-[12.5px] font-bold tracking-wider">{c.code}</div>
-      <button className="absolute top-2 left-2 h-7 w-7 rounded-md bg-ink-900/80 border border-ink-500 flex items-center justify-center text-zinc-300 hover:text-brand-red transition" aria-label="نشان">
+      <button className="absolute top-2 start-2 h-7 w-7 rounded-md bg-ink-900/80 border border-ink-500 flex items-center justify-center text-zinc-300 hover:text-brand-red transition" aria-label="نشان">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 4h12v18l-6-4-6 4z" /></svg>
       </button>
       {withDiscount && c.discount &&
-    <span className="stat-num absolute bottom-0 right-0 bg-brand-red text-pure-white text-[12px] font-bold px-2.5 py-1 rounded-tl-md">{c.discount}</span>
+    <span className="stat-num absolute bottom-0 end-0 bg-brand-red text-pure-white text-[12px] font-bold px-2.5 py-1 rounded-tl-md">{c.discount}</span>
     }
       {withDiscount && c.badge &&
-    <span className="absolute bottom-2 left-2 bg-brand-red text-pure-white text-[11px] font-bold px-2 py-0.5 rounded-md">{c.badge}</span>
+    <span className="absolute bottom-2 start-2 bg-brand-red text-pure-white text-[11px] font-bold px-2 py-0.5 rounded-md">{c.badge}</span>
     }
     </div>
     <div className="p-3">
@@ -165,8 +165,8 @@ const ArticleCarousel = () => {
     <div className="relative bg-ink-800 border border-ink-500 rounded-xl overflow-hidden order-2 md:order-2 min-h-[260px] md:min-h-[300px]">
       <div className={`absolute inset-0 ${s.tone === 'red' ? 'bg-gradient-to-br from-brand-redDark/35 via-ink-800 to-ink-900' : 'bg-gradient-to-br from-emerald-900/35 via-ink-800 to-ink-900'} transition-all duration-700`} />
       <div className="absolute inset-0 dotted-bg opacity-40" />
-      <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full orb-red opacity-40" />
-      <div className="absolute -left-12 -bottom-12 w-44 h-44 rounded-full orb-green opacity-30" />
+      <div className="absolute -end-10 -top-10 w-40 h-40 rounded-full orb-red opacity-40" />
+      <div className="absolute -start-12 -bottom-12 w-44 h-44 rounded-full orb-green opacity-30" />
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
       <div className="relative h-full flex flex-col justify-end p-5 md:p-7">
         <span className={`inline-flex items-center gap-1 self-start label-peyda px-2.5 py-1 rounded-full mb-3 ${s.tone === 'red' ? 'bg-brand-red/20 text-brand-redSoft border border-brand-red/30' : 'bg-brand-green/20 text-brand-greenSoft border border-brand-green/30'}`}>
@@ -228,7 +228,7 @@ const ArticlesTab = () => {
               <div className="relative aspect-[4/3] bg-ink-700 overflow-hidden">
                 <div className="absolute inset-0 placeholder-stripe opacity-90" />
                 <div className="absolute inset-0 dotted-bg opacity-30" />
-                <span className="absolute top-2 right-2 label-peyda bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-0.5 text-white">مقاله</span>
+                <span className="absolute top-2 end-2 label-peyda bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-0.5 text-white">مقاله</span>
               </div>
               <div className="p-3">
                 <h4 className="text-[13px] font-bold leading-6 line-clamp-2 min-h-[48px]">{c.title}</h4>

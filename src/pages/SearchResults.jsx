@@ -1,10 +1,9 @@
-import * as Recharts from 'recharts';
-
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
-
-const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
+import * as Recharts from 'recharts';
 import { motion, AnimatePresence } from 'motion/react';
 import { TAB_CONTENT, FEATURED_NEWS, NEWS_GRID, LATEST_LIST, POPULAR_LIST, EDITORS_LIST } from '../data/mockData';
+
+const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
 
 
 // =====================================================================
@@ -15,6 +14,10 @@ import { TAB_CONTENT, FEATURED_NEWS, NEWS_GRID, LATEST_LIST, POPULAR_LIST, EDITO
     news: 'اخبار', edu: 'آموزش', tools: 'ابزارها',
     products: 'محصولات', journal: 'ژورنال', articles: 'مقالات', podcast: 'پادکست',
   };
+  const tabLabelEn = {
+    news: 'News', edu: 'Education', tools: 'Tools',
+    products: 'Products', journal: 'Journal', articles: 'Articles', podcast: 'Podcast',
+  };
 
   const idx = [];
 
@@ -24,11 +27,16 @@ import { TAB_CONTENT, FEATURED_NEWS, NEWS_GRID, LATEST_LIST, POPULAR_LIST, EDITO
     const sec = tc[k];
     (sec.items || []).forEach((it) => {
       idx.push({
-        title: it.title,
-        category: tabLabel[k] || k,
-        section: sec.eyebrow || '',
-        tag: it.tag,
-        meta: it.meta,
+        titleFa: it.titleFa,
+        titleEn: it.titleEn,
+        categoryFa: tabLabel[k] || k,
+        categoryEn: tabLabelEn[k] || k,
+        sectionFa: sec.eyebrow || '',
+        sectionEn: sec.eyebrowEn || sec.eyebrow || '', // Fallback
+        tagFa: it.tag,
+        tagEn: it.tagEn || it.tag,
+        metaFa: it.metaFa || it.meta,
+        metaEn: it.metaEn || it.meta,
         url: `#${k}`,
       });
     });
@@ -36,19 +44,19 @@ import { TAB_CONTENT, FEATURED_NEWS, NEWS_GRID, LATEST_LIST, POPULAR_LIST, EDITO
 
   // FEATURED_NEWS, NEWS_GRID, lists
   (window.FEATURED_NEWS || []).forEach((it) => idx.push({
-    title: it.title, category: 'اخبار', section: it.kicker, tag: it.kicker, meta: it.meta, url: '#news',
+    titleFa: it.titleFa, titleEn: it.titleEn, categoryFa: 'اخبار', categoryEn: 'News', sectionFa: it.kickerFa || it.kicker, sectionEn: it.kickerEn || it.kicker, tagFa: it.kickerFa || it.kicker, tagEn: it.kickerEn || it.kicker, metaFa: it.metaFa || it.meta, metaEn: it.metaEn || it.meta, url: '#news',
   }));
   (window.NEWS_GRID || []).forEach((it) => idx.push({
-    title: it.title, category: 'اخبار', section: it.kicker, tag: it.kicker, meta: `${it.views} بازدید`, url: '#news',
+    titleFa: it.titleFa, titleEn: it.titleEn, categoryFa: 'اخبار', categoryEn: 'News', sectionFa: it.kickerFa || it.kicker, sectionEn: it.kickerEn || it.kicker, tagFa: it.kickerFa || it.kicker, tagEn: it.kickerEn || it.kicker, metaFa: it.timeFa || `${it.views} بازدید`, metaEn: it.timeEn || `${it.views} views`, url: '#news',
   }));
   (window.LATEST_LIST || []).forEach((it) => idx.push({
-    title: it.title, category: 'اخبار', section: 'جدیدترین‌ها', tag: 'جدید', meta: it.meta, url: '#news',
+    titleFa: it.titleFa, titleEn: it.titleEn, categoryFa: 'اخبار', categoryEn: 'News', sectionFa: 'جدیدترین‌ها', sectionEn: 'Latest', tagFa: 'جدید', tagEn: 'New', metaFa: it.metaFa || it.meta, metaEn: it.metaEn || it.meta, url: '#news',
   }));
   (window.POPULAR_LIST || []).forEach((it) => idx.push({
-    title: it.title, category: 'اخبار', section: 'پربازدیدترین‌ها', tag: 'پرطرفدار', meta: it.meta, url: '#news',
+    titleFa: it.titleFa, titleEn: it.titleEn, categoryFa: 'اخبار', categoryEn: 'News', sectionFa: 'پربازدیدترین‌ها', sectionEn: 'Popular', tagFa: 'پرطرفدار', tagEn: 'Trending', metaFa: it.metaFa || it.meta, metaEn: it.metaEn || it.meta, url: '#news',
   }));
   (window.EDITORS_LIST || []).forEach((it) => idx.push({
-    title: it.title, category: 'اخبار', section: 'منتخب سردبیر', tag: 'منتخب', meta: it.meta, url: '#news',
+    titleFa: it.titleFa, titleEn: it.titleEn, categoryFa: 'اخبار', categoryEn: 'News', sectionFa: 'منتخب سردبیر', sectionEn: 'Editor\'s Choice', tagFa: 'منتخب', tagEn: 'Editor', metaFa: it.metaFa || it.meta, metaEn: it.metaEn || it.meta, url: '#news',
   }));
 
   window.SEARCH_INDEX = idx;
@@ -69,12 +77,13 @@ import { TAB_CONTENT, FEATURED_NEWS, NEWS_GRID, LATEST_LIST, POPULAR_LIST, EDITO
     const tokens = nq.split(/\s+/).filter(Boolean);
     const scored = [];
     idx.forEach((it) => {
-      const hay = normalize(`${it.title} ${it.section} ${it.tag} ${it.category}`);
+      const isEnQuery = /^[A-Za-z0-9\s]+$/.test(nq);
+      const hay = normalize(isEnQuery ? `${it.titleEn} ${it.sectionEn} ${it.tagEn} ${it.categoryEn}` : `${it.titleFa} ${it.sectionFa} ${it.tagFa} ${it.categoryFa}`);
       let score = 0;
       tokens.forEach((t) => {
         if (hay.includes(t)) score += 1;
-        if (normalize(it.title).includes(t)) score += 2;
-        if (normalize(it.title).startsWith(t)) score += 1;
+        if (normalize(isEnQuery ? it.titleEn : it.titleFa).includes(t)) score += 2;
+        if (normalize(isEnQuery ? it.titleEn : it.titleFa).startsWith(t)) score += 1;
       });
       if (score > 0) scored.push({ ...it, _score: score });
     });

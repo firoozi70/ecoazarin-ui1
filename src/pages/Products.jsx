@@ -50,8 +50,8 @@ function ProductsContent() {
       
       {/* Modern Hero Banner */}
       <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-14 mb-10 relative overflow-hidden text-center z-0 group shadow-lg light:shadow-sm">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-red/10 light:bg-brand-red/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700 ease-out" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-brand-green/10 light:bg-brand-green/5 rounded-full blur-[80px] translate-y-1/3 -translate-x-1/3" />
+        <div className="absolute top-0 end-0 w-[600px] h-[600px] bg-brand-red/10 light:bg-brand-red/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 group-hover:scale-110 transition-transform duration-700 ease-out" />
+        <div className="absolute bottom-0 start-0 w-[400px] h-[400px] bg-brand-green/10 light:bg-brand-green/5 rounded-full blur-[80px] translate-y-1/3 -translate-x-1/3" />
         
         <div className="relative z-10 flex flex-col items-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-red/10 light:bg-brand-red/10 border border-brand-red/20 text-brand-red font-semibold text-[12px] mb-6">
@@ -97,7 +97,7 @@ function ProductsContent() {
             }`}
           >
             {p.popular && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[11px] font-bold bg-brand-red text-white shadow-sm">
+              <div className="absolute -top-3 start-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-[11px] font-bold bg-brand-red text-white shadow-sm">
                 {isEn ? 'Most Popular' : 'محبوب‌ترین'}
               </div>
             )}
@@ -120,7 +120,7 @@ function ProductsContent() {
                 <span className="text-[24px] font-extrabold stat-num" style={{ color: p.color }}>
                   {(isEn ? p.priceEn : p.price).split('/')[0]}
                 </span>
-                <span className="text-[13px] font-medium text-zinc-500 mb-1 ml-1">
+                <span className="text-[13px] font-medium text-zinc-500 mb-1 ms-1">
                   {(isEn ? p.priceEn : p.price).includes('/') ? '/' + (isEn ? p.priceEn : p.price).split('/')[1] : ''}
                   {isEn ? '' : ' تومان'}
                 </span>
@@ -153,7 +153,7 @@ function ProductsContent() {
         </p>
 
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[600px] text-left border-collapse">
+          <table className="w-full min-w-[600px] text-start border-collapse">
             <thead>
               <tr>
                 <th className="p-4 border-b border-ink-500 light:border-zinc-200 font-bold text-zinc-300 light:text-zinc-600 text-[14px] w-1/4">

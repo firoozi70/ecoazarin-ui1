@@ -23,7 +23,7 @@ function AboutContent() {
       {/* Hero Section */}
       <div className="bg-ink-850 light:bg-white light:shadow-sm border border-ink-500 light:border-zinc-200 rounded-3xl p-8 md:p-14 mb-16 relative overflow-hidden text-center z-0">
         <div className="absolute inset-0 bg-gradient-to-bl from-emerald-500/15 light:from-emerald-500/10 via-transparent to-transparent -z-10" />
-        <div className="absolute top-[-50px] left-1/2 -translate-x-1/2 w-80 h-80 rounded-full orb-green opacity-40 pointer-events-none -z-10" />
+        <div className="absolute top-[-50px] start-1/2 -translate-x-1/2 w-80 h-80 rounded-full orb-green opacity-40 pointer-events-none -z-10" />
         <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">
           {isEn ? 'About Eco Azarin' : 'درباره اکو آذرین'}
         </h1>

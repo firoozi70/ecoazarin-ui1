@@ -128,7 +128,7 @@ const UpgradeModal = ({ onClose }) => {
               >
                 {p.ribbon && (
                   <div
-                    className={`absolute -top-3 right-4 px-2.5 py-1 rounded-full text-[10.5px] font-bold ${c.tag}`}
+                    className={`absolute -top-3 end-4 px-2.5 py-1 rounded-full text-[10.5px] font-bold ${c.tag}`}
                   >
                     {p.ribbon}
                   </div>

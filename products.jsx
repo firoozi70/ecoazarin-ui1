@@ -23,11 +23,11 @@ function ProductsContent(){
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {list.map((p,i)=>(
           <article key={i} className={`relative bg-ink-800 border-2 rounded-2xl p-6 transition ${p.popular?'border-amber-500/60 shadow-[0_8px_40px_-10px_rgba(245,158,11,0.4)]':'border-ink-500 hover:border-ink-400'}`}>
-            {p.popular && <div className="absolute -top-3 right-5 px-2.5 py-1 rounded-full text-[10.5px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">محبوب‌ترین</div>}
+            {p.popular && <div className="absolute -top-3 end-5 px-2.5 py-1 rounded-full text-[10.5px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30">محبوب‌ترین</div>}
             <div className="h-14 w-14 rounded-2xl flex items-center justify-center text-[26px] mb-4" style={{ background:p.color+'25', border:`1px solid ${p.color}50` }}>{p.icon}</div>
             <h3 className="text-[16px] font-extrabold mb-2">{p.n}</h3>
             <p className="text-[12.5px] text-zinc-400 leading-7 mb-5">{p.d}</p>
-            <div className="text-[20px] font-extrabold stat-num mb-4" style={{ color:p.color }}>{p.price.split('/')[0]}<span className="text-[11px] font-medium text-zinc-500 mr-1">{p.price.includes('/')?'/'+p.price.split('/')[1]:''} تومان</span></div>
+            <div className="text-[20px] font-extrabold stat-num mb-4" style={{ color:p.color }}>{p.price.split('/')[0]}<span className="text-[11px] font-medium text-zinc-500 me-1">{p.price.includes('/')?'/'+p.price.split('/')[1]:''} تومان</span></div>
             <button className="w-full h-11 rounded-xl text-[13px] font-bold transition" style={{ background:p.color, color:'#000' }}>انتخاب</button>
           </article>
         ))}

@@ -100,7 +100,7 @@ const NotificationBell = () => {
   const Item = ({ n, big }) => (
     <button
       onClick={() => toggleRead(n.id)}
-      className={`w-full text-right flex items-start gap-3 ${big ? "p-4" : "p-3"} rounded-xl border transition ${n.read ? "bg-ink-800/40 border-ink-500/60 opacity-60 hover:opacity-90" : "bg-ink-800 border-ink-500 hover:border-ink-400"}`}
+      className={`w-full text-end flex items-start gap-3 ${big ? "p-4" : "p-3"} rounded-xl border transition ${n.read ? "bg-ink-800/40 border-ink-500/60 opacity-60 hover:opacity-90" : "bg-ink-800 border-ink-500 hover:border-ink-400"}`}
     >
       <NotifIcon kind={n.kind} />
       <div className="flex-1 min-w-0">
@@ -133,14 +133,14 @@ const NotificationBell = () => {
       >
         <IconBell size={18} />
         {unread > 0 && (
-          <span className="absolute top-1 right-1 min-w-[16px] h-[16px] px-1 rounded-full bg-brand-red ring-2 ring-ink-900 text-[9.5px] font-bold leading-[16px] text-white tabular-nums">
+          <span className="absolute top-1 end-1 min-w-[16px] h-[16px] px-1 rounded-full bg-brand-red ring-2 ring-ink-900 text-[9.5px] font-bold leading-[16px] text-white tabular-nums">
             {unread}
           </span>
         )}
       </button>
       {open && (
         <div
-          className="fixed top-16 left-2 right-2 max-w-[400px] mx-auto sm:absolute sm:top-11 sm:left-1/2 sm:-translate-x-1/2 sm:right-auto sm:w-[360px] sm:max-w-[none] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
+          className="fixed top-16 start-2 end-2 max-w-[400px] mx-auto sm:absolute sm:top-11 sm:left-1/2 sm:-translate-x-1/2 sm:right-auto sm:w-[360px] sm:max-w-[none] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
           style={{ animation: "fadein .18s ease-out both" }}
         >
           <div className="px-4 py-3 border-b border-ink-500 flex items-center justify-between">

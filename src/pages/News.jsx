@@ -4,10 +4,11 @@ import { PageShell } from '../layouts/PageShell';
 import { BigNewsCarousel, NewsLists } from '../components/home/News';
 import { IconSearch, IconClose, IconChevronLeft, IconChevronRight } from '../components/ui/Icons';
 import { motion } from 'motion/react';
-import { useLang } from '../i18n';
+import { useLang, useLangRefresh } from '../i18n';
 
 function NewsContent() {
   const [lang] = useLang();
+  useLangRefresh();
   const isEn = lang === 'EN';
   const [q, setQ] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
@@ -15,11 +16,11 @@ function NewsContent() {
   const [sortBy, setSortBy] = useState('newest'); // 'newest' | 'popular'
 
   const categories = [
-    { id: 'all', label: 'همه اخبار' },
-    { id: 'بورس', label: 'بورس' },
-    { id: 'کریپتو', label: 'کریپتو' },
-    { id: 'بانکداری', label: 'بانکداری' },
-    { id: 'جهان', label: 'اقتصاد جهان' }
+    { id: 'all', label: isEn ? 'All News' : 'همه اخبار' },
+    { id: 'بورس', label: isEn ? 'Stock Market' : 'بورس' },
+    { id: 'کریپتو', label: isEn ? 'Crypto' : 'کریپتو' },
+    { id: 'بانکداری', label: isEn ? 'Banking' : 'بانکداری' },
+    { id: 'جهان', label: isEn ? 'World Economy' : 'اقتصاد جهان' }
   ];
 
   // We rely on window.NEWS_GRID as base mock data.
@@ -30,18 +31,28 @@ function NewsContent() {
     let extended = [];
     for(let i = 0; i < 24; i++) {
       const b = base[i % base.length];
-      extended.push({ ...b, id: i, views: b.views + (Math.random()*100 - 50) });
+      const kicker = isEn ? (b.kickerEn || b.kickerFa) : b.kickerFa;
+      const title = isEn ? (b.titleEn || b.titleFa) : b.titleFa;
+      const time = isEn ? (b.timeEn || b.timeFa) : b.timeFa;
+      extended.push({ 
+        ...b, 
+        id: i, 
+        kicker, 
+        title, 
+        time, 
+        views: b.views + (Math.random()*100 - 50) 
+      });
     }
     return extended;
-  }, []);
+  }, [isEn]);
 
   const filteredNews = useMemo(() => {
     let result = ALL_NEWS;
     if (activeCategory !== 'all') {
-      result = result.filter(n => n.kicker === activeCategory);
+      result = result.filter(n => n.kickerFa === activeCategory);
     }
     if (q) {
-      result = result.filter(n => n.title.includes(q) || n.kicker.includes(q));
+      result = result.filter(n => (n.title || '').toLowerCase().includes(q.toLowerCase()) || (n.kicker || '').toLowerCase().includes(q.toLowerCase()));
     }
     if (sortBy === 'popular') {
       result = [...result].sort((a,b) => b.views - a.views);
@@ -57,7 +68,7 @@ function NewsContent() {
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto py-8" data-screen-label="News">
       {/* Hero Header & Search */}
       <div className="mb-12 relative mt-4">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-green/10 light:bg-brand-green/10 rounded-full blur-[100px] -z-10 opacity-70" />
+        <div className="absolute top-0 start-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-brand-green/10 light:bg-brand-green/10 rounded-full blur-[100px] -z-10 opacity-70" />
         
         <div className="inline-flex items-center justify-center gap-2 px-3 py-1.5 rounded-full bg-brand-green/10 light:bg-brand-green/10 border border-brand-green/20 text-brand-green font-semibold text-[12px] mb-6 mx-auto flex w-max">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" /></svg>
@@ -75,7 +86,7 @@ function NewsContent() {
         <div className="max-w-2xl mx-auto relative group">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-brand-green/40 to-brand-green/10 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500"></div>
           <div className="relative bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-2xl flex items-center px-3 py-2.5 shadow-lg light:shadow-sm">
-            <IconSearch size={22} className="text-zinc-500 ltr:ml-3 rtl:mr-3 shrink-0" />
+            <IconSearch size={22} className="text-zinc-500 ms-3 shrink-0" />
             <input 
               value={q}
               onChange={(e) => { setQ(e.target.value); setCurrentPage(1); }}
@@ -127,10 +138,10 @@ function NewsContent() {
               <select 
                 value={sortBy} 
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent border-none outline-none text-zinc-300 light:text-zinc-700 font-medium py-1 w-full"
+                className="bg-transparent border-none outline-none text-zinc-300 light:text-zinc-700 font-medium py-1 w-full font-sans"
               >
-                <option value="newest" className="bg-ink-900">جدیدترین</option>
-                <option value="popular" className="bg-ink-900">پربازدیدترین</option>
+                <option value="newest" className="bg-ink-900">{isEn ? 'Newest' : 'جدیدترین'}</option>
+                <option value="popular" className="bg-ink-900">{isEn ? 'Most Popular' : 'پربازدیدترین'}</option>
               </select>
             </div>
           </div>
@@ -147,7 +158,7 @@ function NewsContent() {
               >
                 <div className="aspect-[16/9] w-full bg-ink-900 light:bg-zinc-100 overflow-hidden relative">
                   <img src={`https://picsum.photos/seed/${n.id + 100}/600/400`} alt={n.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute top-3 right-3">
+                  <div className="absolute top-3 end-3">
                     <span className="label-peyda text-brand-green bg-ink-900/80 light:bg-white/90 backdrop-blur-md border border-brand-green/30 px-2.5 py-1 rounded-md text-[11px] font-bold shadow-lg">
                       {n.kicker}
                     </span>
@@ -162,17 +173,17 @@ function NewsContent() {
                     <div className="flex items-center gap-2.5 tabular-nums">
                       <span>{n.time}</span>
                       <span className="w-1 h-1 rounded-full bg-zinc-600/50"></span>
-                      <span className="flex items-center gap-1.5 opacity-80"><span className="text-zinc-500">👁</span> {Math.round(n.views).toLocaleString('fa-IR')}</span>
+                      <span className="flex items-center gap-1.5 opacity-80"><span className="text-zinc-500">👁</span> {Math.round(n.views).toLocaleString(isEn ? 'en-US' : 'fa-IR')}</span>
                     </div>
                     <span className="text-brand-green opacity-0 group-hover:opacity-100 transition-opacity font-bold -translate-x-2 group-hover:translate-x-0 transform flex items-center gap-1">
-                      ادامه <IconChevronLeft size={14} />
+                      {isEn ? 'Read More' : 'ادامه'} <IconChevronLeft size={14} className="rtl:rotate-0 ltr:rotate-180" />
                     </span>
                   </div>
                 </div>
               </motion.a>
             )) : (
               <div className="col-span-1 md:col-span-2 py-20 text-center text-zinc-500">
-                موردی یافت نشد.
+                {isEn ? 'No items found.' : 'موردی یافت نشد.'}
               </div>
             )}
           </div>
@@ -199,7 +210,7 @@ function NewsContent() {
                         : 'bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 shadow-sm text-zinc-400 light:text-zinc-600 hover:text-white light:hover:text-zinc-900'
                     }`}
                   >
-                    {num.toLocaleString('fa-IR')}
+                    {num.toLocaleString('en-US')}
                   </button>
                 ))}
               </div>
@@ -219,19 +230,19 @@ function NewsContent() {
         <div className="w-full md:w-[320px] shrink-0 sticky top-24 pb-8">
           <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 rounded-2xl overflow-hidden shadow-lg p-5">
              <h3 className="text-brand-red font-bold text-[14px] mb-4 flex items-center gap-2 border-b border-ink-500 light:border-zinc-200 pb-3">
-                🔥 پربحث‌ترین‌های هفته
+                {isEn ? '🔥 Most Discussed of the Week' : '🔥 پربحث‌ترین‌های هفته'}
              </h3>
              <ul className="grid gap-4">
                 {(window.POPULAR_LIST?.slice(0, 5) || []).map((n, i) => (
                   <li key={i}>
                     <a href="article.html" className="group block">
                       <h4 className="text-[13px] text-zinc-200 light:text-zinc-800 leading-relaxed font-semibold group-hover:text-brand-red transition-colors line-clamp-2">
-                        {n.title}
+                        {isEn ? (n.titleEn || n.titleFa) : n.titleFa}
                       </h4>
                       <p className="text-[11px] text-zinc-500 light:text-zinc-500 mt-2 flex items-center gap-2 tabular-nums">
-                        <span>{n.meta}</span>
+                        <span>{isEn ? (n.metaEn || n.metaFa) : n.metaFa}</span>
                         <span className="w-1 h-1 rounded-full bg-zinc-600/50"></span>
-                        <span className="flex items-center gap-1"><span className="text-zinc-400">👁</span> {n.views}</span>
+                        <span className="flex items-center gap-1"><span className="text-zinc-400">👁</span> {isEn ? (n.viewsEn || n.viewsFa) : n.viewsFa}</span>
                       </p>
                     </a>
                   </li>

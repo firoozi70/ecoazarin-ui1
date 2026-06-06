@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'hero.html'),
+        main: path.resolve(__dirname, 'index.html'),
         products: path.resolve(__dirname, 'products.html'),
         tools: path.resolve(__dirname, 'tools.html'),
         charts: path.resolve(__dirname, 'charts.html'),
@@ -27,6 +27,7 @@ export default defineConfig({
         developers: path.resolve(__dirname, 'developers.html'),
         cookies: path.resolve(__dirname, 'cookies.html'),
         terms: path.resolve(__dirname, 'terms.html'),
+        changelog: path.resolve(__dirname, 'changelog.html'),
       }
     }
   }

@@ -33,7 +33,7 @@ function ArticlesContent(){
     <section className="px-4 md:px-6 max-w-[1300px] mx-auto" data-screen-label="Articles">
       {/* hero search */}
       <div className="bg-gradient-to-l from-brand-redDark/60 to-ink-800 border border-ink-500 rounded-2xl p-6 md:p-8 mb-6 relative overflow-hidden">
-        <div className="absolute -top-10 -left-10 w-48 h-48 rounded-full orb-red opacity-50" />
+        <div className="absolute -top-10 -start-10 w-48 h-48 rounded-full orb-red opacity-50" />
         <div className="relative">
           <div className="flex items-center gap-2 mb-2"><span className="text-[11px] px-2 py-0.5 rounded-md bg-white/10 border border-white/15">📚 مقالات و تحلیل‌ها</span></div>
           <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2">آنچه در بازار مهم است، عمیق بخوان.</h1>
@@ -56,8 +56,8 @@ function ArticlesContent(){
         <a href="#" className="grid md:grid-cols-2 gap-5 bg-ink-800 border border-ink-500 rounded-2xl overflow-hidden hover:border-ink-400 transition mb-8 group">
           <div className="aspect-[16/10] md:aspect-auto relative overflow-hidden" style={{ background: SHADES[1] }}>
             <div className="absolute inset-0 placeholder-stripe opacity-30" />
-            <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-brand-red text-white text-[10.5px] font-bold">⭐ ویژه</div>
-            <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2 text-white/80 text-[10.5px]"><span>{A_FEATURED.read}</span><span>•</span><span>{A_FEATURED.views} بازدید</span></div>
+            <div className="absolute top-3 end-3 px-2.5 py-1 rounded-md bg-brand-red text-white text-[10.5px] font-bold">⭐ ویژه</div>
+            <div className="absolute bottom-3 start-3 end-3 flex items-center gap-2 text-white/80 text-[10.5px]"><span>{A_FEATURED.read}</span><span>•</span><span>{A_FEATURED.views} بازدید</span></div>
           </div>
           <div className="p-5 md:p-7">
             <span className="label-peyda px-2 py-0.5 rounded-md bg-brand-red/15 text-brand-redSoft border border-brand-red/30">{A_FEATURED.tag}</span>
@@ -78,8 +78,8 @@ function ArticlesContent(){
           <a href="#" key={i} className="bg-ink-800 border border-ink-500 rounded-xl overflow-hidden hover:border-ink-400 transition group flex flex-col">
             <div className="aspect-[16/10] relative overflow-hidden" style={{ background: SHADES[i%SHADES.length] }}>
               <div className="absolute inset-0 placeholder-stripe opacity-25" />
-              <div className="absolute top-2.5 right-2.5 label-peyda px-2 py-0.5 rounded-md bg-black/60 text-white border border-white/10">{a.tag}</div>
-              <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md bg-black/60 text-white text-[10.5px]">{a.read}</div>
+              <div className="absolute top-2.5 end-2.5 label-peyda px-2 py-0.5 rounded-md bg-black/60 text-white border border-white/10">{a.tag}</div>
+              <div className="absolute bottom-2.5 start-2.5 px-2 py-0.5 rounded-md bg-black/60 text-white text-[10.5px]">{a.read}</div>
             </div>
             <div className="p-4 flex-1 flex flex-col">
               <h3 className="text-[14.5px] font-bold leading-7 line-clamp-2 group-hover:text-brand-redSoft transition flex-1">{a.title}</h3>

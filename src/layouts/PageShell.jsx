@@ -38,7 +38,7 @@ const CookieBanner = () => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-4 left-4 right-4 md:left-8 md:right-auto md:max-w-md z-50 pointer-events-auto"
+          className="fixed bottom-4 start-4 end-4 md:left-8 md:right-auto md:max-w-md z-50 pointer-events-auto"
         >
           <div className="bg-ink-850 light:bg-white border border-ink-500 light:border-zinc-200 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] p-5 rounded-2xl flex flex-col gap-4 relative overflow-hidden text-start">
             <h3 className="font-bold text-[14px] text-white light:text-zinc-900 flex items-center gap-2">

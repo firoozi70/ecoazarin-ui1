@@ -23,7 +23,7 @@ const LiveTicker = () => {
     >
       <div className="max-w-[1600px] mx-auto flex items-center h-11">
         {/* breaking-news badge */}
-        <div className="shrink-0 flex items-center gap-2 pr-3 pl-3.5 h-7 mx-3 my-2 rounded-md bg-gradient-to-l from-brand-redDark to-brand-red shadow-[0_4px_14px_-6px_rgba(230,57,70,0.7)]">
+        <div className="shrink-0 flex items-center gap-2 pe-3 ps-3.5 h-7 mx-3 my-2 rounded-md bg-gradient-to-l from-brand-redDark to-brand-red shadow-[0_4px_14px_-6px_rgba(230,57,70,0.7)]">
           <span className="relative flex h-1.5 w-1.5">
             <span className="absolute inline-flex h-full w-full rounded-full bg-white animate-softPulse" />
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
@@ -35,7 +35,7 @@ const LiveTicker = () => {
             {typeof t !== "undefined" ? t("breakingNews") : "خبر فوری"}
           </span>
         </div>
-        <span className="hidden md:block w-px h-5 bg-ink-500/70 light:bg-zinc-300 ml-1" />
+        <span className="hidden md:block w-px h-5 bg-ink-500/70 light:bg-zinc-300 ms-1" />
 
         {/* rotating headline */}
         <div
@@ -57,14 +57,14 @@ const LiveTicker = () => {
                   pointerEvents: visible ? "auto" : "none",
                 }}
               >
-                <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-greenSoft ml-3 shrink-0" />
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-brand-greenSoft ms-3 shrink-0" />
                 <span className="truncate">{t}</span>
               </a>
             );
           })}
           {/* fade edges */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-[#0A0A0A] light:from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#0A0A0A] light:from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 end-0 w-12 bg-gradient-to-l from-[#0A0A0A] light:from-white to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 start-0 w-12 bg-gradient-to-r from-[#0A0A0A] light:from-white to-transparent" />
         </div>
 
         {/* progress dots */}
@@ -85,7 +85,7 @@ const LiveTicker = () => {
 
         <a
           href="#"
-          className="hidden md:inline-flex shrink-0 items-center gap-1 px-4 h-full text-[12px] text-zinc-400 light:text-zinc-500 hover:text-brand-red light:hover:text-brand-red transition border-r border-ink-500 light:border-zinc-200"
+          className="hidden md:inline-flex shrink-0 items-center gap-1 px-4 h-full text-[12px] text-zinc-400 light:text-zinc-500 hover:text-brand-red light:hover:text-brand-red transition border-e border-ink-500 light:border-zinc-200"
         >
           {typeof t !== "undefined" ? t("allNews") : "همه اخبار"}{" "}
           <IconArrowLeft size={12} />
@@ -164,7 +164,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
                 <span>{label}</span>
                 {active && (
                   <span
-                    className="w-1.5 h-1.5 rounded-full bg-brand-green ml-0.5"
+                    className="w-1.5 h-1.5 rounded-full bg-brand-green ms-0.5"
                     aria-hidden="true"
                   />
                 )}
@@ -174,7 +174,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
         </nav>
 
         {/* Right cluster (visually left in RTL) */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0 mr-auto">
+        <div className="flex items-center gap-1 sm:gap-2 shrink-0 me-auto">
           <div className="flex items-center">
             {window.LangToggle ? (
               <LangToggle className="flex items-center" />
@@ -232,7 +232,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
                   <span>{label}</span>
                   {active && (
                     <span
-                      className="w-1.5 h-1.5 rounded-full bg-brand-green ml-0.5"
+                      className="w-1.5 h-1.5 rounded-full bg-brand-green ms-0.5"
                       aria-hidden="true"
                     />
                   )}
@@ -381,7 +381,7 @@ const HeaderSearch = () => {
       )}
       {open && q.trim() && (
         <div
-          className="absolute top-11 left-0 w-[420px] lg:w-[460px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
+          className="absolute top-11 start-0 w-[420px] lg:w-[460px] bg-ink-800 border border-ink-500 rounded-xl shadow-2xl overflow-hidden z-50"
           style={{ animation: "fadein .2s ease-out both" }}
         >
           {results.length === 0 ? (
@@ -415,7 +415,7 @@ const HeaderSearch = () => {
                   <li key={i}>
                     <button
                       onClick={goAll}
-                      className="w-full text-right px-3 py-2.5 hover:bg-ink-700/70 transition flex items-start gap-3 border-b border-ink-500/60"
+                      className="w-full text-end px-3 py-2.5 hover:bg-ink-700/70 transition flex items-start gap-3 border-b border-ink-500/60"
                     >
                       <span className="label-peyda shrink-0 px-2 py-0.5 rounded-full bg-brand-red/15 text-brand-redSoft border border-brand-red/25">
                         {r.category}

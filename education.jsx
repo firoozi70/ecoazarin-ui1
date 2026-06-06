@@ -25,7 +25,7 @@ function EducationContent(){
     <section className="px-4 md:px-6 max-w-[1400px] mx-auto" data-screen-label="Education">
       {/* hero */}
       <div className="bg-gradient-to-bl from-brand-green/15 via-ink-800 to-ink-800 border border-ink-500 rounded-2xl p-7 md:p-10 mb-6 relative overflow-hidden">
-        <div className="absolute top-4 left-6 w-40 h-40 rounded-full orb-green opacity-40" />
+        <div className="absolute top-4 start-6 w-40 h-40 rounded-full orb-green opacity-40" />
         <div className="relative grid md:grid-cols-[1fr_auto] items-center gap-6">
           <div>
             <span className="text-[11px] px-2.5 py-1 rounded-md bg-brand-green/15 border border-brand-green/30 text-brand-green font-bold">🎓 آکادمی اکوآذرین</span>
@@ -45,7 +45,7 @@ function EducationContent(){
       <h2 className="text-[15px] font-bold mb-3 mt-2">مسیرهای یادگیری</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
         {E_TRACKS.map(tr=>(
-          <button key={tr.id} onClick={()=>setTrack(tr.id)} className={`text-right bg-ink-800 border rounded-xl p-4 transition hover:border-ink-400 ${track===tr.id?'border-2':'border'}`} style={{ borderColor: track===tr.id?tr.color:undefined }}>
+          <button key={tr.id} onClick={()=>setTrack(tr.id)} className={`text-end bg-ink-800 border rounded-xl p-4 transition hover:border-ink-400 ${track===tr.id?'border-2':'border'}`} style={{ borderColor: track===tr.id?tr.color:undefined }}>
             <div className="flex items-center gap-3 mb-3"><span className="h-10 w-10 rounded-xl flex items-center justify-center text-[20px]" style={{ background: tr.color+'20', border:`1px solid ${tr.color}40` }}>{tr.icon}</span><div className="flex-1"><div className="text-[14px] font-extrabold" style={{ color: tr.color }}>{tr.l}</div><div className="text-[10.5px] text-zinc-500">{tr.d}</div></div></div>
             <div className="flex items-center justify-between text-[11px] text-zinc-400"><span>{tr.courses} دوره</span><span>{tr.hours} ساعت</span></div>
           </button>
@@ -66,19 +66,19 @@ function EducationContent(){
           <article key={i} className="bg-ink-800 border border-ink-500 rounded-xl overflow-hidden hover:border-ink-400 transition group flex flex-col">
             <div className="relative aspect-[16/9] overflow-hidden" style={{ background:`linear-gradient(135deg, ${LEVEL_COLOR[c.level]}30, ${LEVEL_COLOR[c.level]}05)` }}>
               <div className="absolute inset-0 dotted-bg opacity-40" />
-              <div className="absolute top-2.5 right-2.5 flex gap-1.5">{c.badge && <span className="label-peyda px-2 py-0.5 rounded-md bg-brand-red text-white">{c.badge}</span>}{c.off && <span className="label-peyda px-2 py-0.5 rounded-md bg-brand-green text-black">{c.off}</span>}</div>
-              <div className="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10.5px] font-bold" style={{ background: LEVEL_COLOR[c.level]+'30', color:LEVEL_COLOR[c.level], border:`1px solid ${LEVEL_COLOR[c.level]}50` }}>{c.level}</div>
+              <div className="absolute top-2.5 end-2.5 flex gap-1.5">{c.badge && <span className="label-peyda px-2 py-0.5 rounded-md bg-brand-red text-white">{c.badge}</span>}{c.off && <span className="label-peyda px-2 py-0.5 rounded-md bg-brand-green text-black">{c.off}</span>}</div>
+              <div className="absolute bottom-2.5 start-2.5 px-2 py-0.5 rounded-md text-[10.5px] font-bold" style={{ background: LEVEL_COLOR[c.level]+'30', color:LEVEL_COLOR[c.level], border:`1px solid ${LEVEL_COLOR[c.level]}50` }}>{c.level}</div>
               <div className="absolute inset-0 flex items-center justify-center"><span className="h-12 w-12 rounded-full bg-white/90 text-black flex items-center justify-center text-[20px] group-hover:scale-110 transition">▶</span></div>
             </div>
             <div className="p-4 flex-1 flex flex-col">
-              <div className="flex items-center gap-1 text-[10.5px] text-amber-400 mb-1">★★★★★ <span className="text-zinc-400 mr-1">{c.rating} ({c.students})</span></div>
+              <div className="flex items-center gap-1 text-[10.5px] text-amber-400 mb-1">★★★★★ <span className="text-zinc-400 me-1">{c.rating} ({c.students})</span></div>
               <h3 className="text-[14.5px] font-bold leading-7 line-clamp-2 group-hover:text-brand-green transition flex-1">{c.title}</h3>
               <div className="text-[11.5px] text-zinc-400 mt-1.5">مدرس: {c.inst}</div>
               <div className="flex items-center gap-3 mt-2 text-[10.5px] text-zinc-500"><span>⏱ {c.hours} ساعت</span><span>📺 {c.lessons} درس</span></div>
               <div className="flex items-end justify-between mt-3 pt-3 border-t border-ink-500/60">
                 <div>
                   {c.oldPrice && <div className="text-[10.5px] text-zinc-500 line-through num-display">{c.oldPrice}</div>}
-                  <div className="text-[15px] font-extrabold stat-num text-brand-green">{c.price}<span className="text-[10px] font-medium text-zinc-500 mr-1">تومان</span></div>
+                  <div className="text-[15px] font-extrabold stat-num text-brand-green">{c.price}<span className="text-[10px] font-medium text-zinc-500 me-1">تومان</span></div>
                 </div>
                 <button className="h-9 px-3 rounded-lg bg-ink-700 text-white text-[11.5px] font-bold hover:bg-brand-green hover:text-black transition">ثبت‌نام</button>
               </div>

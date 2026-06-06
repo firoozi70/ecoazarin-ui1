@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import * as Recharts from 'recharts';
 const { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } = Recharts;
-import { t } from '../../i18n/index';
+import { t, useLang } from '../../i18n/index';
 import { motion, AnimatePresence } from 'motion/react';
 import { IconSearch, IconClose } from '../ui/Icons';
 
@@ -36,7 +36,7 @@ const ThemeToggle = () => {
       className="relative inline-flex items-center h-9 w-16 rounded-full bg-ink-700 light:bg-zinc-200 border border-ink-500 light:border-zinc-300 transition-colors"
     >
       <span
-        className={`absolute top-0.5 h-7 w-7 rounded-full transition-all duration-300 flex items-center justify-center ${dark ? "right-0.5 bg-ink-900 text-amber-300" : "right-[calc(100%-1.875rem)] bg-white text-amber-500 shadow-md"}`}
+        className={`absolute top-0.5 h-7 w-7 rounded-full transition-all duration-300 flex items-center justify-center ${dark ? "end-0.5 bg-ink-900 text-amber-300" : "end-[calc(100%-1.875rem)] bg-white text-amber-500 shadow-md"}`}
       >
         {dark ? (
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -65,134 +65,139 @@ const ThemeToggle = () => {
 // ---------- بنر اختصاصی تب: شعار داینامیک + جستجو (بدون عضویت) ----------
 const TAB_BANNER = {
   news: {
-    title: "هیچ خبر و رخداد مهمی از بازار رو از دست نده!",
+    titleFa: "هیچ خبر و رخداد مهمی از بازار رو از دست نده!",
+    titleEn: "Don't miss any important market news!",
     placeholder: "جستجو در اخبار…",
     accent: "bg-brand-red",
   },
   edu: {
-    title: "هوشمندانه‌تر یاد بگیر، دانش مالی‌ت رو رشد بده!",
+    titleFa: "هوشمندانه‌تر یاد بگیر، دانش مالی‌ت رو رشد بده!",
+    titleEn: "Learn smarter, grow your financial knowledge!",
     placeholder: "جستجوی دوره و آموزش…",
     accent: "bg-brand-red",
   },
   tools: {
-    title: "به ابزارهایی که برای تصمیم بهتر لازم داری دسترسی داشته باش!",
+    titleFa: "به ابزارهایی که برای تصمیم بهتر لازم داری دسترسی داشته باش!",
+    titleEn: "Get access to the tools you need for better decisions!",
     placeholder: "جستجو در ابزارها…",
     accent: "bg-brand-green",
   },
   products: {
-    title: "محصولات و خدمات کاربردی اکوآذرین رو کشف کن!",
+    titleFa: "محصولات و خدمات کاربردی اکوآذرین رو کشف کن!",
+    titleEn: "Discover EcoAzarin's useful products and services!",
     placeholder: "جستجو در محصولات…",
     accent: "bg-brand-green",
   },
   journal: {
-    title: "معاملات، افکار و پیشرفت‌ت رو ردگیری کن!",
+    titleFa: "معاملات، افکار و پیشرفت‌ت رو ردگیری کن!",
+    titleEn: "Track your trades, thoughts, and progress!",
     placeholder: "جستجو در ژورنال…",
     accent: "bg-brand-red",
   },
   articles: {
-    title: "تحلیل‌های عمیق و دیدگاه کارشناسان رو بخون!",
+    titleFa: "تحلیل‌های عمیق و دیدگاه کارشناسان رو بخون!",
+    titleEn: "Read deep analysis and diverse expert opinions!",
     placeholder: "جستجو در مقالات…",
     accent: "bg-brand-red",
   },
   podcast: {
-    title: "به پادکست‌های مالی اختصاصی و گفت‌وگوها گوش بده!",
+    titleFa: "به پادکست‌های مالی اختصاصی و گفت‌وگوها گوش بده!",
+    titleEn: "Listen to exclusive financial podcasts and talks!",
     placeholder: "جستجو در پادکست‌ها…",
     accent: "bg-brand-green",
   },
 };
 
-// Single theme-aware banner. Search is on the RIGHT (col-span-3, the
-// previous slogan slot); slogan is on the LEFT (col-span-2). Both follow
-// the global token system so they flip on dark/light without forking.
+// Single theme-aware banner. Search is on the RIGHT (relative), slogan is on the LEFT.
 const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
-  const b = TAB_BANNER[tabId] || TAB_BANNER.news;
+  const [lang] = useLang();
+  const isEn = lang === 'EN';
   const inputRef = useRef(null);
-  const [osKey, setOsKey] = useState("⌘ K");
 
-  useEffect(() => {
-    if (typeof navigator !== "undefined") {
-      const isMac =
-        navigator.platform.toUpperCase().indexOf("MAC") >= 0 ||
-        navigator.userAgent.toUpperCase().indexOf("MAC") >= 0;
-      setOsKey(isMac ? "⌘ K" : "Ctrl + K");
+  // Dynamic Context: News route filters News, else global search.
+  const isNewsRoute = typeof window !== 'undefined' && window.PAGE_SLUG === 'news';
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!query) return;
+    if (!isNewsRoute && onQuery) {
+      window.location.href = `search-results.html?q=${encodeURIComponent(query)}`;
     }
-
-    const handleKeyDown = (e) => {
-      // ignore if focus is inside input/textarea already
-      if (
-        document.activeElement?.tagName === "INPUT" ||
-        document.activeElement?.tagName === "TEXTAREA"
-      ) {
-        return;
-      }
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        inputRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  };
 
   return (
-    <div className="grid md:grid-cols-5 gap-3 mb-5 md:mb-6">
-      {/* SEARCH — now on the right (was slogan's slot) */}
-      <div className="md:col-span-3 order-1 md:order-1 flex items-center group bg-ink-800/60 light:bg-white border border-ink-500 light:border-zinc-200 rounded-xl px-2 py-2 relative transition-all hover:border-ink-400 light:hover:border-zinc-300 focus-within:border-brand-red/60 focus-within:shadow-[0_0_0_4px_rgba(230,57,70,0.10)]">
-        <label className="flex items-center gap-3 w-full cursor-text">
-          <span className="h-10 w-10 shrink-0 rounded-[10px] bg-[#2E1417] light:bg-brand-red/5 border border-brand-red/20 light:border-brand-red/10 flex items-center justify-center text-brand-red">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-3 mb-5 md:mb-6 w-full">
+      {/* SLOGAN BANNER (Start side) */}
+      <div className="order-2 md:order-1 flex items-center justify-center bg-zinc-200/60 dark:bg-zinc-800/80 rounded-full px-1.5 py-1.5 md:pe-5 transition-all text-start w-full md:w-auto relative overflow-hidden group">
+        <div className="flex items-center gap-3 relative z-10 w-full justify-between">
+          <div className="shrink-0 flex items-center">
+            {/* Custom Illustration SVG Matching the Blueprint */}
+            <div className="w-[50px] h-[34px] md:w-[60px] md:h-[40px] flex items-center justify-center overflow-visible bg-zinc-100 dark:bg-zinc-700/50 rounded-full rtl:scale-x-[-1] shadow-inner border border-white/50 dark:border-zinc-600/50 px-2">
+               <svg viewBox="0 0 120 70" className="w-[64px] h-[44px] drop-shadow-sm overflow-visible text-start" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Coins */}
+                  <g stroke="#9CA3AF" strokeWidth="1.5">
+                    <ellipse cx="90" cy="55" rx="14" ry="4" fill="#E5E7EB"/>
+                    <path d="M76 55 v-5 a14 4 0 0 1 28 0 v5" fill="#F3F4F6"/>
+                    <ellipse cx="90" cy="50" rx="14" ry="4" fill="#E5E7EB"/>
+                    <path d="M76 50 v-5 a14 4 0 0 1 28 0 v5" fill="#F3F4F6"/>
+                    <ellipse cx="90" cy="45" rx="14" ry="4" fill="#E5E7EB"/>
+                    <path d="M76 45 v-5 a14 4 0 0 1 28 0 v5" fill="#F3F4F6"/>
+                    <ellipse cx="90" cy="40" rx="14" ry="4" fill="#E5E7EB"/>
+                  </g>
+                  {/* Person Body & Legs */}
+                  <path d="M25 55 C 10 50, 45 42, 65 52 L 25 55 Z" fill="#ffffff" stroke="#374151" strokeWidth="2" strokeLinejoin="round"/>
+                  <path d="M35 55 C 30 65, 60 62, 55 50 C 45 48, 40 50, 35 55 Z" fill="#F9FAFB" stroke="#374151" strokeWidth="2" strokeLinejoin="round"/>
+                  <path d="M35 30 C 20 28, 20 40, 25 48 C 30 50, 50 50, 55 45 C 55 40, 45 32, 35 30 Z" fill="#10B981"/>
+                  {/* Head & Hair */}
+                  <circle cx="38" cy="20" r="7" fill="#FCD34D"/>
+                  <path d="M33 18 C 33 5, 48 5, 45 20 C 40 18, 38 18, 33 18 Z" fill="#111827"/>
+                  <circle cx="35" cy="15" r="3" fill="#111827"/>
+                  {/* Laptop */}
+                  <path d="M42 45 L 60 45 L 65 38 L 47 38 Z" fill="#111827" stroke="#374151" strokeWidth="1.5" strokeLinejoin="round"/>
+                  <path d="M60 45 L 50 35 L 55 33 L 65 43 Z" fill="#1F2937" stroke="#374151" strokeWidth="1.5" strokeLinejoin="round"/>
+                  {/* Arm */}
+                  <path d="M33 36 C 30 42, 35 48, 45 43" fill="none" stroke="#10B981" strokeWidth="4" strokeLinecap="round"/>
+               </svg>
+            </div>
+          </div>
+          <div className="flex-1 px-1">
+            <h2 className="text-[13.5px] md:text-[15px] font-black leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 flex flex-col whitespace-pre-wrap font-peyda pt-0.5">
+              {isEn ? (
+                <>Everything you need <br/><span className="text-[15px] md:text-[17px]">to know about economy!</span></>
+              ) : (
+                <>هر آن‌چیزی کــه از <br/><span className="text-[15px] md:text-[17px]">اقتصاد بـایـد بـدونی!</span></>
+              )}
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      {/* SEARCH (End side) - noticeably smaller max-width */}
+      <div className="order-1 md:order-2 flex items-center w-full md:max-w-md bg-zinc-100 dark:bg-zinc-800/80 border-2 border-transparent focus-within:border-brand-red/30 transition-all rounded-full px-2 py-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-800">
+        <form onSubmit={handleSearch} className="flex items-center gap-2 w-full cursor-text relative">
+          <button type="submit" className="h-9 w-9 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">
             <IconSearch size={18} />
-          </span>
+          </button>
           <input
             ref={inputRef}
             type="search"
-            placeholder={
-              typeof t !== "undefined"
-                ? t("searchAll")
-                : "جستجو در همهٔ بخش‌های سایت…"
-            }
-            aria-label="جستجو"
+            placeholder={isEn ? "What news are you looking for!" : "دنبال چه خبری هستی !"}
+            aria-label={isEn ? "Search" : "جستجو"}
             value={query || ""}
             onChange={(e) => onQuery && onQuery(e.target.value)}
-            className="flex-1 min-w-0 h-10 bg-transparent border-0 text-[13px] md:text-[14px] text-zinc-100 light:text-zinc-800 placeholder:text-zinc-500 light:placeholder:text-zinc-400 outline-none"
+            className="flex-1 min-w-0 h-9 bg-transparent border-0 text-[13px] md:text-[14px] text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-500 dark:placeholder:text-zinc-400 outline-none"
           />
-          {query ? (
-            <span className="text-[11px] text-zinc-400 light:text-zinc-500 tabular-nums shrink-0">
-              {resultCount || 0} نتیجه
-            </span>
-          ) : (
-            <kbd
-              className="hidden md:inline-flex shrink-0 items-center justify-center h-[26px] min-w-[32px] px-2 rounded-md border border-ink-500 light:border-zinc-200 bg-ink-900/60 light:bg-zinc-50 text-[11px] font-mono font-medium text-zinc-400 light:text-zinc-500 tracking-wider shadow-sm mr-2"
-              style={{ direction: "ltr" }}
-            >
-              {osKey}
-            </kbd>
-          )}
-          {query ? (
+          {query && (
             <button
+              type="button"
               onClick={() => onQuery && onQuery("")}
-              className="text-zinc-500 hover:text-white shrink-0 mr-2"
-              aria-label="پاک کردن"
+              className="text-zinc-400 hover:text-zinc-700 dark:hover:text-white shrink-0 me-2"
+              aria-label={isEn ? "Clear" : "پاک کردن"}
             >
               <IconClose size={16} />
             </button>
-          ) : null}
-        </label>
-      </div>
-      {/* SLOGAN — now on the left (was search's slot) */}
-      <div className="md:col-span-2 order-2 md:order-2 relative overflow-hidden bg-gradient-to-br from-ink-800/80 to-ink-900/60 border border-ink-500 rounded-xl px-4 py-3 flex items-center gap-3 transition-all hover:border-ink-400 text-zinc-500">
-        <span
-          className={`h-10 w-1.5 rounded-full ${b.accent} shrink-0 shadow-[0_0_18px_-2px_currentColor]`}
-        />
-        <h2 className="text-[13px] md:text-[14px] font-bold leading-snug tracking-tight text-white line-clamp-2 flex-1">
-          {b.title}
-        </h2>
-        <span
-          className="absolute -left-6 -top-6 w-20 h-20 rounded-full opacity-30 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(closest-side, currentColor, transparent 70%)",
-          }}
-        />
+          )}
+        </form>
       </div>
     </div>
   );

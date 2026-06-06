@@ -30,7 +30,7 @@ function PrivacyContent() {
           <section>
             <h2 className="text-xl font-bold text-zinc-100 light:text-zinc-900 mb-4 flex items-center gap-2"><span className="text-brand-green">2.</span> {isEn ? 'How We Use Information' : 'نحوه استفاده از اطلاعات'}</h2>
             <p className="mb-3">{isEn ? 'Your information will only be used for:' : 'اطلاعات شما صرفاً برای مقاصد زیر استفاده خواهد شد:'}</p>
-            <ul className={`list-disc space-y-2 text-zinc-400 light:text-zinc-500 marker:text-brand-green ${isEn ? 'ml-5' : 'pr-5'}`}>
+            <ul className={`list-disc space-y-2 text-zinc-400 light:text-zinc-500 marker:text-brand-green ${isEn ? 'ms-5' : 'pe-5'}`}>
               <li>{isEn ? 'Creating and managing your account' : 'ایجاد و مدیریت حساب کاربری شما.'}</li>
               <li>{isEn ? 'Personalizing your experience' : 'شخصی‌سازی تجربه کاربری و نمایش تحلیل‌های مرتبط.'}</li>
               <li>{isEn ? 'Sending important notices' : 'ارسال اطلاع‌رسانی‌های مهم.'}</li>
