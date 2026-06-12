@@ -16,15 +16,19 @@ const BigNewsCarousel = () => {
   const isEn = lang === 'EN';
   const list = window.FEATURED_NEWS;
   const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => {
+    if (paused) return;
     const timer = setInterval(() => setIdx((i) => (i + 1) % list.length), 5500);
     return () => clearInterval(timer);
-  }, [list.length]);
+  }, [list.length, paused]);
   const it = list[idx];
   return (
     <section
       className="px-4 md:px-6 max-w-[1400px] mx-auto"
       aria-label={isEn ? 'Top Story' : 'مهم‌ترین خبر'}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
       <div className="relative h-[260px] md:h-[380px] rounded-2xl overflow-hidden border border-ink-500 placeholder-stripe">
         {/* fake photo bg */}
