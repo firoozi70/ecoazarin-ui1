@@ -128,45 +128,19 @@ const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
   return (
     <div className="flex flex-col md:flex-row items-center justify-between gap-3 mb-5 md:mb-6 w-full">
       {/* SLOGAN BANNER (Start side) */}
-      <div className="order-2 md:order-1 flex items-center justify-center bg-zinc-200/60 dark:bg-zinc-800/80 rounded-full px-1.5 py-1.5 md:pe-5 transition-all text-start w-full md:w-auto relative overflow-hidden group">
-        <div className="flex items-center gap-3 relative z-10 w-full justify-between">
+      <div className="order-2 md:order-1 flex items-center text-start w-full md:w-auto transition-all">
+        <div className="flex items-center gap-3 w-full">
           <div className="shrink-0 flex items-center">
-            {/* Custom Illustration SVG Matching the Blueprint */}
-            <div className="w-[50px] h-[34px] md:w-[60px] md:h-[40px] flex items-center justify-center overflow-visible bg-zinc-100 dark:bg-zinc-700/50 rounded-full rtl:scale-x-[-1] shadow-inner border border-white/50 dark:border-zinc-600/50 px-2">
-               <svg viewBox="0 0 120 70" className="w-[64px] h-[44px] drop-shadow-sm overflow-visible text-start" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Coins */}
-                  <g stroke="#9CA3AF" strokeWidth="1.5">
-                    <ellipse cx="90" cy="55" rx="14" ry="4" fill="#E5E7EB"/>
-                    <path d="M76 55 v-5 a14 4 0 0 1 28 0 v5" fill="#F3F4F6"/>
-                    <ellipse cx="90" cy="50" rx="14" ry="4" fill="#E5E7EB"/>
-                    <path d="M76 50 v-5 a14 4 0 0 1 28 0 v5" fill="#F3F4F6"/>
-                    <ellipse cx="90" cy="45" rx="14" ry="4" fill="#E5E7EB"/>
-                    <path d="M76 45 v-5 a14 4 0 0 1 28 0 v5" fill="#F3F4F6"/>
-                    <ellipse cx="90" cy="40" rx="14" ry="4" fill="#E5E7EB"/>
-                  </g>
-                  {/* Person Body & Legs */}
-                  <path d="M25 55 C 10 50, 45 42, 65 52 L 25 55 Z" fill="#ffffff" stroke="#374151" strokeWidth="2" strokeLinejoin="round"/>
-                  <path d="M35 55 C 30 65, 60 62, 55 50 C 45 48, 40 50, 35 55 Z" fill="#F9FAFB" stroke="#374151" strokeWidth="2" strokeLinejoin="round"/>
-                  <path d="M35 30 C 20 28, 20 40, 25 48 C 30 50, 50 50, 55 45 C 55 40, 45 32, 35 30 Z" fill="#10B981"/>
-                  {/* Head & Hair */}
-                  <circle cx="38" cy="20" r="7" fill="#FCD34D"/>
-                  <path d="M33 18 C 33 5, 48 5, 45 20 C 40 18, 38 18, 33 18 Z" fill="#111827"/>
-                  <circle cx="35" cy="15" r="3" fill="#111827"/>
-                  {/* Laptop */}
-                  <path d="M42 45 L 60 45 L 65 38 L 47 38 Z" fill="#111827" stroke="#374151" strokeWidth="1.5" strokeLinejoin="round"/>
-                  <path d="M60 45 L 50 35 L 55 33 L 65 43 Z" fill="#1F2937" stroke="#374151" strokeWidth="1.5" strokeLinejoin="round"/>
-                  {/* Arm */}
-                  <path d="M33 36 C 30 42, 35 48, 45 43" fill="none" stroke="#10B981" strokeWidth="4" strokeLinecap="round"/>
-               </svg>
-            </div>
+            <img 
+              src="/اخبار.png" 
+              alt="" 
+              className="w-12 h-12 md:w-[56px] md:h-[56px] object-contain rtl:scale-x-[-1]" 
+              referrerPolicy="no-referrer"
+            />
           </div>
-          <div className="flex-1 px-1">
-            <h2 className="text-[13.5px] md:text-[15px] font-black leading-tight tracking-tight text-zinc-900 dark:text-zinc-100 flex flex-col whitespace-pre-wrap font-peyda pt-0.5">
-              {isEn ? (
-                <>Everything you need <br/><span className="text-[15px] md:text-[17px]">to know about economy!</span></>
-              ) : (
-                <>هر آن‌چیزی کــه از <br/><span className="text-[15px] md:text-[17px]">اقتصاد بـایـد بـدونی!</span></>
-              )}
+          <div className="flex-1">
+            <h2 className="text-[14px] md:text-[16px] font-black leading-[1.4] tracking-tight text-zinc-900 dark:text-zinc-100">
+              {isEn ? "A reference for following important events" : "مرجعی برای دنبال کردن رویدادهای مهم"}
             </h2>
           </div>
         </div>
