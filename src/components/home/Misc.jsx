@@ -134,7 +134,7 @@ const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
             <img 
               src="/اخبار.png" 
               alt="" 
-              className="w-12 h-12 md:w-[56px] md:h-[56px] object-contain rtl:scale-x-[-1]" 
+              className="w-[60px] h-[60px] md:w-[80px] md:h-[80px] object-contain rtl:scale-x-[-1]" 
               referrerPolicy="no-referrer"
             />
           </div>
@@ -147,7 +147,7 @@ const SectionBanner = ({ tabId, query, onQuery, resultCount }) => {
       </div>
 
       {/* SEARCH (End side) - noticeably smaller max-width */}
-      <div className="order-1 md:order-2 flex items-center w-full md:max-w-md bg-zinc-100 dark:bg-zinc-800/80 border-2 border-transparent focus-within:border-brand-red/30 transition-all rounded-full px-2 py-1.5 hover:bg-zinc-200 dark:hover:bg-zinc-800">
+      <div className="order-1 md:order-2 flex items-center w-full md:max-w-md bg-white dark:bg-zinc-800/80 border border-zinc-200 dark:border-transparent focus-within:border-brand-red/40 dark:focus-within:border-brand-red/40 shadow-sm dark:shadow-none transition-all rounded-full px-2 py-1.5 hover:bg-zinc-50 dark:hover:bg-zinc-800">
         <form onSubmit={handleSearch} className="flex items-center gap-2 w-full cursor-text relative">
           <button type="submit" className="h-9 w-9 shrink-0 flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors">
             <IconSearch size={18} />
