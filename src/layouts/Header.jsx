@@ -132,7 +132,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
       className="bg-ink-900/90 backdrop-blur-md border-b border-ink-500 sticky top-0 z-40 max-w-[100vw]"
       role="banner"
     >
-      <div className="max-w-[1400px] mx-auto px-3 md:px-6 h-16 flex items-center justify-between gap-2 md:gap-4">
+      <div className="max-w-[1400px] mx-auto px-4 md:px-6 h-16 flex items-center justify-between gap-2 md:gap-4">
         {/* Brand (right side in RTL) */}
         <a
           href="/"
@@ -184,7 +184,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
         </nav>
 
         {/* Right cluster (visually left in RTL) */}
-        <div className="flex items-center gap-1 sm:gap-2 shrink-0 me-auto">
+        <div className="flex items-center justify-end gap-2 md:gap-3 shrink-0">
           <div className="flex items-center">
             <LangToggle className="flex items-center" />
           </div>
@@ -197,7 +197,7 @@ const Header = ({ onOpenSearch, rightSlot }) => {
 
           <button
             onClick={() => setMobileOpen((o) => !o)}
-            className="lg:hidden inline-flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-lg text-zinc-300 light:text-zinc-600 hover:bg-ink-700 light:hover:bg-zinc-100 transition"
+            className="lg:hidden inline-flex items-center justify-center h-8 w-8 sm:h-9 sm:w-9 shrink-0 rounded-lg text-zinc-300 light:text-zinc-600 hover:bg-ink-700 light:hover:bg-zinc-100 transition me-0"
             aria-label={isEn ? "Menu" : "منو"}
             aria-expanded={mobileOpen}
           >
