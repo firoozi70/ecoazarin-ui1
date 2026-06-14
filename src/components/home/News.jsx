@@ -19,7 +19,11 @@ const BigNewsCarousel = () => {
   const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (paused) return;
-    const timer = setInterval(() => setIdx((i) => (i + 1) % list.length), 5500);
+    const timer = setInterval(() => {
+      if (window.innerWidth >= 768) {
+        setIdx((i) => (i + 1) % list.length);
+      }
+    }, 5500);
     return () => clearInterval(timer);
   }, [list.length, paused]);
   const it = list[idx];
@@ -80,7 +84,7 @@ const BigNewsCarousel = () => {
         </div>
 
         {/* dots */}
-        <div className="absolute bottom-4 end-1/2 translate-x-1/2 flex gap-1.5 z-20">
+        <div className="absolute bottom-4 end-1/2 translate-x-1/2 hidden md:flex gap-1.5 z-20">
           {list.map((_, i) => (
             <button
               key={i}
@@ -108,65 +112,68 @@ const NewsGrid = () => {
       className="px-4 md:px-6 max-w-[1400px] mx-auto"
       aria-label={isEn ? 'News Grid' : 'شبکه خبر'}
     >
-      <div className="overflow-x-auto scrollbar-hide -mx-4 md:mx-0 px-4 md:px-0">
-        <div className="flex md:grid md:grid-cols-3 gap-4 md:gap-6 w-max md:w-auto pb-4 md:pb-0">
-          {items.map((it, i) => {
-            const mockupImgs = [
-              "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-              "https://images.unsplash.com/photo-1621504450181-5d356f157fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-              "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
-            ];
-            return (
-              <article
-                key={i}
-                className="group card-hover bg-ink-700/60 border border-ink-500 rounded-2xl overflow-hidden w-[280px] md:w-auto shrink-0 md:shrink flex flex-col"
+      <div className="flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-6">
+        {items.map((it, i) => {
+          const mockupImgs = [
+            "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1621504450181-5d356f157fbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+          ];
+          return (
+            <article
+              key={i}
+              className={`group card-hover bg-ink-700/60 border border-ink-500 rounded-2xl overflow-hidden flex flex-row md:flex-col h-full ${i >= 3 ? 'hidden md:flex' : ''}`}
+            >
+              <a
+                href="article.html"
+                className="relative w-1/3 md:w-full h-auto min-h-[100px] md:h-[200px] bg-ink-800 overflow-hidden block shrink-0"
               >
-                <a
-                  href="article.html"
-                  className="relative h-[160px] md:h-[200px] bg-ink-800 overflow-hidden block"
-                >
-                  <img
-                    src={mockupImgs[i % mockupImgs.length]}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
-                  />
-                  <span className="absolute top-3 end-3 text-[11.5px] font-medium tracking-tight bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2.5 py-1 text-white z-10">
-                    {isEn ? it.kickerEn : it.kickerFa}
-                  </span>
-                </a>
-                <div className="p-4 md:p-5 flex flex-col flex-1">
-                  <h4 className="text-[15px] md:text-[16px] font-semibold leading-[1.9] line-clamp-2 mb-4">
-                    <a
-                      href="article.html"
-                      className="hover:text-white transition-colors"
-                    >
-                      {isEn ? it.titleEn : it.titleFa}
-                    </a>
-                  </h4>
-                  <div className="mt-auto pt-3 border-t border-ink-500 flex items-center justify-between text-[12px] text-zinc-400">
-                    <div className="flex items-center gap-3">
-                      <span className="inline-flex items-center gap-1.5">
-                        <IconEye size={14} />{" "}
-                        <span className="stat-num text-[13px] text-zinc-200 ltr-num">
-                          {it.views}
-                        </span>
+                <img
+                  src={mockupImgs[i % mockupImgs.length]}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-700"
+                />
+                <span className="absolute top-2 start-2 md:top-3 md:end-3 md:start-auto text-[10px] md:text-[11.5px] font-medium tracking-tight bg-black/60 backdrop-blur-sm border border-white/15 rounded-full px-2 py-0.5 md:px-2.5 md:py-1 text-white z-10">
+                  {isEn ? it.kickerEn : it.kickerFa}
+                </span>
+              </a>
+              <div className="p-3 md:p-5 flex flex-col flex-1 min-w-0">
+                <h4 className="text-[14px] md:text-[16px] font-semibold leading-[1.8] md:leading-[1.9] line-clamp-2 md:line-clamp-2 mb-2 md:mb-4">
+                  <a
+                    href="article.html"
+                    className="hover:text-white transition-colors"
+                  >
+                    {isEn ? it.titleEn : it.titleFa}
+                  </a>
+                </h4>
+                <div className="mt-auto pt-2 md:pt-3 border-t border-ink-500 flex items-center justify-between text-[11px] md:text-[12px] text-zinc-400">
+                  <div className="flex items-center gap-2 md:gap-3">
+                    <span className="inline-flex items-center gap-1 md:gap-1.5">
+                      <IconEye size={12} className="md:w-3.5 md:h-3.5" />{" "}
+                      <span className="stat-num text-[12px] md:text-[13px] text-zinc-200 ltr-num">
+                        {it.views}
                       </span>
-                      <span className="inline-flex items-center gap-1.5">
-                        <IconClock size={14} /> {isEn ? it.timeEn : it.timeFa}
-                      </span>
-                    </div>
-                    <a
-                      href="article.html"
-                      className="text-zinc-300 hover:text-white transition inline-flex items-center gap-1 font-medium group-hover:text-brand-green"
-                    >
-                      {isEn ? 'More' : 'بیشتر'} <IconArrowLeft size={14} className="rtl:rotate-180" />
-                    </a>
+                    </span>
+                    <span className="inline-flex items-center gap-1 md:gap-1.5 hidden sm:inline-flex">
+                      <IconClock size={12} className="md:w-3.5 md:h-3.5" /> {isEn ? it.timeEn : it.timeFa}
+                    </span>
                   </div>
+                  <a
+                    href="article.html"
+                    className="text-zinc-300 hover:text-white transition inline-flex items-center gap-1 font-medium group-hover:text-brand-green whitespace-nowrap"
+                  >
+                    <span className="hidden md:inline">{isEn ? 'More' : 'بیشتر'}</span> <IconArrowLeft size={14} className="rtl:rotate-180" />
+                  </a>
                 </div>
-              </article>
-            );
-          })}
-        </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      <div className="mt-4 md:hidden text-center">
+        <a href="#" className="inline-block py-2 px-5 text-[13px] font-medium text-zinc-300 hover:text-white bg-ink-800 rounded-full border border-ink-500">
+          {isEn ? 'View All' : 'مشاهده همه'}
+        </a>
       </div>
     </section>
   );
@@ -223,7 +230,7 @@ const NewsLists = () => {
               return (
                 <li
                   key={i}
-                  className="group flex items-start gap-3 p-3 transition-colors hover:bg-ink-700/60 light:hover:bg-zinc-50 cursor-pointer"
+                  className={`group flex items-start gap-3 p-3 transition-colors hover:bg-ink-700/60 light:hover:bg-zinc-50 cursor-pointer ${i >= 4 ? 'hidden md:flex' : ''}`}
                 >
                   <a
                     href="article.html"
@@ -260,6 +267,11 @@ const NewsLists = () => {
               );
             })}
           </ul>
+          <div className="mt-3 md:hidden text-center">
+             <a href="#" className="inline-block py-2 px-5 text-[12px] font-medium text-zinc-300 hover:text-white bg-ink-800 rounded-full border border-ink-500">
+               {isEn ? 'View All' : 'مشاهده همه'}
+             </a>
+          </div>
         </section>
       ))}
     </div>

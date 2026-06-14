@@ -36,7 +36,9 @@ const TabContent = ({ tabId }) => {
   useEffect(() => {
     if (paused || totalPages <= 1 || tabId !== 'news') return;
     const timer = setInterval(() => {
-      setCarouselIdx(prev => (prev + 1) % totalPages);
+      if (window.innerWidth >= 768) {
+        setCarouselIdx(prev => (prev + 1) % totalPages);
+      }
     }, 4500);
     return () => clearInterval(timer);
   }, [paused, totalPages, tabId]);
@@ -92,9 +94,9 @@ const TabContent = ({ tabId }) => {
                 transition={{ duration: 0.2 }}
                 href={it.href || '#'} 
                 key={`${tabId}-${carouselIdx}-${i}`} 
-                className="card-hover group bg-ink-800/80 border border-ink-500 rounded-xl p-4 flex flex-col hover:bg-ink-800 transition"
+                className="card-hover group bg-ink-800/80 border border-ink-500 rounded-xl p-4 flex flex-col h-full hover:bg-ink-800 transition"
               >
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-3 shrink-0">
                   <div className="flex items-center gap-2">
                     <span className="text-[12px] font-medium tracking-tight text-zinc-300 bg-ink-900 border border-ink-500 rounded-full px-2.5 py-1">{isEn ? it.tagEn || it.tag : it.tagFa || it.tag}</span>
                     {it.isFree && <span className="text-[11px] font-bold text-black bg-brand-green/80 rounded-full px-2 py-0.5">{isEn ? 'Free' : 'رایگان'}</span>}
@@ -102,7 +104,7 @@ const TabContent = ({ tabId }) => {
                   <span className="stat-num text-[13px] text-zinc-300 ltr-num">{it.views}</span>
                 </div>
                 <h4 className="text-[15px] font-semibold leading-7 line-clamp-3 flex-1 group-hover:text-brand-green transition-colors text-start">{(isEn ? it.titleEn : it.titleFa)}</h4>
-                <div className="mt-3 pt-3 border-t border-ink-500 flex items-center justify-between">
+                <div className="mt-3 pt-3 border-t border-ink-500 flex items-center justify-between shrink-0">
                   <span className="text-[12px] text-zinc-500">{(isEn ? it.metaEn : it.metaFa)}</span>
                   <span className="h-6 w-6 rounded-full bg-ink-900 border border-ink-500 flex items-center justify-center text-zinc-300 group-hover:bg-brand-green group-hover:text-black group-hover:border-brand-green transition-colors">
                     <IconArrowLeft size={12} className="ltr:rotate-180" />
@@ -115,7 +117,7 @@ const TabContent = ({ tabId }) => {
 
         {/* carousel dots */}
         {totalPages > 1 && (
-          <div className="mt-6 flex items-center justify-center gap-1.5 ltr:flex-row-reverse">
+          <div className="mt-6 hidden md:flex items-center justify-center gap-1.5 ltr:flex-row-reverse">
             {Array.from({length: totalPages}, (_, i) => i).map((i) =>
             <button key={i} onClick={() => setCarouselIdx(i)} aria-label={isEn ? `Page ${i + 1}` : `صفحه ${i + 1}`}
             className={`h-1.5 rounded-full transition-all ${i === carouselIdx ? 'w-6 bg-white' : 'w-1.5 bg-zinc-700 hover:bg-zinc-500'}`} />

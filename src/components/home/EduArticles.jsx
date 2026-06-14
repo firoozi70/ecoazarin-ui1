@@ -36,8 +36,8 @@ const EDU_FILTERS = [
 ];
 
 const CourseCard = ({ c, withDiscount, isEn }) =>
-<article className="card-hover bg-ink-800/60 border border-ink-500 rounded-2xl overflow-hidden hover:border-ink-400">
-    <div className="relative aspect-[4/3] bg-gradient-to-br from-ink-700 to-ink-800 flex items-center justify-center placeholder-stripe">
+<article className="card-hover bg-ink-800/60 border border-ink-500 rounded-2xl overflow-hidden hover:border-ink-400 flex flex-col h-full">
+    <div className="relative aspect-[4/3] bg-gradient-to-br from-ink-700 to-ink-800 flex items-center justify-center placeholder-stripe shrink-0">
       <div className="relative text-zinc-300 font-mono text-[12.5px] font-bold tracking-wider">{c.code}</div>
       <button className="absolute top-2 start-2 h-7 w-7 rounded-md bg-ink-900/80 border border-ink-500 flex items-center justify-center text-zinc-300 hover:text-brand-red transition" aria-label="نشان">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6 4h12v18l-6-4-6 4z" /></svg>
@@ -49,15 +49,15 @@ const CourseCard = ({ c, withDiscount, isEn }) =>
     <span className="absolute bottom-2 start-2 bg-brand-red text-pure-white text-[11px] font-bold px-2 py-0.5 rounded-md">{isEn ? c.badgeEn : c.badgeFa}</span>
     }
     </div>
-    <div className="p-3">
+    <div className="p-3 flex flex-col flex-1">
       <h4 className="text-[14px] font-bold leading-7 line-clamp-2 min-h-[56px] text-start">{(isEn ? c.titleEn : c.titleFa)}</h4>
       <div className="mt-2.5 space-y-1.5 text-[12.5px] text-zinc-400">
         <div className="flex items-center gap-1.5"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="12" cy="8" r="3" /><path d="M5 20a7 7 0 0 1 14 0" /></svg> {isEn ? c.instructorEn : c.instructorFa}</div>
         <div className="flex items-center gap-1.5"><IconClock size={13} /> <span className="stat-num ltr-num">{c.hours}</span> {isEn ? 'hours' : 'ساعت'}</div>
       </div>
-      <div className="mt-2.5 pt-2.5 border-t border-ink-500 flex items-center justify-between gap-2">
-        {c.oldPriceFa && <span className="text-[11.5px] text-zinc-500 line-through stat-num ltr-num">{isEn ? c.oldPriceEn : c.oldPriceFa}</span>}
-        <span className="stat-num text-[15px] font-bold ltr-num ms-auto">{isEn ? c.priceEn : c.priceFa} <span className="text-[11px] font-medium text-zinc-400">{isEn ? 'Tomans' : 'تومان'}</span></span>
+      <div className="mt-auto pt-2.5 border-t border-ink-500 flex items-center justify-between gap-2 text-start">
+        {c.oldPriceFa && <span className="text-[11.5px] text-zinc-500 line-through stat-num ltr-num break-all min-w-[30%]">{isEn ? c.oldPriceEn : c.oldPriceFa}</span>}
+        <span className="stat-num text-[15px] font-bold ltr-num ms-auto break-all text-end">{isEn ? c.priceEn : c.priceFa} <span className="text-[11px] font-medium text-zinc-400">{isEn ? 'Tomans' : 'تومان'}</span></span>
       </div>
     </div>
   </article>;
@@ -178,7 +178,11 @@ const ArticleCarousel = ({ isEn }) => {
 
   const [idx, setIdx] = useState(2);
   useEffect(() => {
-    const timer = setInterval(() => setIdx((i) => (i + 1) % slides.length), 5000);
+    const timer = setInterval(() => {
+      if (window.innerWidth >= 768) {
+        setIdx((i) => (i + 1) % slides.length);
+      }
+    }, 5000);
     return () => clearInterval(timer);
   }, [slides.length]);
   const s = slides[idx];
@@ -194,7 +198,7 @@ const ArticleCarousel = ({ isEn }) => {
           {isEn ? s.kickerEn : s.kickerFa}
         </span>
         <h4 className="text-lg md:text-xl font-bold leading-[1.6] line-clamp-2 text-pure-white max-w-md text-start">{isEn ? s.titleEn : s.titleFa}</h4>
-        <div className="mt-4 flex items-center gap-1.5 ltr:flex-row-reverse self-start">
+        <div className="mt-4 hidden md:flex items-center gap-1.5 ltr:flex-row-reverse self-start">
           {slides.map((_, i) =>
           <button key={i} onClick={() => setIdx(i)} aria-label={isEn ? `Slide ${i + 1}` : `اسلاید ${i + 1}`}
           className={`h-1.5 rounded-full transition-all ${i === idx ? 'w-6 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/70'}`} />
@@ -274,7 +278,7 @@ const ArticlesTab = () => {
             <h3 className="text-[14px] font-bold mb-3 flex items-center gap-2"><span className={`w-1 h-5 rounded ${sec.accent}`} /> {isEn ? sec.titleEn : sec.titleFa}</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-2 md:gap-3">
               {_list8.map((it, i) =>
-            <div key={i} className="card-hover flex items-center gap-2.5 bg-ink-800/60 border border-ink-500 rounded-lg p-2 hover:border-ink-400 hover:bg-ink-800/80 cursor-pointer text-start">
+            <div key={i} className={`card-hover flex items-center gap-2.5 bg-ink-800/60 border border-ink-500 rounded-lg p-2 hover:border-ink-400 hover:bg-ink-800/80 cursor-pointer text-start h-full ${i >= 4 ? 'hidden md:flex' : 'flex'}`}>
                   <div className="w-12 h-12 shrink-0 rounded-md placeholder-stripe border border-ink-500 overflow-hidden" />
                   <div className="flex-1 min-w-0">
                     <p className="text-[12px] font-medium leading-5 line-clamp-2">{(isEn ? it.titleEn : it.titleFa)}</p>
@@ -285,6 +289,11 @@ const ArticlesTab = () => {
                   </div>
                 </div>
             )}
+            </div>
+            <div className="mt-3 md:hidden text-center">
+              <a href="#" className="inline-block py-2 px-5 text-[12px] font-medium text-zinc-300 hover:text-white bg-ink-800 rounded-full border border-ink-500">
+                {isEn ? 'View All' : 'مشاهده همه'}
+              </a>
             </div>
           </div>
         )}

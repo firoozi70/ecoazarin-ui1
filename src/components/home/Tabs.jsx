@@ -88,14 +88,14 @@ const StickyTabs = ({ activeId, onChange }) => {
 
   return (
     <div
-      className={`fixed bottom-5 start-1/2 -translate-x-1/2 z-40 transition-all duration-300 ease-out ${show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
+      className={`fixed z-40 transition-all duration-300 ease-out left-1/2 -translate-x-1/2 ${show ? 'opacity-100 bottom-6 md:bottom-10 translate-y-0' : 'opacity-0 bottom-0 translate-y-8'}`}
       dir="rtl"
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}>
 
       {/* Expanded panel — slides up from above the pill */}
       <div
-        className={`absolute bottom-[58px] start-1/2 -translate-x-1/2 origin-bottom transition-all duration-250 ease-out ${
+        className={`absolute bottom-full mb-3 left-1/2 -translate-x-1/2 origin-bottom transition-all duration-250 ease-out ${
         open ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto' : 'opacity-0 scale-95 translate-y-2 pointer-events-none'}`
         }>
         <div className="bg-ink-800/95 border border-ink-500 backdrop-blur-xl rounded-2xl p-2 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.7)] w-[320px] max-w-[90vw]">
@@ -121,7 +121,7 @@ const StickyTabs = ({ activeId, onChange }) => {
           </div>
         </div>
         {/* connector arrow */}
-        <span className="block absolute -bottom-1.5 start-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-ink-800/95 border-e border-b border-ink-500" />
+        <span className="block absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-ink-800/95 text-transparent border-e border-b border-ink-500" />
       </div>
 
       {/* Compact pill */}
